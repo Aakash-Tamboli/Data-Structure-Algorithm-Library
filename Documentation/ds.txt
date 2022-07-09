@@ -1,0 +1,151 @@
+1) Genric Stack:
+struct type ErrorCode have two properties,
+succ----------> it aknowlegde your operation is successfull or not
+code----------> it aknowlegde why your operation failed compare with error code.txt
+Special Guidline:
+Don't Change properties of struct stack type instances if You Change it You fool it yourself because it breaks your purpose to use this stack.
+		Some Methods
+Most Imp. a)initStack(Stack *ptr,int sizeofOneElement);
+	  You need to first initialize your stack with information of
+	  what you want to store in this stack,otherwise your stack is always
+	  remains Empty
+	 b)pushOnStack(Stack *ptr,const void *data,ErrorCode *err);
+	 for check operation is successfull or not you need to checked succ value against struct error code True means 1 and false
+	 means 0;
+	 c)isStackEmpty(Stack *ptr) 
+	   if stack is empty return 1 other wise it return 0
+	 d)popFromStack(Stack *ptr,void *data,ErrorCode *err)
+	 e)clearStack(struct __Stack__ *) it will delete all data inside your stack
+Example To Use Genric Stack
+#include<stdio.h>
+#include<ds.h>
+int main()
+{
+int i;
+char m,data;
+ErrorCode err;
+Stack s;
+initStack(&s,sizeof(char));
+m='d';
+pushOnStack(&s,(const void *)&m,&err);
+m='r';
+pushOnStack(&s,(const void *)&m,&err);
+m='o';
+pushOnStack(&s,(const void *)&m,&err);
+m='L';
+pushOnStack(&s,(const void *)&m,&err);
+m=' ';
+pushOnStack(&s,(const void *)&m,&err);
+m='e';
+pushOnStack(&s,(const void *)&m,&err);
+m='h';
+pushOnStack(&s,(const void *)&m,&err);
+m='T';
+pushOnStack(&s,(const void *)&m,&err);
+m=' ';
+pushOnStack(&s,(const void *)&m,&err);
+m='e';
+pushOnStack(&s,(const void *)&m,&err);
+m='s';
+pushOnStack(&s,(const void *)&m,&err);
+m='i';
+pushOnStack(&s,(const void *)&m,&err);
+m='a';
+pushOnStack(&s,(const void *)&m,&err);
+m='r';
+pushOnStack(&s,(const void *)&m,&err);
+m='P';
+pushOnStack(&s,(const void *)&m,&err);
+while(!isStackEmpty(&s))
+{
+popFromStack(&s,(void *)&data,&err);
+if(err.succ==false)
+{
+printf("Something Problem in your stack\n");
+break;
+}
+else
+{
+printf("%c",data);
+}
+}
+printf(":  comes from stack\n");
+clearStack(&s);
+return 0;
+}
+2) Genric Queue:
+struct type ErrorCode have two properties,
+succ----------> it aknowlegde your operation is successfull or not
+code----------> it aknowlegde why your operation failed compare with error code.txt
+Special Guidline:
+Don't Change properties of struct Queue type instances if You Change it You fool it yourself because it breaks your purpose to use this Queue.
+		Some Methods
+Most Imp. a)initQueue(Queue *ptr,int sizeofOneElement);
+	  You need to first initialize your Queue with information of
+	  what you want to store in this Queue,otherwise your Queue is always
+	  remains Empty
+	 b)addToQueue(Queue *ptr,const void *data,ErrorCode *err);
+	 for check operation is successfull or not you need to checked succ value against struct error code True means 1 and false
+	 means 0;
+	 c)isQueueEmpty(Queue *ptr) 
+	   if Queue is empty return 1 other wise it return 0
+	 d)removeFromQueue(Queue *ptr,void *data,ErrorCode *err)
+	 e)clearQueue(struct __Queue__ *) it will delete all data inside your Queue
+Example To Use Genric Queue
+#include<stdio.h>
+#include<ds.h>
+int main()
+{
+int i;
+char m,data;
+ErrorCode err;
+Queue q;
+initQueue(&q,sizeof(char));
+m='P';
+addToQueue(&q,(const void *)&m,&err);
+m='R';
+addToQueue(&q,(const void *)&m,&err);
+m='A';
+addToQueue(&q,(const void *)&m,&err);
+m='I';
+addToQueue(&q,(const void *)&m,&err);
+m='S';
+addToQueue(&q,(const void *)&m,&err);
+m='E';
+addToQueue(&q,(const void *)&m,&err);
+m=' ';
+addToQueue(&q,(const void *)&m,&err);
+m='T';
+addToQueue(&q,(const void *)&m,&err);
+m='H';
+addToQueue(&q,(const void *)&m,&err);
+m='E';
+addToQueue(&q,(const void *)&m,&err);
+m=' ';
+addToQueue(&q,(const void *)&m,&err);
+m='L';
+addToQueue(&q,(const void *)&m,&err);
+m='O';
+addToQueue(&q,(const void *)&m,&err);
+m='R';
+addToQueue(&q,(const void *)&m,&err);
+m='D';
+addToQueue(&q,(const void *)&m,&err);
+printf("(");
+while(!isQueueEmpty(&q))
+{
+removeFromQueue(&q,(void *)&data,&err);
+if(err.succ==false)
+{
+printf("Something Problem in your stack\n");
+break;
+}
+else
+{
+printf("%c",data);
+}
+}
+printf(")");
+printf(":comes from Queue\n");
+return 0;
+}
