@@ -4,7 +4,7 @@
 here you get to know about `library` of GENERIC data structures and alogrithms, which is built in `c` programming language.
 
 ## Why The Generic Data Structure and algorithms In C ?
-we have `STL in C++`, `Collection classes in Java` but when we talk about `C` so there is no such facilites to handle some huge data and In this project I Implemeted some sorting algorithms for data.
+we have `STL in C++`, `Collection classes in Java` but when we talk about `C` so there is no such facilites to handle some huge data and In this project I Implemeted data stuctures and some sorting algorithms for data.
 
 ***
 * [Comparator Function](#comparator-function)
