@@ -10,6 +10,9 @@ we have `STL in C++`, `Collection classes in Java` but when we talk about `C` so
 * [Comparator Function](#comparator-function)
 * [Error](#error)
   * [Error-Codes](#error-codes)
+* [Compile Code](#how-to-compile-code)
+  * [Error-Codes](#error-codes)
+
 * [Generic Bubble Sort](#generic-bubble-sort)  
    * [Use of Bubble Sort on `int` type](#use-of-bubble-sort-on-int-type)
    * [Use of Bubble Sort on `struct student` type](#use-of-bubble-sort-on-struct-student-type)
@@ -66,6 +69,17 @@ The struct type ErrorCode have two properties,
                 7       | Your Size of One Element is 0 or may be negative.
                 8       | Your Collection is Not int data_type.this Algo only for int data_type
     	
+
+## How to compile code
+1. When you compile code inside data-Structure-Algorithm-Library/testCases/
+``` c
+gcc filename.c -o filename.exe -I ..\include -L ..\lib -l dsAlgo
+```
+Note: If your machine is linux then
+``` c
+gcc filename.c -o filename.out -I ..\include -L ..\lib -l dsAlgo
+```
+
 
 ## Generic Bubble Sort
 ### Description of Bubble Sort :
