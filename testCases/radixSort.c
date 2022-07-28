@@ -3,7 +3,7 @@
 #include<algo.h>
 int main()
 {
-ErrorCode err;
+OperationDetail err;
 int *x,req,i;
 printf("Enter your requirement: ");
 scanf("%d",&req);
@@ -16,7 +16,7 @@ printf("Enter a Number: ");
 scanf("%d",&x[i]);
 fflush(stdin);
 }
-printf("Sorting Using Linear Sort\n");
+printf("Sorting Using Radix Sort\n");
 radixSort(x,0,req-1,sizeof(int),&err);
 if(err.succ==true) printf("Your collection is successfully\n");
 else printf("unable to sort your collection check on error code %d\n",err.code);

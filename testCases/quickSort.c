@@ -10,7 +10,7 @@ return (*i)-(*j);
 }
 int main()
 {
-ErrorCode err;
+OperationDetail err;
 int *x,req,i;
 printf("Enter your requirement: ");
 scanf("%d",&req);
@@ -22,6 +22,7 @@ for(i=0;i<req;i++)
 printf("Enter an Number :");
 scanf("%d",&x[i]);
 }
+printf("Using Quick Sort\n");
 quickSort(x,0,req-1,sizeof(int),&err,INTComparator);
 if(err.succ) printf("Your collection is sorted\n");
 else printf("Something wrong error code is: %d\n",err.code);

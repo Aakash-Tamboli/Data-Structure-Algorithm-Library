@@ -17,10 +17,10 @@ return s1->roll-s2->roll;
 }
 int main()
 {
-ErrorCode error;
+OperationDetail error;
 Student *s,*j;
 int req;
-int i;
+int i,ch;
 int sizeOfOneElement;
 printf("enter the requiremnt: ");
 scanf("%d",&req);
@@ -45,7 +45,7 @@ scanf("%s",&j->name);
 j++;
 }
 sizeOfOneElement=sizeof(Student);
-bubbleSort(s,3,4,sizeOfOneElement,&error,studentComparator);
+bubbleSort(s,0,req-1,sizeOfOneElement,&error,studentComparator);
 if(error.succ==false)
 {
 printf("I unable to Sort Your collection,Check Error Code\n");

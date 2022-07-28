@@ -10,7 +10,7 @@ return (*i)-(*j);
 }
 int main()
 {
-ErrorCode err;
+OperationDetail err;
 int *x,req,i;
 printf("Enter yout requirment: ");
 scanf("%d",&req);
@@ -22,7 +22,7 @@ printf("Enter an Number: ");
 scanf("%d",&x[i]);
 }
 printf("using shell Sort\n");
-shellSort(x,4,req-1,sizeof(int),&err,INTComparator);
+shellSort(x,0,req-1,sizeof(int),&err,INTComparator);
 if(err.succ==false) printf("Something wrong check error code\n");
 else printf("Your collection is sorted\n");
 for(i=0;i<req;i++) printf("%d\n",x[i]);

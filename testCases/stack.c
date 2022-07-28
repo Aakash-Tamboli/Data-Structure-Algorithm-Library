@@ -4,7 +4,7 @@ int main()
 {
 int i;
 char m,data;
-ErrorCode err;
+OperationDetail err;
 Stack s;
 initStack(&s,sizeof(char));
 m='d';

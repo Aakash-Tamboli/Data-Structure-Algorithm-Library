@@ -4,7 +4,7 @@ int main()
 {
 int i;
 char m,data;
-ErrorCode err;
+OperationDetail err;
 Queue q;
 initQueue(&q,sizeof(char));
 m='P';
@@ -21,23 +21,13 @@ m='E';
 addToQueue(&q,(const void *)&m,&err);
 m=' ';
 addToQueue(&q,(const void *)&m,&err);
-m='T';
-addToQueue(&q,(const void *)&m,&err);
-m='H';
-addToQueue(&q,(const void *)&m,&err);
-m='E';
-addToQueue(&q,(const void *)&m,&err);
-m=' ';
-addToQueue(&q,(const void *)&m,&err);
-m='L';
+m='G';
 addToQueue(&q,(const void *)&m,&err);
 m='O';
 addToQueue(&q,(const void *)&m,&err);
-m='R';
-addToQueue(&q,(const void *)&m,&err);
 m='D';
 addToQueue(&q,(const void *)&m,&err);
-clearQueue(&q);
+// just for checking clearQueue(&q);
 printf("(");
 while(!isQueueEmpty(&q))
 {

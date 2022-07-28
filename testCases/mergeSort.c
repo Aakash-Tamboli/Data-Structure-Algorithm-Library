@@ -10,7 +10,7 @@ return (*i)-(*j);
 }
 int main()
 {
-ErrorCode err;
+OperationDetail err;
 int *x,req,i;
 printf("Enter your requirement: ");
 scanf("%d",&req);
@@ -23,6 +23,7 @@ printf("Enter an Number: ");
 scanf("%d",&x[i]);
 fflush(stdin);
 }
+printf("Using merge Sort\n");
 mergeSort(x,0,req-1,sizeof(int),&err,INTComparator);
 if(err.succ) printf("your collection is Sorted\n");
 else printf("something wrong check error code\n");

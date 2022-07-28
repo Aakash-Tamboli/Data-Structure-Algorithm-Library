@@ -10,7 +10,7 @@ return (*i)-(*j);
 }
 int main()
 {
-ErrorCode err;
+OperationDetail err;
 int *x,req,i;
 printf("Enter your requirement: ");
 scanf("%d",&req);

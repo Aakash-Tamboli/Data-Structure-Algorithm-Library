@@ -10,7 +10,7 @@ return (*i)-(*j);
 }
 int main()
 {
-ErrorCode err;
+OperationDetail err;
 int *x,req,i;
 printf("Enter your requirement: ");
 scanf("%d",&req);
@@ -23,7 +23,7 @@ printf("Enter a Number: ");
 scanf("%d",&x[i]);
 }
 printf("Sorting Using heap Sort\n");
-heapSort(x,0,req-1,sizeof(int),&err,INTComparator);
+heapSort(x,4,req-1,sizeof(int),&err,INTComparator);
 if(err.succ==true) printf("Your collection is successfully\n");
 else printf("unable to sort your collection check on error code %d\n",err.code);
 for(i=0;i<req;i++) printf("Element: %d\n",x[i]);
