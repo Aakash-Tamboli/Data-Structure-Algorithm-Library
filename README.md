@@ -8,7 +8,7 @@ we have `STL in C++`, `Collection classes in Java` but when we talk about `C` so
 
 ***
 * [Comparator Function](#comparator-function)
-* [Error](#error)
+* [OperationDetail](#error)
   * [Error-Codes](#error-codes)
 * [Compile Code](#how-to-compile-code)
   * [Error-Codes](#error-codes)
@@ -31,14 +31,14 @@ return 0.
 ### Example
                                            int INTComparator(void *left,void *right);
 
-## Error
+## OperationDetail
 
-The struct type ErrorCode have two properties,
+The struct type OperationDetail have two properties,
 
-                                              typedef struct __$__errorCode
+                                              typedef struct __$__operation_detail
                                               {
                                               int code,succ;
-                                              }ErrorCode;
+                                              }OperationDetail;
 
 1. succ:-
       it aknowlegde your operation is successfull or not.

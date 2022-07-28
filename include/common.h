@@ -1,9 +1,9 @@
 #ifndef __$__COMMON_H
 #define __$__COMMON_H 124
-typedef struct __$__errorCode
+typedef struct __$__operation_detail
 {
 int code,succ;
-}ErrorCode;
+}OperationDetail;
 #define bool int
 #define false 0
 #define FALSE 0
