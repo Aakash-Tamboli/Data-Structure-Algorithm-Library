@@ -20,7 +20,7 @@ stack->node=NULL;
 stack->size=0;
 stack->sizeOfOneElement=sizeOfOneElement;
 }
-void pushOnStack(struct __Stack__ *stack,const void *data,ErrorCode *error)
+void pushOnStack(struct __Stack__ *stack,const void *data,OperationDetail *error)
 {
 StackNode *node;
 if(error) error->succ=false;
@@ -62,7 +62,7 @@ error->code=0;
 error->succ=true;
 }
 }
-void popFromStack(struct __Stack__ *stack,void *data,ErrorCode *error)
+void popFromStack(struct __Stack__ *stack,void *data,OperationDetail *error)
 {
 StackNode *j;
 if(error) error->succ=false;
@@ -125,7 +125,7 @@ queue->sizeOfOneElement=sizeOfOneElement;
 if(queue->front!=NULL) clearQueue(queue);
 queue->sizeOfOneElement=sizeOfOneElement;
 }
-void addToQueue(struct __Queue__ *queue,const void *data,ErrorCode *error)
+void addToQueue(struct __Queue__ *queue,const void *data,OperationDetail *error)
 {
 QueueNode *node;
 if(error) error->succ=false;
@@ -181,7 +181,7 @@ error->code=0;
 error->succ=true;
 }
 }
-void removeFromQueue(struct __Queue__ *queue,void *data,ErrorCode *error)
+void removeFromQueue(struct __Queue__ *queue,void *data,OperationDetail *error)
 {
 QueueNode *j;
 if(error) error->succ=false;

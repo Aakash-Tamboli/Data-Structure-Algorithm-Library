@@ -6,7 +6,7 @@
 #include<ds.h>
 #include<stdio.h>
 // common functions
-int isInvalid(void *ptr,int *lb,int *ub,int *es,ErrorCode *error,int (*p2f) (void *,void *))
+int isInvalid(void *ptr,int *lb,int *ub,int *es,OperationDetail *error,int (*p2f) (void *,void *))
 {
 if(ptr==NULL)
 {
@@ -36,13 +36,13 @@ ptr=ptr+((*lb)*(*es));
 *ub=(*ub)-(*lb);
 *lb=0;
 }
-void findingTheHeavestElement(void *ptr,int lb,int ub,int es,ErrorCode *error,void *heavestElement,int (*p2f) (void *,void *))
+void findingTheHeavestElement(void *ptr,int lb,int ub,int es,OperationDetail *error,void *heavestElement,int (*p2f) (void *,void *))
 {
 int i;
 if(error) error->succ=false;
 if(error==NULL)
 {
-ErrorCode err;
+OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -60,13 +60,13 @@ error->code=0;
 error->succ=true;
 }
 }
-void findingTheLightestElement(void *ptr,int lb,int ub,int es,ErrorCode *error,void *lightestElement,int (*p2f) (void *,void *))
+void findingTheLightestElement(void *ptr,int lb,int ub,int es,OperationDetail *error,void *lightestElement,int (*p2f) (void *,void *))
 {
 int i;
 if(error) error->succ=false;
 if(error==NULL)
 {
-ErrorCode err;
+OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -85,14 +85,14 @@ error->succ=true;
 }
 }
 // common function ends
-void bubbleSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void bubbleSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int m,e,f,weight;
 void *a,*b,*c;
 if(error) error->succ=false;
 if(error==NULL)
 {
-ErrorCode err;
+OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -133,14 +133,14 @@ error->code=0;
 error->succ=true;
 }
 }
-void linearSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void linearSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int e,f,weight,oep,iep;
 void *a,*b,*c;
 if(error) error->succ=false;
 if(error==NULL)
 {
-ErrorCode err;
+OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -180,14 +180,14 @@ error->succ=true;
 error->code=0;
 }
 }
-void selectionSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f) (void *,void *))
+void selectionSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f) (void *,void *))
 {
 int e,f,si,weight;
 void *a,*b,*c;
 if(error) error->succ=false;
 if(error==NULL)
 {
-ErrorCode err;
+OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -229,14 +229,14 @@ error->code=0;
 error->succ=true;
 }
 }
-void insertionSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void insertionSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int y,leastLb;
 void *c;
 if(error) error->succ=false;
 if(error==NULL)
 {
-ErrorCode err;
+OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -269,7 +269,7 @@ error->code=0;
 error->succ=true;
 }
 }
-int findPartionPoint(void *ptr,int e,int f,int es,int (*p2f)(void *,void *),ErrorCode *err)
+int findPartionPoint(void *ptr,int e,int f,int es,int (*p2f)(void *,void *),OperationDetail *err)
 {
 int lb=e;
 int ub=f;
@@ -310,7 +310,7 @@ err->code=0;
 }
 return f;
 }
-void quickSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void quickSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 typedef struct indexes
 {
@@ -322,7 +322,7 @@ Indexes *indexes;
 Stack *stack;
 int succ;
 int pp,ppSucc;
-ErrorCode err;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
@@ -422,7 +422,7 @@ error->code=0;
 error->succ=true;
 }
 }
-void mergeSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void mergeSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 typedef struct __indexes__
 {
@@ -436,7 +436,7 @@ void *tmp;
 Stack *stack1;
 Stack *stack2;
 Indexes *indexes;
-ErrorCode err;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
@@ -614,10 +614,10 @@ error->code=0;
 error->succ=true;
 }
 }
-void toMaxHeap(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void toMaxHeap(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int y,ci,ri;
-ErrorCode err;
+OperationDetail err;
 void *c;
 if(error) error->succ=false;
 if(error==NULL)
@@ -667,10 +667,10 @@ error->succ=true;
 }
 free(c);
 }
-void heapSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void heapSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int swi,y,lci,rci,ri;
-ErrorCode err;
+OperationDetail err;
 void *c;
 if(error) error->succ=false;
 if(error==NULL)
@@ -744,7 +744,7 @@ int dummy(void *left,void *right)
 {
 // do nothing 
 }
-void radixSort(void *x,int lb,int ub,int es,ErrorCode *error)
+void radixSort(void *x,int lb,int ub,int es,OperationDetail *error)
 {
 int i;
 Queue negQueue[10],posQueue[10];
@@ -756,7 +756,7 @@ int qIndex;
 int index;
 int e,f;
 int elem;
-ErrorCode err;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
@@ -893,14 +893,14 @@ error->succ=true;
 error->code=0;
 }
 }
-void shellSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void shellSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int y,leastLb,diff;
 void *c;
 if(error) error->succ=false;
 if(error==NULL)
 {
-ErrorCode err;
+OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -947,14 +947,14 @@ error->succ=true;
 }
 /*
 Count Sort is Pending Due to finding the largest Number Method..
-void countSort(void *ptr,int lb,int ub,int es,ErrorCode *error,int (*p2f)(void *,void *))
+void countSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 void *heavestElement;
 void *tmp;
 if(error) error->succ=false;
 if(error==NULL)
 {
-ErrorCode err;
+OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{

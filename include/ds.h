@@ -18,8 +18,8 @@ int sizeOfOneElement;
 // stack related functionality
 
 void initStack(struct __Stack__ *stack,int sizeofOneElement);
-void pushOnStack(struct __Stack__ *,const void *,ErrorCode *);
-void popFromStack(struct __Stack__ *,void *,ErrorCode *);
+void pushOnStack(struct __Stack__ *,const void *,OperationDetail *);
+void popFromStack(struct __Stack__ *,void *,OperationDetail *);
 int isStackEmpty(struct __Stack__ *);
 void clearStack(struct __Stack__ *);
 
@@ -41,8 +41,8 @@ int sizeOfOneElement;
 // queue related functionality
 
 void initQueue(struct __Queue__ *queue,int sizeofOneElement);
-void addToQueue(struct __Queue__ *,const void *,ErrorCode *);
-void removeFromQueue(struct __Queue__ *,void *,ErrorCode *);
+void addToQueue(struct __Queue__ *,const void *,OperationDetail *);
+void removeFromQueue(struct __Queue__ *,void *,OperationDetail *);
 int isQueueEmpty(struct __Queue__ *);
 void clearQueue(struct __Queue__ *);
 

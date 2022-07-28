@@ -77,29 +77,3 @@ gcc filename.c -o filename.out -I ..\include -L ..\lib -l dsAlgo
 ```
 
 
-## Generic Bubble Sort
-### Description of Bubble Sort :
-Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in the wrong order. This algorithm is not suitable for large data sets as its average and worst case time complexity is quite high. [More info](https://www.geeksforgeeks.org/bubble-sort/)
-
-
-
-### [BubbleSort (Only For array-Collection)]
-
-
-The Bubble Sort Algorithm Takes 6 Arguments
-
-1. Base Address of Collection
-
-2. Value of lowerBound
-
-3. Value of upperbound
-
-4. Size of 1 Element
-
-5. Pass address of struct errorCode type structure
-
-6. Address of the comparator function {boolian predicate}
-
- 
-
-
