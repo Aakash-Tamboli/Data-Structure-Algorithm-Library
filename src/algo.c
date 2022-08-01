@@ -422,6 +422,60 @@ error->code=0;
 error->succ=true;
 }
 }
+void merge(void *ptr,int low,int mid,int high,int es,int (*p2f) (void *,void *),int *succ)
+{
+if(succ) *succ=false;
+int i1,i2,i3,lb1,lb2,lb3,ub1,ub2,ub3,size;
+void *tmp;
+size=(high-low)+1;
+lb1=low;
+ub1=mid;
+lb2=mid+1;
+ub2=high;
+lb3=0;
+ub3=size-1;
+tmp=(void *)malloc(sizeof(es)*size);
+if(tmp==NULL) return;
+i1=lb1;
+i2=lb2;
+i3=lb3;
+while(i1<=ub1 && i2<=ub2)
+{
+if(p2f(ptr+(i1*es),ptr+(i2*es))<0)
+{
+memcpy(tmp+(i3*es),(const void *)ptr+(i1*es),es);
+i1++;
+}
+else
+{
+memcpy(tmp+(i3*es),(const void *)ptr+(i2*es),es);
+i2++;
+}
+i3++;
+}
+while(i1<=ub1)
+{
+memcpy(tmp+(i3*es),(const void *)ptr+(i1*es),es);
+i1++;
+i3++;
+}
+while(i2<=ub2)
+{
+memcpy(tmp+(i3*es),(const void *)ptr+(i2*es),es);
+i3++;
+i2++;
+}
+i3=lb3;
+i1=lb1;
+while(i3<=ub3)
+{
+memcpy(ptr+(i1*es),(const void *)tmp+(i3*es),es);
+i3++;
+i1++;
+}
+free(tmp);
+if(succ) *succ=true;
+}
 void mergeSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 typedef struct __indexes__
@@ -430,9 +484,7 @@ int lb;
 int ub;
 }Indexes;
 int succ;
-int lb1,lb2,lb3,ub1,ub2,ub3;
-int a,b,mid,i1,i2,i3;
-void *tmp;
+int a,b,mid,lb1,ub1,ub2;
 Stack *stack1;
 Stack *stack2;
 Indexes *indexes;
@@ -494,7 +546,6 @@ free(stack2);
 free(indexes);
 return;
 }
-free(indexes);
 mid=(a+b)/2;
 if(a<mid)
 {
@@ -544,6 +595,7 @@ clearStack(stack1);
 clearStack(stack2);
 free(stack1);
 free(stack2);
+free(indexes);
 return;
 }
 }
@@ -553,61 +605,26 @@ while(!isStackEmpty(stack2))
 popFromStack(stack2,(void *)indexes,&err);
 lb1=indexes->lb;
 ub2=indexes->ub;
-free(indexes);
 ub1=(lb1+ub2)/2;
-lb2=ub1+1;
-lb3=0;
-ub3=ub2;
-i1=lb1;
-i2=lb2;
-i3=lb3;
-tmp=(void *)malloc(sizeof(es)*(ub1-lb1)+(ub2-lb2)+2);
-if(tmp==NULL)
+merge(ptr,lb1,ub1,ub2,es,p2f,&succ);
+if(succ==false)
 {
 clearStack(stack2);
 free(stack1);
 free(stack2);
-if(error) error->code=2;
+free(indexes);
+if(error)
+{
+error->code=2;
 return;
 }
-while(i1<=ub1 && i2<=ub2)
-{
-if(p2f(ptr+(i1*es),ptr+(i2*es))<0)
-{
-memcpy(tmp+(i3*es),(const void *)ptr+(i1*es),es);
-i1++;
 }
-else
-{
-memcpy(tmp+(i3*es),(const void *)ptr+(i2*es),es);
-i2++;
 }
-i3++;
-}
-while(i1<=ub1)
-{
-memcpy(tmp+(i3*es),(const void *)ptr+(i1*es),es);
-i1++;
-i3++;
-}
-while(i2<=ub2)
-{
-memcpy(tmp+(i3*es),(const void *)ptr+(i2*es),es);
-i3++;
-i2++;
-}
-i3=lb3;
-i1=lb1;
-while(i1<=ub3)
-{
-memcpy(ptr+(i1*es),(const void *)tmp+(i3*es),es);
-i3++;
-i1++;
-}
-free(tmp);
-}
+clearStack(stack1); // just for the precaution
+clearStack(stack2); // just for the precaution
 free(stack1);
 free(stack2);
+free(indexes);
 if(error)
 {
 error->code=0;
