@@ -4,21 +4,18 @@
 #include<ds.h>
 #include<stdlib.h>
 #include<string.h>
+// just for testing
+#include<stdio.h>
 void initStack(struct __Stack__ *stack,int sizeOfOneElement)
 {
 if(stack==NULL || sizeOfOneElement<=0) return;
-if(stack->initFlag!=true)
+if(stack->node!=NULL)
 {
 stack->node=NULL;
 stack->size=0;
 stack->initFlag=true;
 stack->sizeOfOneElement=sizeOfOneElement;
-return;
 }
-if(stack->node!=NULL) clearStack(stack);
-stack->node=NULL;
-stack->size=0;
-stack->sizeOfOneElement=sizeOfOneElement;
 }
 void pushOnStack(struct __Stack__ *stack,const void *data,OperationDetail *error)
 {
@@ -114,16 +111,45 @@ stack->size=0;
 void initQueue(struct __Queue__ *queue,int sizeOfOneElement)
 {
 if(queue==NULL || sizeOfOneElement<=0) return;
-if(queue->initFlag!=true)
+queue->sizeOfOneElement=sizeOfOneElement;
+if(queue->front!=NULL)
 {
+/*
+Now I realised Why C++ have constructor feature this is one of the key
+reason major bug in this queue and stack
+assume user first call init method for queue or stack
+so in queue attributes after initialized that look like:
+front=NULL;
+rear=NULL;
+s‪ize=0;
+initFlag=true that is 1 (one)
+sizeofOneElement = what user wants
+ok cool
+Now user add some data in queue and again calling init function.
+now our attribute front is not equal NULL so if block code is executed
+then I assign again NULL so memory leak issue is present
+now you might be thinking intiFlag attribute so lets workout
+let say you give condition
+if(intiFlag!=0) clearQueue or clearStack now thinking it might be help 
+when user re-calling initQueue or stack but what about the first time
+lets see user create Queue type structure and queue attribute value may
+be
+front=garbage
+rear=garbage
+size=garbage
+sizeofOneElement=garbage
+now user call function initQueue.
+if block of code is executed because front is not equal to NULL
+then initFlag also have garbage then you call clear stack check out
+the code of clearQueue now see you free(UNKOWN MEMORY) so yes it idea
+also fails
+*/
 queue->front=NULL;
 queue->rear=NULL;
 queue->size=0;
 queue->initFlag=true;
 queue->sizeOfOneElement=sizeOfOneElement;
 }
-if(queue->front!=NULL) clearQueue(queue);
-queue->sizeOfOneElement=sizeOfOneElement;
 }
 void addToQueue(struct __Queue__ *queue,const void *data,OperationDetail *error)
 {
@@ -225,7 +251,7 @@ return queue->front==NULL;
 void clearQueue(struct __Queue__ *queue)
 {
 QueueNode *j;
-if(queue==NULL) return;
+if(queue==NULL || queue->front!=NULL) return;
 while(!isQueueEmpty(queue))
 {
 free(queue->front->ptr);

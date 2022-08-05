@@ -598,29 +598,16 @@ return 0;
 	    c) value of upperbound
 	    d) size of 1 Element
 	    e) pass address of struct errorCode type structure
-	=>Comparator Function
-	*This Comparator function are written by Who wants to use the 
-	  libaray..
-Guidlines for Comparator Function(boolian predicate)-
-1)return type always int type;
-2)parameter Should always (void *,void *).
-3)if left pointer points to data is EQAUL to right pointer points data then
-return 0
-4)if left pointer pointer data is greater then return +ve;
-5)if letf pointer pointer data is lesser them return -ve
-ex:
-int  comparator_name(void *,void *);
-		      ^       ^
-		      |         |
-		it act like  it act like
-	          left operand  right operand
+	    f) pass ACC or DEC, ACC number means
+		you want to sort in 	ACCENDING ORDER, 
+		DEC means you want to sort in DECCENDING ORDER
 Here is Acutall Example to use this library;
 #include<stdio.h>
 #include<stdlib.h>
 #include<algo.h>
 int main()
 {
-ErrorCode err;
+OperationDetail err;
 int *x,req,i;
 printf("Enter your requirement: ");
 scanf("%d",&req);
@@ -634,7 +621,7 @@ scanf("%d",&x[i]);
 fflush(stdin);
 }
 printf("Sorting Using Radix Sort\n");
-radixSort(x,0,req-1,sizeof(int),&err);
+radixSort(x,0,req-1,sizeof(int),&err,DEC);
 if(err.succ==true) printf("Your collection is successfully\n");
 else printf("unable to sort your collection check on error code %d\n",err.code);
 for(i=0;i<req;i++) printf("Element: %d\n",x[i]);

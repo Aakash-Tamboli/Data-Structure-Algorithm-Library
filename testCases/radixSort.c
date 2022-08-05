@@ -17,7 +17,7 @@ scanf("%d",&x[i]);
 fflush(stdin);
 }
 printf("Sorting Using Radix Sort\n");
-radixSort(x,0,req-1,sizeof(int),&err);
+radixSort(x,0,req-1,sizeof(int),&err,DEC);
 if(err.succ==true) printf("Your collection is successfully\n");
 else printf("unable to sort your collection check on error code %d\n",err.code);
 for(i=0;i<req;i++) printf("Element: %d\n",x[i]);

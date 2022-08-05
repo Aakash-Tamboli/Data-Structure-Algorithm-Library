@@ -9,7 +9,7 @@ void quickSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void mergeSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void heapSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void toMaxHeap(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
-void radixSort(void *,int,int,int,OperationDetail *);
+void radixSort(void *,int,int,int,OperationDetail *,int);
 void shellSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void countSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void findingTheHeavestElement(void *,int,int,int,OperationDetail *,void *,int (*p2f) (void *,void *));

@@ -761,7 +761,7 @@ int dummy(void *left,void *right)
 {
 // do nothing 
 }
-void radixSort(void *x,int lb,int ub,int es,OperationDetail *error)
+void radixSort(void *x,int lb,int ub,int es,OperationDetail *error,int decision)
 {
 int i;
 Queue negQueue[10],posQueue[10];
@@ -789,8 +789,8 @@ return;
 }
 for(i=0;i<=9;i++)
 {
-initQueue(&negQueue[i],sizeof(int));
-initQueue(&posQueue[i],sizeof(int));
+initQueue(&negQueue[i],es);
+initQueue(&posQueue[i],es);
 }
 memcpy(&biggestNumber,(const void *)x+(lb*es),es);
 memcpy(&smallestNumber,(const void *)x+(lb*es),es);
@@ -854,6 +854,9 @@ return;
 }
 i++;
 }
+if(decision>0)
+{
+// sorting in accending order
 i=9;
 index=0;
 while(i>=0)
@@ -894,6 +897,52 @@ return;
 index++;
 }
 i++;
+}
+}
+else
+{
+// case for decending order.
+i=0;
+index=0;
+while(i<=9)
+{
+while(!isQueueEmpty(&negQueue[i]))
+{
+removeFromQueue(&negQueue[i],(void *)x+(index*es),&err);
+if(err.succ==false)
+{
+for(i=0;i<=9;i++)
+{
+clearQueue(&negQueue[i]);
+clearQueue(&posQueue[i]);
+}
+if(error) error->code=err.code;
+return;
+}
+index++;
+}
+i++;
+}
+i=9;
+while(i>=0)
+{
+while(!isQueueEmpty(&posQueue[i]))
+{
+removeFromQueue(&posQueue[i],(void *)x+(index*es),&err);
+if(err.succ==false)
+{
+for(i=0;i<=9;i++)
+{
+clearQueue(&negQueue[i]);
+clearQueue(&posQueue[i]);
+}
+if(error) error->code=err.code;
+return;
+}
+index++;
+}
+i--;
+}
 }
 largestDigit--;
 e=e*10;

@@ -11,4 +11,6 @@ int code,succ;
 #define TRUE 1
 #define True 1
 #define true 1
+#define ACC 1
+#define DEC -1
 #endif
