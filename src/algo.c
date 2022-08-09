@@ -858,7 +858,7 @@ if(decision>0)
 {
 // sorting in accending order
 i=9;
-index=0;
+index=lb;
 while(i>=0)
 {
 while(!isQueueEmpty(&negQueue[i]))
@@ -902,28 +902,8 @@ i++;
 else
 {
 // case for decending order.
-i=0;
-index=0;
-while(i<=9)
-{
-while(!isQueueEmpty(&negQueue[i]))
-{
-removeFromQueue(&negQueue[i],(void *)x+(index*es),&err);
-if(err.succ==false)
-{
-for(i=0;i<=9;i++)
-{
-clearQueue(&negQueue[i]);
-clearQueue(&posQueue[i]);
-}
-if(error) error->code=err.code;
-return;
-}
-index++;
-}
-i++;
-}
 i=9;
+index=lb;
 while(i>=0)
 {
 while(!isQueueEmpty(&posQueue[i]))
@@ -943,7 +923,27 @@ index++;
 }
 i--;
 }
+i=0;
+while(i<=9)
+{
+while(!isQueueEmpty(&negQueue[i]))
+{
+removeFromQueue(&negQueue[i],(void *)x+(index*es),&err);
+if(err.succ==false)
+{
+for(i=0;i<=9;i++)
+{
+clearQueue(&negQueue[i]);
+clearQueue(&posQueue[i]);
 }
+if(error) error->code=err.code;
+return;
+}
+index++;
+}
+i++;
+}
+} // else block ends
 largestDigit--;
 e=e*10;
 f=f*10;
