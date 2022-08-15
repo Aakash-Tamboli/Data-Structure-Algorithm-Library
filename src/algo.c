@@ -1,6 +1,7 @@
 #ifndef ALGO_C
 #define ALGO_C 123
 #include<common.h>
+#include<algo.h>
 #include<stdlib.h>
 #include<string.h>
 #include<ds.h>
@@ -133,6 +134,59 @@ error->code=0;
 error->succ=true;
 }
 }
+void bubbleSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+void *c;
+if(error) error->succ=false;
+if(error==NULL)
+{
+OperationDetail err;
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+c=(void *)malloc(sizeof(es));
+if(c==NULL)
+{
+if(error) error->code=2;
+return;
+}
+BSR(ptr,lb,ub,es,c,p2f);
+free(c);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+void BSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+// BSR stands for Bubble Sort Recursive
+int ilb,iub;
+ilb=lb;
+iub=ub;
+if(lb<ub)
+{
+onePassOfBubbleSort(ptr,&ilb,&iub,&es,c,p2f);
+BSR(ptr,lb,ub-1,es,c,p2f);
+}
+}
+
+void onePassOfBubbleSort(void *ptr,int *lb,int *ub,int *es,void *c,int (*p2f)(void *,void *))
+{
+if((*lb)<(*ub))
+{
+if(p2f((ptr+((*lb)*(*es))),(ptr+(((*lb)+1)*(*es))))>0)
+{
+memcpy(c,(const void *)ptr+((*lb)*(*es)),(*es));
+memcpy(ptr+((*lb)*(*es)),(const void *)ptr+(((*lb)+1)*(*es)),(*es));
+memcpy(ptr+(((*lb)+1)*(*es)),(const void *)c,(*es));
+}
+*lb=*lb+1;
+onePassOfBubbleSort(ptr,lb,ub,es,c,p2f);
+}
+}							
 void linearSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int e,f,weight,oep,iep;

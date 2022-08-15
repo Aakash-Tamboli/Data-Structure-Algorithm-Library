@@ -2,6 +2,9 @@
 #define ALGO_H 123
 #include<common.h>
 void bubbleSort(void *,int ,int,int,OperationDetail *,int (*)(void *,void *));
+void bubbleSortRecursive(void *,int ,int,int,OperationDetail *,int (*)(void *,void *));
+void BSR(void *,int ,int ,int ,void *,int (*)(void *,void *));
+void onePassOfBubbleSort(void *,int *,int *,int *,void *,int (*)(void *,void *));
 void linearSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void selectionSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void insertionSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
