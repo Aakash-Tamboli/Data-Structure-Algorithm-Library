@@ -41,7 +41,7 @@ for(i=0;i<req;i++)
 printf("Enter the Roll Number: ");
 scanf("%d",&j->roll);
 printf("Enter the name: ");
-scanf("%s",&j->name);
+scanf("%s",j->name);
 j++;
 }
 sizeOfOneElement=sizeof(Student);
