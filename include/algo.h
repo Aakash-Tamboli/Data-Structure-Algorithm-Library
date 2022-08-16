@@ -6,6 +6,13 @@ void bubbleSortRecursive(void *,int ,int,int,OperationDetail *,int (*)(void *,vo
 void BSR(void *,int ,int ,int ,void *,int (*)(void *,void *));
 void onePassOfBubbleSort(void *,int *,int *,int *,void *,int (*)(void *,void *));
 void linearSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+
+void linearSortRecursive(void *,int ,int ,int ,OperationDetail *,int (*)(void *,void *));
+void LSR(void *,int ,int ,int ,void *,int (*)(void *,void *));
+void onePassOfLinearSort(void *,int *,int *,int *,int *,void *,int (*)(void *,void *));
+
+
+
 void selectionSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void insertionSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void quickSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
