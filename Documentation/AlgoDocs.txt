@@ -314,7 +314,7 @@ free(x);
 return 0;
 }
 2.1) linearSortRecursive (Only For array-Collection NO LINKED LIST RIGHT NOW)
-	=>The Bubble Sort Algo Take 6 Arguments
+	=>The Linear Sort Algo Take 6 Arguments
 	    a) Base Address of Collection
 	    b) value of lowerBound
 	    c) value of upperbound
