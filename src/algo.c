@@ -177,7 +177,7 @@ void onePassOfBubbleSort(void *ptr,int *lb,int *ub,int *es,void *c,int (*p2f)(vo
 {
 if((*lb)<(*ub))
 {
-if(p2f((ptr+((*lb)*(*es))),(ptr+(((*lb)+1)*(*es))))>0)
+if(p2f((ptr+(((*lb)+1)*(*es))),(ptr+((*lb)*(*es))))<0)
 {
 memcpy(c,(const void *)ptr+((*lb)*(*es)),(*es));
 memcpy(ptr+((*lb)*(*es)),(const void *)ptr+(((*lb)+1)*(*es)),(*es));
