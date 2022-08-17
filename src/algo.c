@@ -338,6 +338,59 @@ error->code=0;
 error->succ=true;
 }
 }
+void selectionSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+void *c;
+if(error) error->succ=false;
+if(error==NULL)
+{
+OperationDetail err;
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+c=(void *)malloc(sizeof(es));
+if(c==NULL)
+{
+if(error) error->code=2;
+return;
+}
+sSR(ptr,lb,ub,es,c,p2f);
+free(c);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function ends
+
+void sSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+int e,f,si;
+e=lb;
+si=e;
+f=e+1;
+if(lb<ub)
+{
+onePassOfSelectionSort(ptr,&e,&f,&ub,&es,&si,p2f);
+memcpy(c,(const void *)ptr+((e)*(es)),(es));
+memcpy(ptr+((e)*(es)),(const void *)ptr+((si)*(es)),(es));
+memcpy(ptr+((si)*(es)),(const void *)c,(es));
+sSR(ptr,lb+1,ub,es,c,p2f);
+}
+}
+
+void onePassOfSelectionSort(void *ptr,int *e,int *f,int *ub,int *es,int *si,int (*p2f)(void *,void *))
+{
+if((*f)<=(*ub))
+{
+if(p2f(ptr+((*f)*(*es)),ptr+((*si)*(*es)))<0) *si=*f;
+*f=*f+1;
+onePassOfSelectionSort(ptr,e,f,ub,es,si,p2f);
+}
+} // function ends
+
 void insertionSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int y,leastLb;
