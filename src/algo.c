@@ -431,6 +431,57 @@ error->code=0;
 error->succ=true;
 }
 }
+
+void insertionSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+int olb;
+void *c;
+if(error) error->succ=false;
+if(error==NULL)
+{
+OperationDetail err;
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+c=(void *)malloc(sizeof(es));
+if(c==NULL)
+{
+if(error) error->code=2;
+return;
+}
+olb=lb;
+ISR(ptr,olb,lb+1,ub,es,c,p2f);
+free(c);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+void ISR(void *ptr,int olb,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+int y;
+if(lb<=ub)
+{
+memcpy(c,(const void *)ptr+(lb*es),es);
+y=lb-1;
+onePassOfInsertionSort(ptr,&y,&olb,&es,c,p2f);
+memcpy(ptr+((y+1)*es),(const void *)c,es);
+ISR(ptr,olb,lb+1,ub,es,c,p2f);
+}
+}
+void onePassOfInsertionSort(void *ptr,int *y,int *olb,int *es,void *c,int (*p2f)(void *,void *))
+{
+if((*y)>=(*olb) && p2f(c,ptr+((*y)*(*es)))<0)
+{
+memcpy(ptr+(((*y)+1)*(*es)),(const void *)ptr+((*y)*(*es)),*(es));
+*y=(*y)-1;
+onePassOfInsertionSort(ptr,y,olb,es,c,p2f);
+}
+}
+
 int findPartionPoint(void *ptr,int e,int f,int es,int (*p2f)(void *,void *),OperationDetail *err)
 {
 int lb=e;

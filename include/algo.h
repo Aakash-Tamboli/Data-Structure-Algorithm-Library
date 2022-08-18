@@ -14,6 +14,11 @@ void selectionSortRecursive(void *,int ,int ,int ,OperationDetail *,int (*)(void
 void sSR(void *,int ,int ,int ,void *,int (*)(void *,void *));
 void onePassOfSelectionSort(void *,int *,int *,int *,int *,int *,int (*)(void *,void *));
 void insertionSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+
+void insertionSortRecursive(void *,int ,int ,int ,OperationDetail *,int (*)(void *,void *));
+void ISR(void *,int ,int ,int ,int ,void *,int (*)(void *,void *));
+void onePassOfInsertionSort(void *,int *,int *,int *,void *,int (*)(void *,void *));
+
 void quickSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void mergeSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void heapSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
