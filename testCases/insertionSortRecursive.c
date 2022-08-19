@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<algo.h>
-
+/*
 typedef struct student
 {
 int roll;
@@ -60,8 +60,8 @@ free(s);
 }
 return 0;
 }
+*/
 
-/*
 int INTComparator(void *left,void *right)
 {
 int *i,*j;
@@ -99,5 +99,3 @@ printf("code is: %d\n",err.code);
 free(x);
 return 0;
 }
-
-*/

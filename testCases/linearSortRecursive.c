@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<algo.h>
 
+/*
 typedef struct student
 {
 int roll;
@@ -56,12 +57,12 @@ return 0;
 else
 {
 for(i=0;i<req;i++) printf("Name: %s,RollNumber: %d\n",s[i].name,s[i].roll);
-free(s);
 }
+free(s);
 return 0;
 }
 
-/*
+*/
 
 int INTComparator(void *left,void *right)
 {
@@ -99,4 +100,3 @@ printf("code is: %d\n",err.code);
 free(x);
 return 0;
 }
-*/

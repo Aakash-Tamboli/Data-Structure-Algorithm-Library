@@ -163,28 +163,24 @@ error->code=0;
 void BSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
 {
 // BSR stands for Bubble Sort Recursive
-int ilb,iub;
-ilb=lb;
-iub=ub;
 if(lb<ub)
 {
-onePassOfBubbleSort(ptr,&ilb,&iub,&es,c,p2f);
+onePassOfBubbleSort(ptr,lb,ub,es,c,p2f);
 BSR(ptr,lb,ub-1,es,c,p2f);
 }
 }
 
-void onePassOfBubbleSort(void *ptr,int *lb,int *ub,int *es,void *c,int (*p2f)(void *,void *))
+void onePassOfBubbleSort(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
 {
-if((*lb)<(*ub))
+if(lb<ub)
 {
-if(p2f((ptr+(((*lb)+1)*(*es))),(ptr+((*lb)*(*es))))<0)
+if(p2f((ptr+((lb+1)*es)),(ptr+(lb*es)))<0)
 {
-memcpy(c,(const void *)ptr+((*lb)*(*es)),(*es));
-memcpy(ptr+((*lb)*(*es)),(const void *)ptr+(((*lb)+1)*(*es)),(*es));
-memcpy(ptr+(((*lb)+1)*(*es)),(const void *)c,(*es));
+memcpy(c,(const void *)ptr+((lb)*(es)),(es));
+memcpy(ptr+((lb)*(es)),(const void *)ptr+(((lb)+1)*(es)),(es));
+memcpy(ptr+(((lb)+1)*(es)),(const void *)c,(es));
 }
-*lb=*lb+1;
-onePassOfBubbleSort(ptr,lb,ub,es,c,p2f);
+onePassOfBubbleSort(ptr,lb+1,ub,es,c,p2f);
 }
 }
 							
@@ -265,28 +261,24 @@ error->code=0;
 
 void LSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
 {
-int e,f;
-e=lb;
-f=e+1;
 if(lb<ub)
 {
-onePassOfLinearSort(ptr,&e,&f,&ub,&es,c,p2f);
+onePassOfLinearSort(ptr,lb,lb+1,ub,es,c,p2f);
 LSR(ptr,lb+1,ub,es,c,p2f);
 }
 }
 
-void onePassOfLinearSort(void *ptr,int *e,int *f,int *ub,int *es,void *c,int (*p2f)(void *,void *))
+void onePassOfLinearSort(void *ptr,int e,int f,int ub,int es,void *c,int (*p2f)(void *,void *))
 {
-if((*f)<=(*ub))
+if((f)<=(ub))
 {
-if(p2f(ptr+((*f)*(*es)),ptr+((*e)*(*es)))<0)
+if(p2f(ptr+((f)*(es)),ptr+((e)*(es)))<0)
 {
-memcpy(c,(const void *)ptr+((*e)*(*es)),(*es));
-memcpy(ptr+((*e)*(*es)),(const void *)ptr+((*f)*(*es)),(*es));
-memcpy(ptr+((*f)*(*es)),(const void *)c,(*es));
+memcpy(c,(const void *)ptr+((e)*(es)),(es));
+memcpy(ptr+((e)*(es)),(const void *)ptr+((f)*(es)),(es));
+memcpy(ptr+((f)*(es)),(const void *)c,(es));
 }
-*f=*f+1;
-onePassOfLinearSort(ptr,e,f,ub,es,c,p2f);
+onePassOfLinearSort(ptr,e,f+1,ub,es,c,p2f);
 }
 } // function ends
 void selectionSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f) (void *,void *))
@@ -367,27 +359,24 @@ error->code=0;
 
 void sSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
 {
-int e,f,si;
-e=lb;
-si=e;
-f=e+1;
+int si;
+si=lb;
 if(lb<ub)
 {
-onePassOfSelectionSort(ptr,&e,&f,&ub,&es,&si,p2f);
-memcpy(c,(const void *)ptr+((e)*(es)),(es));
-memcpy(ptr+((e)*(es)),(const void *)ptr+((si)*(es)),(es));
+onePassOfSelectionSort(ptr,lb,lb+1,ub,es,&si,p2f);
+memcpy(c,(const void *)ptr+((lb)*(es)),(es));
+memcpy(ptr+((lb)*(es)),(const void *)ptr+((si)*(es)),(es));
 memcpy(ptr+((si)*(es)),(const void *)c,(es));
 sSR(ptr,lb+1,ub,es,c,p2f);
 }
 }
 
-void onePassOfSelectionSort(void *ptr,int *e,int *f,int *ub,int *es,int *si,int (*p2f)(void *,void *))
+void onePassOfSelectionSort(void *ptr,int e,int f,int ub,int es,int *si,int (*p2f)(void *,void *))
 {
-if((*f)<=(*ub))
+if((f)<=(ub))
 {
-if(p2f(ptr+((*f)*(*es)),ptr+((*si)*(*es)))<0) *si=*f;
-*f=*f+1;
-onePassOfSelectionSort(ptr,e,f,ub,es,si,p2f);
+if(p2f(ptr+((f)*(es)),ptr+((*si)*(es)))<0) *si=f;
+onePassOfSelectionSort(ptr,e,f+1,ub,es,si,p2f);
 }
 } // function ends
 
@@ -467,16 +456,16 @@ if(lb<=ub)
 {
 memcpy(c,(const void *)ptr+(lb*es),es);
 y=lb-1;
-onePassOfInsertionSort(ptr,&y,&olb,&es,c,p2f);
+onePassOfInsertionSort(ptr,&y,olb,es,c,p2f);
 memcpy(ptr+((y+1)*es),(const void *)c,es);
 ISR(ptr,olb,lb+1,ub,es,c,p2f);
 }
 }
-void onePassOfInsertionSort(void *ptr,int *y,int *olb,int *es,void *c,int (*p2f)(void *,void *))
+void onePassOfInsertionSort(void *ptr,int *y,int olb,int es,void *c,int (*p2f)(void *,void *))
 {
-if((*y)>=(*olb) && p2f(c,ptr+((*y)*(*es)))<0)
+if((*y)>=(olb) && p2f(c,ptr+((*y)*(es)))<0)
 {
-memcpy(ptr+(((*y)+1)*(*es)),(const void *)ptr+((*y)*(*es)),*(es));
+memcpy(ptr+(((*y)+1)*(es)),(const void *)ptr+((*y)*(es)),es);
 *y=(*y)-1;
 onePassOfInsertionSort(ptr,y,olb,es,c,p2f);
 }
