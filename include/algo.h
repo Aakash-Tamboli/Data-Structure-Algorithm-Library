@@ -18,6 +18,8 @@ void insertionSortRecursive(void *,int ,int ,int ,OperationDetail *,int (*)(void
 void ISR(void *,int ,int ,int ,int ,void *,int (*)(void *,void *));
 void onePassOfInsertionSort(void *,int *,int ,int ,void *,int (*)(void *,void *));
 void quickSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+void quickSortRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+void QSR(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void mergeSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void heapSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void toMaxHeap(void *,int,int,int,OperationDetail *,int (*)(void *,void *));

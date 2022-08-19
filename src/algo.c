@@ -624,6 +624,32 @@ error->code=0;
 error->succ=true;
 }
 }
+void quickSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+if(error) error->succ=false;
+if(error==NULL)
+{
+OperationDetail err;
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+QSR(ptr,lb,ub,es,error,p2f);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+void QSR(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+int partitionPoint;
+if(ub<=lb) return;
+partitionPoint=findPartionPoint(ptr,lb,ub,es,p2f,error);
+QSR(ptr,lb,partitionPoint-1,es,error,p2f);
+QSR(ptr,partitionPoint+1,ub,es,error,p2f);
+}
 void merge(void *ptr,int low,int mid,int high,int es,int (*p2f) (void *,void *),int *succ)
 {
 if(succ) *succ=false;

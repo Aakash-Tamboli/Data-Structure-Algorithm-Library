@@ -126,7 +126,7 @@ else return 1;
 int main()
 {
 int result;
-result=testCases(bubbleSort);
+result=testCases(quickSortRecursive);
 if(result) printf("All testcases passed\n");
 return 0;
 }
