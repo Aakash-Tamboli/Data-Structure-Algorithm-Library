@@ -21,6 +21,12 @@ void quickSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void quickSortRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void QSR(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void mergeSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+void mergeSortRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+void MSR(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+
+
+
+
 void heapSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void toMaxHeap(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void radixSort(void *,int,int,int,OperationDetail *,int);

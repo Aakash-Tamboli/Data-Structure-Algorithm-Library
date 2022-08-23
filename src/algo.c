@@ -859,6 +859,35 @@ error->code=0;
 error->succ=true;
 }
 }
+void mergeSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+OperationDetail err;
+if(error) error->succ=false;
+if(error==NULL)
+{
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+MSR(ptr,lb,ub,es,error,p2f);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+void MSR(void *ptr,int low,int high,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+int mid,succ;
+if(low<high)
+{
+mid=((low+high)/2);
+MSR(ptr,low,mid,es,error,p2f);
+MSR(ptr,mid+1,high,es,error,p2f);
+merge(ptr,low,mid,high,es,p2f,&succ);
+}
+}
 void toMaxHeap(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int y,ci,ri;

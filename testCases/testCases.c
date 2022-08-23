@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<algo.h>
+#include<string.h>
 
 typedef struct student
 {
@@ -22,15 +23,43 @@ int studentComparator(void *left,void *right) // (boolian predicate)
 Student *s1,*s2;
 s1=(Student *)left;
 s2=(Student *)right;
-return s1->roll-s2->roll;
+printf("first student name: (%s)\n",s1->name);
+printf("first student roll: %d\n",s1->roll);
+printf("second student name: (%s)\n",s2->name);
+printf("second student roll: %d\n",s2->roll);
+return (s1->roll)-(s2->roll);
 }
 int testCases(void (*functionWhoToBeTested) (void *,int ,int ,int ,OperationDetail *,int (*predicate) (void *,void *)))
 {
 OperationDetail error;
-int lb1,ub1,flag,lb2,ub2;
-int allTestCasesResult[2]={0,0};
+int lb1,ub1,flag,lb2,ub2,lb3,ub3;
+int allTestCasesResult[3]={0,0,0};
 int x[10],req,i;
 int ans[10];
+struct student sans[10];
+struct student s[10];
+
+sans[0].roll=100;
+strcpy(sans[0].name,"Aakash");
+sans[1].roll=102;
+strcpy(sans[1].name,"Tushar");
+sans[2].roll=103;
+strcpy(sans[2].name,"Gautam");
+sans[3].roll=103;
+strcpy(sans[3].name,"Shivendu");
+sans[4].roll=104;
+strcpy(sans[4].name,"Aayush");
+sans[5].roll=105;
+strcpy(sans[5].name,"ansh");
+sans[6].roll=106;
+strcpy(sans[6].name,"Anuj");
+sans[7].roll=107;
+strcpy(sans[7].name,"Ajay");
+sans[8].roll=108;
+strcpy(sans[8].name,"Aashay");
+sans[9].roll=109;
+strcpy(sans[9].name,"Chiku");
+
 ans[0]=1;
 ans[1]=2;
 ans[2]=3;
@@ -110,9 +139,53 @@ else
 {
 printf("2nd testCase passed\n");
 }
+
+s[0].roll=109;
+strcpy(s[0].name,"Chiku");
+s[1].roll=108;
+strcpy(s[1].name,"Aashay");
+s[2].roll=107;
+strcpy(s[2].name,"Ajay");
+s[3].roll=106;
+strcpy(s[3].name,"Anuj");
+s[4].roll=105;
+strcpy(s[4].name,"Ansh");
+s[5].roll=104;
+strcpy(s[5].name,"Aayush");
+s[6].roll=103;
+strcpy(s[6].name,"Shivendu");
+s[7].roll=103;
+strcpy(s[7].name,"Gautam");
+s[8].roll=102;
+strcpy(s[8].name,"Tushar");
+s[9].roll=100;
+strcpy(s[9].name,"Aakash");
+
+lb3=0;
+ub3=9;
+functionWhoToBeTested(s,lb3,ub3,sizeof(struct student),&error,studentComparator);
+if(error.succ==true)
+{
+printf("3rd testCase Passed\n");
+allTestCasesResult[2]=1;
+for(i=0;i<=9;i++)
+{
+if(s[i].roll!=sans[i].roll)
+{
+printf("Problem in testCases :%d\n",3);
+allTestCasesResult[2]=0;
+break;
+}
+} // for ends
+}
+else
+{
+printf("3rd testCase passed\n");
+}
+
 // checking testCases
 flag=1;
-for(i=0;i<=1;i++)
+for(i=0;i<=2;i++)
 {
 if(allTestCasesResult[i]==0)
 {
@@ -126,7 +199,7 @@ else return 1;
 int main()
 {
 int result;
-result=testCases(quickSortRecursive);
+result=testCases(mergeSortRecursive);
 if(result) printf("All testcases passed\n");
 return 0;
 }
