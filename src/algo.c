@@ -88,12 +88,12 @@ error->succ=true;
 // common function ends
 void bubbleSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
+OperationDetail err;
 int m,e,f,weight;
 void *a,*b,*c;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -101,7 +101,7 @@ if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
 m=ub-1;
 if(m<0) return;
-c=(void *)malloc(sizeof(es));
+c=(void *)malloc(es);
 if(c==NULL)
 {
 if(error) error->code=2;
@@ -137,16 +137,16 @@ error->succ=true;
 void bubbleSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 void *c;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-c=(void *)malloc(sizeof(es));
+c=(void *)malloc(es);
 if(c==NULL)
 {
 if(error) error->code=2;
@@ -183,15 +183,14 @@ memcpy(ptr+(((lb)+1)*(es)),(const void *)c,(es));
 onePassOfBubbleSort(ptr,lb+1,ub,es,c,p2f);
 }
 }
-							
 void linearSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int e,f,weight,oep,iep;
 void *a,*b,*c;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -244,7 +243,7 @@ if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-c=(void *)malloc(sizeof(es));
+c=(void *)malloc(es);
 if(c==NULL)
 {
 if(error) error->code=2;
@@ -285,10 +284,10 @@ void selectionSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p
 {
 int e,f,si,weight;
 void *a,*b,*c;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -333,16 +332,16 @@ error->succ=true;
 void selectionSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 void *c;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-c=(void *)malloc(sizeof(es));
+c=(void *)malloc(es);
 if(c==NULL)
 {
 if(error) error->code=2;
@@ -378,16 +377,16 @@ if((f)<=(ub))
 if(p2f(ptr+((f)*(es)),ptr+((*si)*(es)))<0) *si=f;
 onePassOfSelectionSort(ptr,e,f+1,ub,es,si,p2f);
 }
-} // function ends
+}// function ends
 
 void insertionSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int y,leastLb;
 void *c;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -425,16 +424,16 @@ void insertionSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *erro
 {
 int olb;
 void *c;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-c=(void *)malloc(sizeof(es));
+c=(void *)malloc(es);
 if(c==NULL)
 {
 if(error) error->code=2;
@@ -626,10 +625,10 @@ error->succ=true;
 }
 void quickSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -650,6 +649,7 @@ partitionPoint=findPartionPoint(ptr,lb,ub,es,p2f,error);
 QSR(ptr,lb,partitionPoint-1,es,error,p2f);
 QSR(ptr,partitionPoint+1,ub,es,error,p2f);
 }
+
 void merge(void *ptr,int low,int mid,int high,int es,int (*p2f) (void *,void *),int *succ)
 {
 if(succ) *succ=false;
@@ -662,7 +662,7 @@ lb2=mid+1;
 ub2=high;
 lb3=0;
 ub3=size-1;
-tmp=(void *)malloc(sizeof(es)*size);
+tmp=(void *)malloc(es*size);
 if(tmp==NULL) return;
 i1=lb1;
 i2=lb2;
