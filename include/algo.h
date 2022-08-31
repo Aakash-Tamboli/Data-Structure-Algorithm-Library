@@ -23,12 +23,16 @@ void QSR(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void mergeSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void mergeSortRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void MSR(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
-
-
-
-
 void heapSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
-void toMaxHeap(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+void toConvertIntoHeap(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+void toConvertIntoHeapUsingRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+void convertingIntoHeapUsingRecursive(void *,int,int,int,void *,int (*)(void *,void *));
+void anotherRecursiveCallForConvertingHeap(void *,int,int,int, void *,int (*) (void *,void *));
+
+void heapSortRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
+void swappingAndHeapifyLogic(void *,int,int,int,void *,int (*) (void *,void *));
+void heapifyLogic(void *,int,int,int,void *,int (*) (void *,void *));
+
 void radixSort(void *,int,int,int,OperationDetail *,int);
 void shellSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void countSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));

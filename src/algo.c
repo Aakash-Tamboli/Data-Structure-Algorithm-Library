@@ -888,7 +888,7 @@ MSR(ptr,mid+1,high,es,error,p2f);
 merge(ptr,low,mid,high,es,p2f,&succ);
 }
 }
-void toMaxHeap(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+void toConvertIntoHeap(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int y,ci,ri;
 OperationDetail err;
@@ -941,6 +941,8 @@ error->succ=true;
 }
 free(c);
 }
+
+
 void heapSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int swi,y,lci,rci,ri;
@@ -960,7 +962,7 @@ ptr=ptr+(lb*es);
 ub=ub-lb;
 lb=0;
 }
-toMaxHeap(ptr,lb,ub,es,&err,p2f);
+toConvertIntoHeap(ptr,lb,ub,es,&err,p2f);
 if(err.succ==true)
 {
 c=(void *)malloc(es);
@@ -1013,6 +1015,141 @@ else
 if(error) error->code=err.code;
 }
 }
+
+void toConvertIntoHeapUsingRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+void *c;
+OperationDetail err;
+if(error) error->succ=false;
+if(error==NULL)
+{
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+c=(void *)malloc(es);
+if(c==NULL)
+{
+if(error) error->code=2;
+return;
+}
+if(lb!=0)
+{
+ptr=ptr+(lb*es);
+ub=ub-lb;
+lb=0;
+}
+convertingIntoHeapUsingRecursive(ptr,lb+1,ub,es,c,p2f);
+free(c);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function block ends
+
+void convertingIntoHeapUsingRecursive(void *ptr,int y,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+int ci;
+if(y<=ub)
+{
+ci=y;
+anotherRecursiveCallForConvertingHeap(ptr,0,ci,es,c,p2f);
+convertingIntoHeapUsingRecursive(ptr,y+1,ub,es,c,p2f);
+}
+} // function block ends
+
+void anotherRecursiveCallForConvertingHeap(void *ptr,int lb,int ci,int es, void *c,int (*p2f) (void *,void *))
+{
+int ri;
+if(ci>lb)
+{
+ri=(ci-1)/2;
+if(p2f(ptr+(ci*es),ptr+(ri*es))>0)
+{
+memcpy(c,(const void *)ptr+(ci*es),es);
+memcpy(ptr+(ci*es),(const void *)ptr+(ri*es),es);
+memcpy(ptr+(ri*es),(const void *)c,es);
+anotherRecursiveCallForConvertingHeap(ptr,lb,ri,es,c,p2f);
+}
+}
+}
+
+void heapSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+void *c;
+OperationDetail err;
+if(error) error->succ=false;
+if(error==NULL)
+{
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+c=(void *)malloc(es);
+if(c==NULL)
+{
+if(error) error->code=2;
+return;
+}
+if(lb!=0)
+{
+ptr=ptr+(lb*es);
+ub=ub-lb;
+lb=0;
+}
+convertingIntoHeapUsingRecursive(ptr,lb+1,ub,es,c,p2f);
+swappingAndHeapifyLogic(ptr,lb,ub,es,c,p2f);
+free(c);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function block ends
+
+void swappingAndHeapifyLogic(void *ptr,int lb,int ub,int es,void *c,int (*p2f) (void *,void *))
+{
+if(ub>lb)
+{
+memcpy(c,(const void *)ptr+(lb*es),es);
+memcpy(ptr+(lb*es),(const void *)ptr+(ub*es),es);
+memcpy(ptr+(ub*es),(const void *)c,es);
+ub--;
+heapifyLogic(ptr,lb,ub,es,c,p2f);
+swappingAndHeapifyLogic(ptr,lb,ub,es,c,p2f);
+}
+} // function block ends
+
+void heapifyLogic(void *ptr,int ri,int y,int es,void *c,int (*p2f) (void *,void *))
+{
+int lci,rci,swi;
+if(ri<y)
+{
+lci=(ri*2)+1;
+if(lci>y) return;
+rci=lci+1;
+if(rci>y)
+{
+swi=lci;
+}
+else
+{
+if(p2f(ptr+(lci*es),ptr+(rci*es))>0) swi=lci;
+else swi=rci;
+}
+if(p2f(ptr+(swi*es),ptr+(ri*es))>0)
+{
+memcpy(c,(const void *)ptr+(swi*es),es);
+memcpy(ptr+(swi*es),(const void *)ptr+(ri*es),es);
+memcpy(ptr+(ri*es),(const void *)c,es);
+heapifyLogic(ptr,swi,y,es,c,p2f);
+}
+}
+} // function block ends
+
 // I use this dummy function for radix sort validation as predicate;
 int dummy(void *left,void *right)
 {
