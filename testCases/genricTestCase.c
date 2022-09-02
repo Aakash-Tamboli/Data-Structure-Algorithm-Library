@@ -58,9 +58,9 @@ fflush(stdin);
 printf("Enter ub point: ");
 scanf("%d",&ub);
 fflush(stdin);
-countSort(x,lb,ub,sizeof(int),&err,ACC);
+countSort(x,lb,ub,sizeof(int),&err,DEC);
 if(err.succ) printf("your collection is Sorted\n");
-else printf("something wrong check error code\n");
+else printf("something wrong error code is: %d\n",err.code);
 for(i=0;i<req;i++) printf("%d\n",x[i]);
 free(x);
 }

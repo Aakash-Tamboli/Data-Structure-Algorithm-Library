@@ -1417,14 +1417,71 @@ free(x);
 return 0;
 }
 
-11)FindTheHeavestElement (Only For array-Collection NO LINKED LIST RIGHT NOW)
+11) Count Sort (Only For array-Collection NO LINKED LIST RIGHT NOW)
+	=>The Count Sort Algo Take 4 Arguments
+	    a) Base Address of Collection
+	    b) Lower Bound where starting index is 0 negative indices not allowed
+	    c) upper Bound where last Element is Included. Out of Boundation causing you error.
+	    d) size of 1 Element
+	    e) pass address of struct ErrorCode type structure
+	    f) address of the comparator function (boolian predicate)
+	=>Comparator Function
+	*This Comparator function are written by Who wants to use the 
+	  libaray..
+Guidlines for Comparator Function(boolian predicate)-
+1)return type always int type;
+2)parameter Should always (void *,void *).
+3)if left pointer points to data is EQAUL to right pointer points data then
+return 0
+4)if left pointer pointer data is greater then return +ve;
+5)if letf pointer pointer data is lesser them return -ve
+ex:
+int  comparator_name(void *,void *);
+		      ^       ^
+		      |         |
+		it act like  it act like
+	          left operand  right operand
+Here is Acutall Example to use this library:
+#include<stdio.h>
+#include<algo.h>
+#include<stdlib.h>
+int INTComparator(void *left,void *right)
+{
+int *i,*j;
+i=(int *)left;
+j=(int *)right;
+return (*i)-(*j);
+}
+int main()
+{
+ErrorCode err;
+int *x,req,i;
+printf("Enter yout requirment: ");
+scanf("%d",&req);
+if(req<=0) return 0;
+x=(int *)malloc(sizeof(int)*req);
+for(i=0;i<req;i++)
+{
+printf("Enter an Number: ");
+scanf("%d",&x[i]);
+}
+printf("using shell Sort\n");
+countSort(x,4,req-1,sizeof(int),&err,ACC);
+if(err.succ==false) printf("Something wrong check error code\n");
+else printf("Your collection is sorted\n");
+for(i=0;i<req;i++) printf("%d\n",x[i]);
+free(x);
+return 0;
+}
+
+12)FindTheHeavestElement (Only For array-Collection NO LINKED LIST RIGHT NOW)
 	=>The FindTheHeavestElement Algo Take 4 Arguments
 	    a) Base Address of Collection
 	    b) Lower Bound where starting index is 0 negative indices not allowed
 	    c) upper Bound where last Element is Included. Out of Boundation causing you error.
 	    d) size of 1 Element
 	    e) pass address of struct ErrorCode type structure
-       f) pass address of one Element,In this element you will see the heavest element in your collection
+       	    f) pass address of one Element,In this element you will see the heavest element in your collection
 	    g) address of the comparator function (boolian predicate)
 	=>Comparator Function
 	*This Comparator function are written by Who wants to use the 
@@ -1476,14 +1533,14 @@ else printf("Something Wrong\n");
 free(x);
 return 0;
 }
-12)FindTheLightestElement (Only For array-Collection NO LINKED LIST RIGHT NOW)
+13)FindTheLightestElement (Only For array-Collection NO LINKED LIST RIGHT NOW)
 	=>The FindTheLightestElement Algo Take 4 Arguments
 	    a) Base Address of Collection
 	    b) Lower Bound where starting index is 0 negative indices not allowed
 	    c) upper Bound where last Element is Included. Out of Boundation causing you error.
 	    d) size of 1 Element
 	    e) pass address of struct ErrorCode type structure
-       f) pass address of one Element,In this element you will see the Lightest element in your collection
+            f) pass address of one Element,In this element you will see the Lightest element in your collection
 	    g) address of the comparator function (boolian predicate)
 	=>Comparator Function
 	*This Comparator function are written by Who wants to use the 

@@ -72,9 +72,8 @@ if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-if(lb!=0) ifLowerBoundIsNotZero(ptr,&lb,&ub,&es);
 memcpy(lightestElement,(const void *)ptr,es);
-for(i=0;i<=ub;i++)
+for(i=lb+1;i<=ub;i++)
 {
 if(p2f(lightestElement,ptr+(i*es))>0) memcpy(lightestElement,(const void *)ptr+(i*es),es);
 }
@@ -1448,9 +1447,10 @@ vShellSortRecursive(ptr,olb,diff/2,ub,es,c,p2f);
 
 void countSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int decision)
 {
-int heaviestElement;
-int *tmp;
-int i;
+int heaviestElement,vHeaviestElement;
+int lightestElement,vLightestElement;
+int i,j,largestElement;
+int *tmpPos,*tmpNeg;
 int *x;
 x=(int *)ptr;
 if(error) error->succ=false;
@@ -1467,6 +1467,8 @@ if(sizeof(int)!=es)
 if(error) error->code=8;
 return;
 }
+
+
 int localPredicate(void *left,void *right)
 {
 int *leftOperand,*rightOperand;
@@ -1475,8 +1477,26 @@ rightOperand=(int *)right;
 return (*leftOperand)-(*rightOperand);
 }
 findingTheHeaviestElement(ptr,lb,ub,es,error,&heaviestElement,localPredicate);
-tmp=(int *)malloc(es*(heaviestElement+1));
-if(tmp==NULL)
+findingTheLightestElement(ptr,lb,ub,es,error,&lightestElement,localPredicate);
+vHeaviestElement=heaviestElement;
+vLightestElement=lightestElement;
+i=0;
+while(vHeaviestElement>0)
+{
+vHeaviestElement/=10;
+i++;
+}
+j=0;
+while(vLightestElement<0)
+{
+vLightestElement/=10;
+j++;
+}
+if(i<j) largestElement=lightestElement;
+else largestElement=heaviestElement;
+if(largestElement<0) largestElement=largestElement*-1; // now it becomes positive
+tmpPos=(int *)malloc(es*(largestElement+1));
+if(tmpPos==NULL)
 {
 if(error)
 {
@@ -1485,20 +1505,100 @@ error->succ=false;
 }
 return;
 }
-for(i=0;i<=heaviestElement;i++) tmp[i]=0;
-
-for(i=lb;i<=ub;i++) tmp[x[i]]++;
-
-for(i=0;i<=heaviestElement;i++)
+tmpNeg=(int *)malloc(es*(largestElement+1));
+if(tmpNeg==NULL)
 {
-while(tmp[i]!=0)
+free(tmpPos);
+if(error)
 {
-x[lb]=i;
-tmp[i]--;
+error->code=2;
+error->succ=false;
+}
+return;
+}
+if(decision==ACC)
+{
+for(i=0;i<=largestElement;i++)
+{
+tmpPos[i]=0;
+tmpNeg[i]=0;
+}
+j=0;
+for(i=lb;i<=ub;i++)
+{
+if(x[i]<0)
+{
+j=x[i]*-1; // now it becomes  negative
+tmpNeg[j]++;
+}
+else
+{
+tmpPos[x[i]]++;
+}
+}
+
+for(i=largestElement;i>=0;i--)
+{
+while(tmpNeg[i]!=0)
+{
+x[lb]=(i*-1);
+tmpNeg[i]--;
 lb++;
 }
 }
-free(tmp);
+
+for(i=0;i<=largestElement;i++)
+{
+while(tmpPos[i]!=0)
+{
+x[lb]=i;
+tmpPos[i]--;
+lb++;
+}
+}
+}
+else
+{
+for(i=0;i<=largestElement;i++)
+{
+tmpPos[i]=0;
+tmpNeg[i]=0;
+}
+j=0;
+
+for(i=lb;i<=ub;i++)
+{
+if(x[i]<0)
+{
+j=x[i]*-1; // now it becomes  negative
+tmpNeg[j]++;
+}
+else
+{
+tmpPos[x[i]]++;
+}
+}
+for(i=largestElement;i>=0;i--)
+{
+while(tmpPos[i]!=0)
+{
+x[lb]=i;
+tmpPos[i]--;
+lb++;
+}
+}
+for(i=0;i<=largestElement;i++)
+{
+while(tmpNeg[i]!=0)
+{
+x[lb]=(i*-1);
+tmpNeg[i]--;
+lb++;
+}
+}
+}
+free(tmpPos);
+free(tmpNeg);
 if(error)
 {
 error->code=0;
