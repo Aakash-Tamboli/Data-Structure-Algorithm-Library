@@ -37,7 +37,7 @@ ptr=ptr+((*lb)*(*es));
 *ub=(*ub)-(*lb);
 *lb=0;
 }
-void findingTheHeavestElement(void *ptr,int lb,int ub,int es,OperationDetail *error,void *heavestElement,int (*p2f) (void *,void *))
+void findingTheHeaviestElement(void *ptr,int lb,int ub,int es,OperationDetail *error,void *heavestElement,int (*p2f) (void *,void *))
 {
 int i;
 if(error) error->succ=false;
@@ -49,9 +49,8 @@ if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-if(lb!=0) ifLowerBoundIsNotZero(ptr,&lb,&ub,&es);
-memcpy(heavestElement,(const void *)ptr,es);
-for(i=0;i<=ub;i++)
+memcpy(heavestElement,(const void *)ptr+(lb*es),es);
+for(i=lb+1;i<=ub;i++)
 {
 if(p2f(heavestElement,ptr+(i*es))<0) memcpy(heavestElement,(const void *)ptr+(i*es),es);
 }
@@ -422,7 +421,7 @@ error->succ=true;
 
 void insertionSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
-int olb;
+int olb,diff;
 void *c;
 OperationDetail err;
 if(error) error->succ=false;
@@ -440,7 +439,8 @@ if(error) error->code=2;
 return;
 }
 olb=lb;
-ISR(ptr,olb,lb+1,ub,es,c,p2f);
+diff=1;
+ISR(ptr,olb,lb+diff,diff,ub,es,c,p2f);
 free(c);
 if(error)
 {
@@ -448,25 +448,25 @@ error->succ=true;
 error->code=0;
 }
 }
-void ISR(void *ptr,int olb,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
+void ISR(void *ptr,int olb,int lb,int diff,int ub,int es,void *c,int (*p2f)(void *,void *))
 {
 int y;
 if(lb<=ub)
 {
 memcpy(c,(const void *)ptr+(lb*es),es);
-y=lb-1;
-onePassOfInsertionSort(ptr,&y,olb,es,c,p2f);
-memcpy(ptr+((y+1)*es),(const void *)c,es);
-ISR(ptr,olb,lb+1,ub,es,c,p2f);
+y=lb-diff;
+onePassOfInsertionSort(ptr,&y,olb,diff,es,c,p2f);
+memcpy(ptr+((y+diff)*es),(const void *)c,es);
+ISR(ptr,olb,lb+diff,diff,ub,es,c,p2f);
 }
 }
-void onePassOfInsertionSort(void *ptr,int *y,int olb,int es,void *c,int (*p2f)(void *,void *))
+void onePassOfInsertionSort(void *ptr,int *y,int olb,int diff,int es,void *c,int (*p2f)(void *,void *))
 {
 if((*y)>=(olb) && p2f(c,ptr+((*y)*(es)))<0)
 {
-memcpy(ptr+(((*y)+1)*(es)),(const void *)ptr+((*y)*(es)),es);
-*y=(*y)-1;
-onePassOfInsertionSort(ptr,y,olb,es,c,p2f);
+memcpy(ptr+(((*y)+diff)*(es)),(const void *)ptr+((*y)*(es)),es);
+*y=(*y)-diff;
+onePassOfInsertionSort(ptr,y,olb,diff,es,c,p2f);
 }
 }
 
@@ -1150,7 +1150,7 @@ heapifyLogic(ptr,swi,y,es,c,p2f);
 }
 } // function block ends
 
-// I use this dummy function for radix sort validation as predicate;
+// I use this dummy function for radix sort, count sort validation as predicate;
 int dummy(void *left,void *right)
 {
 // do nothing 
@@ -1405,31 +1405,104 @@ error->code=0;
 error->succ=true;
 }
 }
-/*
-Count Sort is Pending Due to finding the largest Number Method..
-void countSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+
+void shellSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
-void *heavestElement;
-void *tmp;
+int olb,diff;
+void *c;
+OperationDetail err;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-heavestElement=(void *)malloc(es);
-if(heavestElement==NULL)
+c=(void *)malloc(es);
+if(c==NULL)
 {
-error->code=2;
+if(error) error->code=2;
 return;
 }
-ifLowerBoundIsNotZero(ptr,&lb,&ub);
-findHeavestElement(ptr,&lb,&ub,heavestElement);
-
-
+olb=lb;
+diff=(ub-lb)+1;
+diff=diff/2;
+vShellSortRecursive(ptr,olb,diff,ub,es,c,p2f);
+free(c);
+if(error)
+{
+error->succ=true;
+error->code=0;
 }
-*/
+}
+
+void vShellSortRecursive(void *ptr,int olb,int diff,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+if(diff>0)
+{
+ISR(ptr,olb,diff,diff,ub,es,c,p2f);
+vShellSortRecursive(ptr,olb,diff/2,ub,es,c,p2f);
+}
+}
+
+void countSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int decision)
+{
+int heaviestElement;
+int *tmp;
+int i;
+int *x;
+x=(int *)ptr;
+if(error) error->succ=false;
+if(error==NULL)
+{
+OperationDetail err;
+if(isInvalid(ptr,&lb,&ub,&es,&err,dummy)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,dummy)) return;
+}
+if(sizeof(int)!=es)
+{
+if(error) error->code=8;
+return;
+}
+int localPredicate(void *left,void *right)
+{
+int *leftOperand,*rightOperand;
+leftOperand=(int *)left;
+rightOperand=(int *)right;
+return (*leftOperand)-(*rightOperand);
+}
+findingTheHeaviestElement(ptr,lb,ub,es,error,&heaviestElement,localPredicate);
+tmp=(int *)malloc(es*(heaviestElement+1));
+if(tmp==NULL)
+{
+if(error)
+{
+error->code=2;
+error->succ=false;
+}
+return;
+}
+for(i=0;i<=heaviestElement;i++) tmp[i]=0;
+
+for(i=lb;i<=ub;i++) tmp[x[i]]++;
+
+for(i=0;i<=heaviestElement;i++)
+{
+while(tmp[i]!=0)
+{
+x[lb]=i;
+tmp[i]--;
+lb++;
+}
+}
+free(tmp);
+if(error)
+{
+error->code=0;
+error->succ=true;
+}
+}
 #endif

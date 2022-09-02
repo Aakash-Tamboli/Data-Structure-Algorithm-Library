@@ -58,7 +58,7 @@ fflush(stdin);
 printf("Enter ub point: ");
 scanf("%d",&ub);
 fflush(stdin);
-heapSortRecursive(x,lb,ub,sizeof(int),&err,INTComparator);
+countSort(x,lb,ub,sizeof(int),&err,ACC);
 if(err.succ) printf("your collection is Sorted\n");
 else printf("something wrong check error code\n");
 for(i=0;i<req;i++) printf("%d\n",x[i]);
@@ -86,7 +86,7 @@ fflush(stdin);
 printf("Enter ub point: ");
 scanf("%d",&ub);
 fflush(stdin);
-heapSortRecursive(s,lb,ub,sizeof(Student),&err,studentComparator);
+shellSortRecursive(s,lb,ub,sizeof(Student),&err,studentComparator);
 if(err.succ) printf("your collection is Sorted\n");
 else printf("something wrong check error code\n");
 for(i=0;i<req;i++)
