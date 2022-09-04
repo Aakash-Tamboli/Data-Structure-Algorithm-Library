@@ -39,11 +39,11 @@ ptr=ptr+((*lb)*(*es));
 }
 void findingTheHeaviestElement(void *ptr,int lb,int ub,int es,OperationDetail *error,void *heavestElement,int (*p2f) (void *,void *))
 {
+OperationDetail err;
 int i;
 if(error) error->succ=false;
 if(error==NULL)
 {
-OperationDetail err;
 if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 }
 else{
@@ -53,6 +53,30 @@ memcpy(heavestElement,(const void *)ptr+(lb*es),es);
 for(i=lb+1;i<=ub;i++)
 {
 if(p2f(heavestElement,ptr+(i*es))<0) memcpy(heavestElement,(const void *)ptr+(i*es),es);
+}
+if(error)
+{
+error->code=0;
+error->succ=true;
+}
+}
+
+void findingTheHeaviestElementIndex(void *ptr,int lb,int ub,int es,OperationDetail *error,int *heaviestElementIndex,int (*p2f) (void *,void *))
+{
+int i;
+OperationDetail err;
+if(error) error->succ=false;
+if(error==NULL)
+{
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+*heaviestElementIndex=lb;
+for(i=lb+1;i<=ub;i++)
+{
+if(p2f(ptr+((*heaviestElementIndex)*es),ptr+(i*es))<0) *heaviestElementIndex=i;
 }
 if(error)
 {
@@ -1605,4 +1629,61 @@ error->code=0;
 error->succ=true;
 }
 }
+
+void pancakeSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f) (void *,void *))
+{
+int iub,i,j;
+void *c;
+OperationDetail err;
+if(error) error->succ=false;
+if(error==NULL)
+{
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else
+{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+c=(void *)malloc(es);
+if(c==NULL)
+{
+if(error) error->code=2;
+return;
+}
+iub=ub;
+while(iub>lb)
+{
+findingTheHeaviestElementIndex(ptr,lb,iub,es,error,&j,p2f);
+if(j==iub)
+{
+iub--;
+continue;
+}
+while(j>lb)
+{
+memcpy(c,(const void *)ptr+(j*es),es);
+memcpy(ptr+(j*es),(const void *)ptr+((j-1)*es),es);
+memcpy(ptr+((j-1)*es),(const void *)c,es);
+j--;
+}
+i=lb;
+j=iub;
+while(i<j)
+{
+memcpy(c,(const void *)ptr+(i*es),es);
+memcpy(ptr+(i*es),(const void *)ptr+(j*es),es);
+memcpy(ptr+(j*es),(const void *)c,es);
+i++;
+j--;
+}
+iub--;
+}
+free(c);
+if(error)
+{
+error->code=0;
+error->succ=true;
+}
+}
+
 #endif

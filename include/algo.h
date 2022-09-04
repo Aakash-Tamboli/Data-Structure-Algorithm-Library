@@ -35,9 +35,11 @@ void radixSort(void *,int,int,int,OperationDetail *,int);
 void shellSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void shellSortRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void vShellSortRecursive(void *,int,int,int,int,void *,int (*)(void *,void *));
-
 void countSort(void *,int,int,int,OperationDetail *,int);
+void pancakeSort(void *,int,int,int,OperationDetail *,int (*) (void *,void *));
 
 void findingTheHeaviestElement(void *,int,int,int,OperationDetail *,void *,int (*p2f) (void *,void *));
+void findingTheHeaviestElementIndex(void *,int,int,int,OperationDetail *,int *,int (*p2f) (void *,void *));
+
 void findingTheLightestElement(void *,int,int,int,OperationDetail *,void *,int (*p2f) (void *,void *));
 #endif
