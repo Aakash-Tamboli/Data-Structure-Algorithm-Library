@@ -37,6 +37,11 @@ void shellSortRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void
 void vShellSortRecursive(void *,int,int,int,int,void *,int (*)(void *,void *));
 void countSort(void *,int,int,int,OperationDetail *,int);
 void pancakeSort(void *,int,int,int,OperationDetail *,int (*) (void *,void *));
+void pancakeSortRecursive(void *,int,int,int,OperationDetail *,int (*) (void *,void *));
+void vPancakeSortRecursive(void *,int,int,int,void *,int (*) (void *,void *));
+void flipTheBurntCake(void *,int,int,int,void *);
+void flipTheWholeCake(void *,int,int,int,void *);
+
 
 void findingTheHeaviestElement(void *,int,int,int,OperationDetail *,void *,int (*p2f) (void *,void *));
 void findingTheHeaviestElementIndex(void *,int,int,int,OperationDetail *,int *,int (*p2f) (void *,void *));

@@ -1686,4 +1686,68 @@ error->succ=true;
 }
 }
 
+void pancakeSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f) (void *,void *))
+{
+void *c;
+OperationDetail err;
+if(error) error->succ=false;
+if(error==NULL)
+{
+if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
+}
+else
+{
+if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
+}
+c=(void *)malloc(es);
+if(c==NULL)
+{
+if(error) error->code=2;
+return;
+}
+vPancakeSortRecursive(ptr,lb,ub,es,c,p2f);
+free(c);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+void vPancakeSortRecursive(void *ptr,int lb,int ub,int es,void *c,int (*p2f) (void *,void *))
+{
+int j,iub=ub;
+if(iub>lb)
+{
+findingTheHeaviestElementIndex(ptr,lb,iub,es,NULL,&j,p2f);
+if(j==iub)
+{
+vPancakeSortRecursive(ptr,lb,--ub,es,c,p2f);
+return;
+}
+flipTheBurntCake(ptr,lb,j,es,c);
+flipTheWholeCake(ptr,lb,iub,es,c);
+vPancakeSortRecursive(ptr,lb,--ub,es,c,p2f);
+}
+}
+
+void flipTheBurntCake(void *ptr,int lb,int ub,int es,void *c)
+{
+if(ub>lb)
+{
+memcpy(c,(const void *)ptr+(ub*es),es);
+memcpy(ptr+(ub*es),(const void *)ptr+((ub-1)*es),es);
+memcpy(ptr+((ub-1)*es),(const void *)c,es);
+flipTheBurntCake(ptr,lb,--ub,es,c);
+}
+}
+void flipTheWholeCake(void *ptr,int lb,int ub,int es,void *c)
+{
+if(lb<ub)
+{
+memcpy(c,(const void *)ptr+(lb*es),es);
+memcpy(ptr+(lb*es),(const void *)ptr+(ub*es),es);
+memcpy(ptr+(ub*es),(const void *)c,es);
+flipTheWholeCake(ptr,++lb,--ub,es,c);
+}
+}
 #endif
