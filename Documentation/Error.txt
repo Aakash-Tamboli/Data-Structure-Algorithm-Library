@@ -13,3 +13,4 @@ Error       Description
 6	Problem in Your Comparator predicate may be you passed NULL
 7	Your Size of One Element is 0 or may be negative.
 8	Your Collection is Not int data_type.this Algo only for int data_type
+9	Invalid position(index) to insert in data_structure

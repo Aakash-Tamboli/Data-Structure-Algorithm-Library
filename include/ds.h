@@ -46,4 +46,61 @@ void removeFromQueue(struct __Queue__ *,void *,OperationDetail *);
 int isQueueEmpty(struct __Queue__ *);
 void clearQueue(struct __Queue__ *);
 
+// structure definations of DoublyLinkedList, DoublyLinkedListNode, DoublyLinkedListIterator and DoublyLinkedListReverseIterator.
+
+typedef struct __$__DoublyLinkedListNode
+{
+void *ptr;
+struct __$__DoublyLinkedListNode *next;
+struct __$__DoublyLinkedListNode *previous;
+}DoublyLinkedListNode;
+
+typedef struct __$__DoublyLinkedList
+{
+DoublyLinkedListNode *start;
+DoublyLinkedListNode *end;
+int size;
+int sizeOfOneElement;
+}DoublyLinkedList;
+
+typedef struct __$__DoublyLinkedListIterator
+{
+DoublyLinkedListNode *node;
+}DoublyLinkedListIterator;
+
+typedef struct __$__DoublyLinkedListReverseIterator
+{
+DoublyLinkedListNode *node;
+}DoublyLinkedListReverseIterator;
+
+// DoublyLinkedList related functionality
+DoublyLinkedList * createDoublyLinkedList(int,OperationDetail *);
+int getSizeOfDoublyLinkedList(DoublyLinkedList *);
+void clearDoublyLinkedList(DoublyLinkedList *);
+void destroyDoublyLinkedList(DoublyLinkedList *);
+void addToDoublyLinkedList(DoublyLinkedList *,const void *,OperationDetail *);
+void insertIntoDoublyLinkedList(DoublyLinkedList *,int,const void *,OperationDetail *);
+void removeFromDoublyLinkedList(DoublyLinkedList *,void *,int,OperationDetail *);
+// above functions pending
+
+
+
+
+
+
+
+
+
+void appendToDoublyLinkedList(DoublyLinkedList *targetDoublyLinkedList,DoublyLinkedList * sourceDoublyLinkedList,bool *success);
+void * getFromDoublyLinkedList(DoublyLinkedList *doublyLinkedList,int index,bool *success);
+DoublyLinkedListIterator getDoublyLinkedListIterator(DoublyLinkedList *doublyLinkedList,bool *success);
+bool hasNextInDoublyLinkedList(DoublyLinkedListIterator *doublyLinkedListIterator); 
+void * getNextElementFromDoublyLinkedList(DoublyLinkedListIterator *doublyLinkedListIterator,bool *success);
+DoublyLinkedListReverseIterator getDoublyLinkedListReverseIterator(DoublyLinkedList *doublyLinkedList,bool *success);
+bool hasPreviousInDoublyLinkedList(DoublyLinkedListReverseIterator *doublyLinkedListReverseIterator); 
+void * getPreviousElementFromDoublyLinkedList(DoublyLinkedListReverseIterator *doublyLinkedListReverseIterator,bool *success);
+
+
+
+
 #endif

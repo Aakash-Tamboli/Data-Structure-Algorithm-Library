@@ -263,4 +263,210 @@ queue->size=0;
 queue->front=NULL;
 queue->rear=NULL;
 }
+
+// implementation of Doubly Linked List
+DoublyLinkedList * createDoublyLinkedList(int sizeOfOneElement,OperationDetail *error)
+{
+DoublyLinkedList *doublyLinkedList;
+if(error) error->succ=false;
+doublyLinkedList=(DoublyLinkedList *)malloc(sizeof(DoublyLinkedList));
+if(doublyLinkedList==NULL)
+{
+if(error) error->code=2;
+return NULL;
+}
+doublyLinkedList->start=NULL;
+doublyLinkedList->end=NULL;
+doublyLinkedList->size=0;
+doublyLinkedList->sizeOfOneElement=sizeOfOneElement;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+int getSizeOfDoublyLinkedList(DoublyLinkedList *doublyLinkedList)
+{
+if(doublyLinkedList==NULL) return 0;
+return doublyLinkedList->size;
+}
+
+void clearDoublyLinkedList(DoublyLinkedList *doublyLinkedList)
+{
+DoublyLinkedListNode *node;
+if(doublyLinkedList==NULL) return;
+node=doublyLinkedList->start;
+while(doublyLinkedList->start!=NULL)
+{
+node=doublyLinkedList->start;
+doublyLinkedList->start=doublyLinkedList->start->next;
+free(node->ptr);
+free(node);
+}
+doublyLinkedList->end=NULL;
+doublyLinkedList->size=0;
+}
+
+void destroyDoublyLinkedList(DoublyLinkedList *doublyLinkedList)
+{
+if(doublyLinkedList==NULL) return;
+clearDoublyLinkedList(doublyLinkedList);
+free(doublyLinkedList);
+}
+
+void addToDoublyLinkedList(DoublyLinkedList *doublyLinkedList,const void *ptr,OperationDetail *error)
+{
+DoublyLinkedListNode *node;
+if(error) error->succ=false;
+if(doublyLinkedList==NULL) return;
+node=(DoublyLinkedListNode *)malloc(sizeof(DoublyLinkedListNode));
+if(node==NULL)
+{
+if(error) error->code=2;
+return;
+}
+node->ptr=(void *)malloc(doublyLinkedList->sizeOfOneElement);
+if(node->ptr==NULL)
+{
+free(node);
+if(error) error->code=2;
+return;
+}
+memcpy(node->ptr,(const void *)ptr,doublyLinkedList->sizeOfOneElement);
+node->next=NULL;
+node->previous=NULL;
+if(doublyLinkedList->start==NULL)
+{
+doublyLinkedList->start=node;
+doublyLinkedList->end=node;
+}
+else
+{
+doublyLinkedList->end->next=node;
+node->previous=doublyLinkedList->end;
+doublyLinkedList->end=node;
+}
+doublyLinkedList->size++;;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+
+void insertIntoDoublyLinkedList(DoublyLinkedList *doublyLinkedList,int index,const void *ptr,OperationDetail *error)
+{
+DoublyLinkedListNode *node,*p1;
+int x;
+if(error) error->succ=false;
+if(doublyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+if(index<0 || index>doublyLinkedList->size)
+{
+if(error) error->code=9;
+return;
+}
+if(index==doublyLinkedList->size)
+{
+addToDoublyLinkedList(doublyLinkedList,ptr,error);
+return;
+}
+node=(DoublyLinkedListNode *)malloc(sizeof(DoublyLinkedListNode));
+if(node==NULL)
+{
+if(error) error->code=2;
+return;
+}
+node->ptr=(void *)malloc(doublyLinkedList->sizeOfOneElement);
+if(node->ptr==NULL)
+{
+free(node);
+if(error) error->code=2;
+return;
+}
+memcpy(node->ptr,(const void *)ptr,doublyLinkedList->sizeOfOneElement);
+node->next=NULL;
+node->previous=NULL;
+if(index==0)
+{
+node->next=doublyLinkedList->start;
+doublyLinkedList->start->previous=node;
+doublyLinkedList->start=node;
+doublyLinkedList->size++;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return;
+}
+p1=doublyLinkedList->start;
+x=0;
+while(x<index)
+{
+p1=p1->next;
+x++;
+}
+node->next=p1;
+node->previous=p1->previous;
+p1->previous->next=node;
+p1->previous=node;
+doublyLinkedList->size++;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+
+void removeFromDoublyLinkedList(DoublyLinkedList *doublyLinkedList,void *ptr,int index,OperationDetail *error)
+{
+DoublyLinkedListNode *p1;
+int x;
+if(error) error->succ=false;
+if(doublyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+if(index<0 || index>doublyLinkedList->size)
+{
+if(error) error->code=9;
+return;
+}
+p1=doublyLinkedList->start;
+x=0;
+while(x<index)
+{
+p1=p1->next;
+x++;
+}
+memcpy(ptr,(const void *)p1->ptr,doublyLinkedList->sizeOfOneElement);
+free(p1->ptr);
+if(doublyLinkedList->start==p1 && doublyLinkedList->end==p1)
+{
+doublyLinkedList->start=NULL;
+doublyLinkedList->end=NULL;
+}
+else if(doublyLinkedList->start==p1)
+{
+doublyLinkedList->start=doublyLinkedList->start->next;
+doublyLinkedList->start->previous=NULL;
+}else if(doublyLinkedList->end==p1)
+{
+doublyLinkedList->end=doublyLinkedList->end->previous;
+doublyLinkedList->end->next=NULL;
+}else
+{
+p1->previous->next=p1->next;
+p1->next->previous=p1->previous;
+}
+free(p1);
+doublyLinkedList->size--;
+if(error) error->code=0;
+} // function ends
+
 #endif
