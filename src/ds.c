@@ -469,4 +469,88 @@ doublyLinkedList->size--;
 if(error) error->code=0;
 } // function ends
 
+void appendToDoublyLinkedList(DoublyLinkedList *targetDoublyLinkedList,DoublyLinkedList * sourceDoublyLinkedList,OperationDetail *error)
+{
+DoublyLinkedListNode *s,*e,*t,*node;
+bool done;
+if(error) error->succ=false;
+if(targetDoublyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+if(sourceDoublyLinkedList==NULL || sourceDoublyLinkedList->size==0)
+{
+if(error) error->code=3;
+return;
+}
+if(sourceDoublyLinkedList->sizeOfOneElement!=targetDoublyLinkedList->sizeOfOneElement)
+{
+if(error) error->code=10;
+return;
+}
+s=NULL;
+e=NULL;
+done=true;
+t=sourceDoublyLinkedList->start;
+while(t!=NULL)
+{
+node=(DoublyLinkedListNode *)malloc(sizeof(DoublyLinkedListNode));
+if(node==NULL)
+{
+done=false;
+break;
+}
+node->ptr=(void *)malloc(sourceDoublyLinkedList->sizeOfOneElement);
+if(node->ptr==NULL)
+{
+free(node);
+done=false;
+break;
+}
+memcpy(node->ptr,(const void *)t->ptr,sourceDoublyLinkedList->sizeOfOneElement);
+node->next=NULL;
+node->previous=NULL;
+if(s==NULL)
+{
+s=node;
+e=node;
+}
+else
+{
+e->next=node;
+node->previous=e;
+e=node;
+}
+t=t->next;
+}
+
+if(done==false)
+{
+while(s!=NULL)
+{
+node=s;
+s=s->next;
+free(node->ptr);
+free(node);
+}
+return;
+}
+if(targetDoublyLinkedList->start==NULL)
+{
+targetDoublyLinkedList->start=s;
+targetDoublyLinkedList->end=e;
+targetDoublyLinkedList->size=sourceDoublyLinkedList->size;
+targetDoublyLinkedList->sizeOfOneElement=sourceDoublyLinkedList->sizeOfOneElement;
+}
+else
+{
+targetDoublyLinkedList->end->next=s;
+s->previous=targetDoublyLinkedList->end;
+targetDoublyLinkedList->end=e;
+targetDoublyLinkedList->size+=sourceDoublyLinkedList->size;
+}
+if(error) error->succ=true;
+}
+
 #endif

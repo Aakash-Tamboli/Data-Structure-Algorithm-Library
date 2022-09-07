@@ -81,17 +81,13 @@ void destroyDoublyLinkedList(DoublyLinkedList *);
 void addToDoublyLinkedList(DoublyLinkedList *,const void *,OperationDetail *);
 void insertIntoDoublyLinkedList(DoublyLinkedList *,int,const void *,OperationDetail *);
 void removeFromDoublyLinkedList(DoublyLinkedList *,void *,int,OperationDetail *);
+void appendToDoublyLinkedList(DoublyLinkedList *,DoublyLinkedList *,OperationDetail *);
 // above functions pending
 
 
 
 
 
-
-
-
-
-void appendToDoublyLinkedList(DoublyLinkedList *targetDoublyLinkedList,DoublyLinkedList * sourceDoublyLinkedList,bool *success);
 void * getFromDoublyLinkedList(DoublyLinkedList *doublyLinkedList,int index,bool *success);
 DoublyLinkedListIterator getDoublyLinkedListIterator(DoublyLinkedList *doublyLinkedList,bool *success);
 bool hasNextInDoublyLinkedList(DoublyLinkedListIterator *doublyLinkedListIterator); 
