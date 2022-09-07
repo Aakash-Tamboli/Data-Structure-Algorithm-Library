@@ -807,6 +807,78 @@ free(s);
 }
 return 0;
 }
+4.2) Insertion Sort (DoublyLinkedList) (Only For array-Collection NO LINKED LIST RIGHT NOW)
+	=>The Insertion Sort (DoublyLinkedList) Algo Take 4 Arguments
+	    a) Base Address of Collection
+	    b) Lower Bound where starting index is 0 negative indices not allowed
+	    c) upper Bound where last Element is Included. Out of Boundation causing you error.
+	    d) size of 1 Element
+	    e) pass address of struct ErrorCode type structure
+	    f) address of the comparator function (boolian predicate)
+	 =>Comparator Function
+	*This Comparator function are written by Who wants to use the 
+	  libaray..
+Guidlines for Comparator Function(boolian predicate)-
+1)return type always int type;
+2)parameter Should always (void *,void *).
+3)if left pointer points to data is EQAUL to right pointer points data then
+return 0
+4)if left pointer pointer data is greater then return +ve;
+5)if letf pointer pointer data is lesser them return -ve
+ex:
+int  comparator_name(void *,void *);
+		      ^       ^
+		      |         |
+		it act like  it act like
+	          left operand  right operand
+Here is Actuall Example:
+#include<stdio.h>
+#include<ds.h>
+#include<algo.h>
+int INTComparator(void *left,void *right)
+{
+int *i,*j;
+i=(int *)left;
+j=(int *)right;
+return (*i)-(*j);
+}
+int main()
+{
+OperationDetail error;
+DoublyLinkedList *dll;
+DoublyLinkedListIterator iter0,iter1;
+int num,n,i;
+dll=createDoublyLinkedList(sizeof(int),&error);
+if(error.succ==false)
+{
+printf("Code: %d\n",error.code);
+return 0;
+}
+for(i=10;i>=1;i--) addToDoublyLinkedList(dll,&i,&error);
+iter0=getDoublyLinkedListIterator(dll,&error);
+if(error.succ==true)
+{
+while(hasNextInDoublyLinkedList(&iter0))
+{
+getNextElementFromDoublyLinkedList(&iter0,&num,&error);
+printf("%d\n",num);
+}
+}
+printf("Before applying Sorting algo\n");
+insertionSortForDLL(dll,0,9,&error,INTComparator);
+printf("After applying sorting algo\n");
+iter1=getDoublyLinkedListIterator(dll,&error);
+if(error.succ==true)
+{
+while(hasNextInDoublyLinkedList(&iter1))
+{
+getNextElementFromDoublyLinkedList(&iter1,&n,&error);
+printf("%d\n",n);
+}
+}
+destroyDoublyLinkedList(dll);
+return 0;
+}
 5)Quick Sort (Only For array-Collection NO LINKED LIST RIGHT NOW)
 	=>The Quick Sort Algo Take 4 Arguments
 	    a) Base Address of Collection

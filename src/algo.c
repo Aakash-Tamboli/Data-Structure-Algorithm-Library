@@ -493,6 +493,57 @@ onePassOfInsertionSort(ptr,y,olb,diff,es,c,p2f);
 }
 }
 
+void insertionSortForDLL(DoublyLinkedList *doublyLinkedList,int lb,int ub,OperationDetail *error,int (*p2f) (void *,void *))
+{
+int dummyElementSize=doublyLinkedList->sizeOfOneElement;
+void *c;
+int size;
+DoublyLinkedListNode *lbNode,*y;
+OperationDetail err;
+if(error) error->succ=false;
+if(error==NULL)
+{
+if(isInvalid((void *)doublyLinkedList,&lb,&ub,&dummyElementSize,&err,p2f)) return;
+}
+else
+{
+if(isInvalid((void *)doublyLinkedList,&lb,&ub,&dummyElementSize,error,p2f)) return;
+}
+size=doublyLinkedList->size-1;
+if(ub<size)
+{
+if(error) error->code=1;
+return;
+}
+c=(void *)malloc(doublyLinkedList->sizeOfOneElement);
+if(c==NULL)
+{
+if(error) error->code=2;
+return;
+}
+lbNode=doublyLinkedList->start;
+lbNode=lbNode->next;
+while(lbNode!=NULL)
+{
+memcpy(c,(const void *)lbNode->ptr,doublyLinkedList->sizeOfOneElement);
+y=lbNode->previous;
+while(y!=NULL && p2f(c,y->ptr)<0)
+{
+memcpy(y->next->ptr,(const void *)y->ptr,doublyLinkedList->sizeOfOneElement);
+y=y->previous;
+}
+if(y==NULL) memcpy(doublyLinkedList->start->ptr,(const void *)c,doublyLinkedList->sizeOfOneElement);
+else memcpy(y->next->ptr,(const void *)c,doublyLinkedList->sizeOfOneElement);
+lbNode=lbNode->next;
+}
+free(c);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+
 int findPartionPoint(void *ptr,int e,int f,int es,int (*p2f)(void *,void *),OperationDetail *err)
 {
 int lb=e;

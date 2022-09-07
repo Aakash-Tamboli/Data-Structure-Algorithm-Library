@@ -1,6 +1,7 @@
 #ifndef ALGO_H
 #define ALGO_H 123
 #include<common.h>
+#include<ds.h>
 void bubbleSort(void *,int ,int,int,OperationDetail *,int (*)(void *,void *));
 void bubbleSortRecursive(void *,int ,int,int,OperationDetail *,int (*)(void *,void *));
 void BSR(void *,int ,int ,int ,void *,int (*)(void *,void *));
@@ -17,6 +18,7 @@ void insertionSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void insertionSortRecursive(void *,int ,int ,int ,OperationDetail *,int (*)(void *,void *));
 void ISR(void *,int ,int ,int ,int,int ,void *,int (*)(void *,void *));
 void onePassOfInsertionSort(void *,int *,int,int,int,void *,int (*)(void *,void *));
+void insertionSortForDLL(DoublyLinkedList *,int,int,OperationDetail *,int (*) (void *,void *));
 void quickSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void quickSortRecursive(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
 void QSR(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
