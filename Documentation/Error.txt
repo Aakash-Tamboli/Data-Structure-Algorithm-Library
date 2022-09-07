@@ -13,6 +13,6 @@ Error       Description
 6	Problem in Your Comparator predicate may be you passed NULL
 7	Your Size of One Element is 0 or may be negative.
 8	Your Collection is Not int data_type.this Algo only for int data_type
-9	Invalid position(index) to insert in data_structure
+9	Invalid position(index) to insert,remove and get in your data_structure
 10	For Append one data_structure to another data_structure both are statisfied this conditon if not then error code occured
        i) sizeOfOneElement should be same in both data_structure. 

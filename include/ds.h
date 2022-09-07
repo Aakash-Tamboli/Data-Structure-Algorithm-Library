@@ -66,11 +66,13 @@ int sizeOfOneElement;
 typedef struct __$__DoublyLinkedListIterator
 {
 DoublyLinkedListNode *node;
+int sizeOfOneElement;
 }DoublyLinkedListIterator;
 
 typedef struct __$__DoublyLinkedListReverseIterator
 {
 DoublyLinkedListNode *node;
+int sizeOfOneElement;
 }DoublyLinkedListReverseIterator;
 
 // DoublyLinkedList related functionality
@@ -82,21 +84,13 @@ void addToDoublyLinkedList(DoublyLinkedList *,const void *,OperationDetail *);
 void insertIntoDoublyLinkedList(DoublyLinkedList *,int,const void *,OperationDetail *);
 void removeFromDoublyLinkedList(DoublyLinkedList *,void *,int,OperationDetail *);
 void appendToDoublyLinkedList(DoublyLinkedList *,DoublyLinkedList *,OperationDetail *);
+void getFromDoublyLinkedList(DoublyLinkedList *,void *,int,OperationDetail *);
+DoublyLinkedListIterator getDoublyLinkedListIterator(DoublyLinkedList *,OperationDetail *);
+bool hasNextInDoublyLinkedList(DoublyLinkedListIterator *); 
+void getNextElementFromDoublyLinkedList(DoublyLinkedListIterator *,void *,OperationDetail *);
+DoublyLinkedListReverseIterator getDoublyLinkedListReverseIterator(DoublyLinkedList *,OperationDetail *);
+bool hasPreviousInDoublyLinkedList(DoublyLinkedListReverseIterator *); 
+void getPreviousElementFromDoublyLinkedList(DoublyLinkedListReverseIterator *,void *,OperationDetail *);
 // above functions pending
-
-
-
-
-
-void * getFromDoublyLinkedList(DoublyLinkedList *doublyLinkedList,int index,bool *success);
-DoublyLinkedListIterator getDoublyLinkedListIterator(DoublyLinkedList *doublyLinkedList,bool *success);
-bool hasNextInDoublyLinkedList(DoublyLinkedListIterator *doublyLinkedListIterator); 
-void * getNextElementFromDoublyLinkedList(DoublyLinkedListIterator *doublyLinkedListIterator,bool *success);
-DoublyLinkedListReverseIterator getDoublyLinkedListReverseIterator(DoublyLinkedList *doublyLinkedList,bool *success);
-bool hasPreviousInDoublyLinkedList(DoublyLinkedListReverseIterator *doublyLinkedListReverseIterator); 
-void * getPreviousElementFromDoublyLinkedList(DoublyLinkedListReverseIterator *doublyLinkedListReverseIterator,bool *success);
-
-
-
 
 #endif

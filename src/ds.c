@@ -284,6 +284,7 @@ if(error)
 error->succ=true;
 error->code=0;
 }
+return doublyLinkedList;
 }
 int getSizeOfDoublyLinkedList(DoublyLinkedList *doublyLinkedList)
 {
@@ -551,6 +552,129 @@ targetDoublyLinkedList->end=e;
 targetDoublyLinkedList->size+=sourceDoublyLinkedList->size;
 }
 if(error) error->succ=true;
+}
+
+void getFromDoublyLinkedList(DoublyLinkedList *doublyLinkedList,void *ptr,int index,OperationDetail *error)
+{
+DoublyLinkedListNode *node;
+int x;
+if(error) error->succ=false;
+if(doublyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+if(index<0 || index>=doublyLinkedList->size)
+{
+if(error) error->code=9;
+return;
+}
+node=doublyLinkedList->start;
+x=0;
+while(x<index)
+{
+node=node->next;
+x++;
+}
+memcpy(ptr,(const void *)node->ptr,doublyLinkedList->sizeOfOneElement);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+DoublyLinkedListIterator getDoublyLinkedListIterator(DoublyLinkedList *doublyLinkedList,OperationDetail *error)
+{
+DoublyLinkedListIterator doublyLinkedListIterator;
+doublyLinkedListIterator.node=NULL;
+if(error) error->succ=false;
+if(doublyLinkedList==NULL)
+{
+if(error) error->code=3;
+return doublyLinkedListIterator;
+}
+if(doublyLinkedList->start==NULL) 
+{
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return doublyLinkedListIterator;
+}
+if(error) error->succ=true;
+doublyLinkedListIterator.node=doublyLinkedList->start;
+doublyLinkedListIterator.sizeOfOneElement=doublyLinkedList->sizeOfOneElement;
+return doublyLinkedListIterator;  
+}
+bool hasNextInDoublyLinkedList(DoublyLinkedListIterator *doublyLinkedListIterator)
+{
+if(doublyLinkedListIterator==NULL) return false;
+if(doublyLinkedListIterator->node==NULL) return false;
+return true;
+}
+void getNextElementFromDoublyLinkedList(DoublyLinkedListIterator *doublyLinkedListIterator,void *ptr,OperationDetail *error)
+{
+if(error) error->succ=false;
+if(doublyLinkedListIterator==NULL || doublyLinkedListIterator->node==NULL)
+{
+if(error) error->code=3;
+return;
+}
+memcpy(ptr,(const void *)doublyLinkedListIterator->node->ptr,doublyLinkedListIterator->sizeOfOneElement);
+doublyLinkedListIterator->node=doublyLinkedListIterator->node->next;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+}
+
+DoublyLinkedListReverseIterator getDoublyLinkedListReverseIterator(DoublyLinkedList *doublyLinkedList,OperationDetail *error)
+{
+DoublyLinkedListReverseIterator doublyLinkedListReverseIterator;
+doublyLinkedListReverseIterator.node=NULL;
+if(error) error->succ=false;
+if(doublyLinkedList==NULL)
+{
+if(error) error->code=3;
+return doublyLinkedListReverseIterator;
+}
+if(doublyLinkedList->start==NULL) 
+{
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return doublyLinkedListReverseIterator;
+}
+if(error) error->succ=true;
+doublyLinkedListReverseIterator.node=doublyLinkedList->end;
+doublyLinkedListReverseIterator.sizeOfOneElement=doublyLinkedList->sizeOfOneElement;
+return doublyLinkedListReverseIterator;  
+}
+bool hasPreviousInDoublyLinkedList(DoublyLinkedListReverseIterator *doublyLinkedListReverseIterator)
+{
+if(doublyLinkedListReverseIterator==NULL) return false;
+if(doublyLinkedListReverseIterator->node==NULL) return false;
+return true;
+}
+void getPreviousElementFromDoublyLinkedList(DoublyLinkedListReverseIterator *doublyLinkedListReverseIterator,void *ptr,OperationDetail *error)
+{
+if(error) error->succ=false;
+if(doublyLinkedListReverseIterator==NULL || doublyLinkedListReverseIterator->node==NULL)
+{
+if(error) error->code=3;
+return;
+}
+memcpy(ptr,(const void *)doublyLinkedListReverseIterator->node->ptr,doublyLinkedListReverseIterator->sizeOfOneElement);
+doublyLinkedListReverseIterator->node=doublyLinkedListReverseIterator->node->previous;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
 }
 
 #endif
