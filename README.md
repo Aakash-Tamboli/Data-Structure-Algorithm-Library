@@ -75,5 +75,34 @@ Note: If your machine is linux then
 ``` c
 gcc filename.c -o filename.out -I ..\include -L ..\lib -l dsAlgo
 ```
+## Algorithm information
+My dsAlgo library offers only 10 sorting algorithm this are
 
 
+           Algorithm    | supported data type   | recursive approach available
+                        |         and           |
+                        |   collection type     |
+          ------------- | -------------------   | ---------------------------
+         Bubble Sort    | array type collection |            YES
+         linear sort    | array type collection |            YES
+         selection sort | array type collection |            YES
+         insertion sort | array type collection |            YES
+         quick sort     | array type collection |            YES
+         merge sort     | array type collection |            YES
+         heap
+                2       | Unable To Allocate Memory For Internal Use
+                3       | Problem in your Data_ Structure Address may be you passed NULL
+                4       | Problem in data address which you want to store in Data_Structure or retrieve from Data_Structure may be you
+                        | passed NULL;
+                        | void pushOnStack(&yourStack,NULL,&YourstructtypeErrorCode)
+                        | popFromStack(&yourStack,NULL,&YourstructtypeErrorCode)
+                5       | Please Initialized Your Data_Structure First
+                        |  Note:If you are trying to pass value of sizeofOneElement is 0(zero) in 
+                        |       initData_Structure(&yourData_Structure,0);
+                        |       Then Your Data_Structure will not initialized because it make no sense.
+                6       | Problem in Your Comparator predicate may be you passed NULL
+                7       | Your Size of One Element is 0 or may be negative.
+                8       | Your Collection is Not int data_type.this Algo only for int data_type
+  
+
+ 
