@@ -107,6 +107,38 @@ error->code=0;
 error->succ=true;
 }
 }
+int INT_HEAVIEST_ELEMENT_COMPARATOR(void *left,void *right)
+{
+int *i,*j;
+i=(int *)left;
+j=(int *)right;
+return (*i)-(*j);
+}
+int INT_LIGHTEST_ELEMENT_COMPARATOR(void *left,void *right)
+{
+int *i,*j;
+i=(int *)left;
+j=(int *)right;
+return (*j)-(*i);
+}
+
+int HASH_FUNCTION_FOR_ADDRESS_CALCULATION_AKA_BUCKET_SORT(int elem,int largestDigit)
+{
+int i,key;
+i=0;
+key=0;
+while(i<largestDigit)
+{
+key=elem%10;
+elem=elem/10;
+i++;
+}
+return key;
+}
+int dummy(void *left,void *right)
+{
+// do nothing 
+}
 // common function ends
 void bubbleSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
@@ -492,24 +524,37 @@ memcpy(ptr+(((*y)+diff)*(es)),(const void *)ptr+((*y)*(es)),es);
 onePassOfInsertionSort(ptr,y,olb,diff,es,c,p2f);
 }
 }
-
 void insertionSortForDLL(DoublyLinkedList *doublyLinkedList,int lb,int ub,OperationDetail *error,int (*p2f) (void *,void *))
 {
-int dummyElementSize=doublyLinkedList->sizeOfOneElement;
 void *c;
-int size;
+int size,vEs=6;
 DoublyLinkedListNode *lbNode,*y;
 OperationDetail err;
 if(error) error->succ=false;
+size=doublyLinkedList->size-1;
 if(error==NULL)
 {
-if(isInvalid((void *)doublyLinkedList,&lb,&ub,&dummyElementSize,&err,p2f)) return;
+if(isInvalid((void *)doublyLinkedList,&lb,&size,&vEs,&err,dummy)) return;
 }
-else
+else{
+if(isInvalid((void *)doublyLinkedList,&lb,&ub,&vEs,error,dummy)) return;
+}
+
+if(doublyLinkedList==NULL)
 {
-if(isInvalid((void *)doublyLinkedList,&lb,&ub,&dummyElementSize,error,p2f)) return;
+if(error) error->code=3;
+return;
 }
-size=doublyLinkedList->size-1;
+if(doublyLinkedList->start==NULL)
+{
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return;
+}
+
 if(ub<size)
 {
 if(error) error->code=1;
@@ -1224,11 +1269,7 @@ heapifyLogic(ptr,swi,y,es,c,p2f);
 }
 } // function block ends
 
-// I use this dummy function for radix sort, count sort validation as predicate;
-int dummy(void *left,void *right)
-{
-// do nothing 
-}
+// I use this dummy function for radix sort, count sort, insertionSortForDLL validation as predicate;
 void radixSort(void *x,int lb,int ub,int es,OperationDetail *error,int decision)
 {
 int i;
@@ -1801,4 +1842,133 @@ memcpy(ptr+(ub*es),(const void *)c,es);
 flipTheWholeCake(ptr,++lb,--ub,es,c);
 }
 }
+
+void addressCalculationSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int decision)
+{
+int largestDigit;
+int biggestNumber,biggestNumberDigit;
+int smallestNumber,smallestNumberDigit;
+int i,j,index;
+int key;
+DoublyLinkedList **dll;
+OperationDetail err;
+if(error) error->succ=false;
+if(error==NULL)
+{
+if(isInvalid(ptr,&lb,&ub,&es,&err,dummy)) return;
+}
+else{
+if(isInvalid(ptr,&lb,&ub,&es,error,dummy)) return;
+}
+if(sizeof(int)!=es)
+{
+if(error) error->code=8;
+return;
+}
+dll=(DoublyLinkedList **)malloc(sizeof(DoublyLinkedList *)*10);
+for(i=0;i<=9;i++)
+{
+dll[i]=createDoublyLinkedList(sizeof(int),error);
+if(error->succ==false)
+{
+for(j=i-1;j>=0;j--) destroyDoublyLinkedList(dll[j]);
+free(dll);
+return;
+}
+}
+findingTheHeaviestElement(ptr,lb,ub,es,error,&biggestNumber,INT_HEAVIEST_ELEMENT_COMPARATOR);
+findingTheHeaviestElement(ptr,lb,ub,es,error,&smallestNumber,INT_LIGHTEST_ELEMENT_COMPARATOR);
+biggestNumberDigit=0;
+while(biggestNumber!=0)
+{
+biggestNumber=biggestNumber/10;
+biggestNumberDigit++;
+}
+smallestNumberDigit=0;
+while(smallestNumber!=0)
+{
+smallestNumber=smallestNumber/10;
+smallestNumberDigit++;
+}
+if(biggestNumberDigit<smallestNumberDigit) largestDigit=smallestNumberDigit;
+else largestDigit=biggestNumberDigit;
+for(i=lb;i<=ub;i++)
+{
+key=HASH_FUNCTION_FOR_ADDRESS_CALCULATION_AKA_BUCKET_SORT((*(int *)(ptr+(i*es))),largestDigit);
+if(key<=0)
+{
+addToDoublyLinkedList(dll[0],(const void *)ptr+(i*es),error);
+if(error->succ==false)
+{
+for(j=0;j<=9;j++) destroyDoublyLinkedList(dll[j]);
+free(dll);
+return;
+}
+}
+else
+{
+addToDoublyLinkedList(dll[key],(const void *)ptr+(i*es),error);
+if(error->succ==false)
+{
+for(j=0;j<=9;j++) destroyDoublyLinkedList(dll[j]);
+free(dll);
+return;
+}
+} // else block ends
+}
+for(i=0;i<=9;i++)
+{
+if(decision==ACC)
+{
+insertionSortForDLL(dll[i],0,getSizeOfDoublyLinkedList(dll[i])-1,error,INT_HEAVIEST_ELEMENT_COMPARATOR);
+if(error->succ==false && error->code!=1)
+{
+for(j=0;j<=9;j++) destroyDoublyLinkedList(dll[j]);
+free(dll);
+return;
+}
+}
+else
+{
+insertionSortForDLL(dll[i],0,getSizeOfDoublyLinkedList(dll[i])-1,error,INT_LIGHTEST_ELEMENT_COMPARATOR);
+if(error->succ==false && error->code!=1)
+{
+for(j=0;j<=9;j++) destroyDoublyLinkedList(dll[j]);
+free(dll);
+return;
+}
+}
+}
+if(decision==ACC)
+{
+index=lb;
+for(i=0;i<=9;i++)
+{
+while(getSizeOfDoublyLinkedList(dll[i])!=0)
+{
+removeFromDoublyLinkedList(dll[i],ptr+(index*es),0,error);
+index++;
+}
+}
+}
+else
+{
+index=lb;
+for(i=9;i>=0;i--)
+{
+while(getSizeOfDoublyLinkedList(dll[i])!=0)
+{
+removeFromDoublyLinkedList(dll[i],(void *)ptr+(index*es),0,error);
+index++;
+} // while loop ends
+} // for loop ends
+} // else block ends
+for(j=0;j<=9;j++) destroyDoublyLinkedList(dll[j]);
+free(dll);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function ends
 #endif

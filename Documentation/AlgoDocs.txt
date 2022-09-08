@@ -1340,7 +1340,7 @@ free(s);
 return 0;
 }
 9)RadixSort (Only int data type) // Only Iterative Approach
-	=>The Radix Sort Algo Take 5 Arguments
+	=>The Radix Sort Algo Take 6 Arguments
 	    a) Base Address of Collection
 	    b) value of lowerBound
 	    c) value of upperbound
@@ -1349,7 +1349,7 @@ return 0;
 	    f) pass ACC or DEC, ACC number means
 		you want to sort in 	ACCENDING ORDER, 
 		DEC means you want to sort in DECCENDING ORDER
-Here is Acutall Example to use this library;
+Here is Acutall Example to use this library:
 #include<stdio.h>
 #include<stdlib.h>
 #include<algo.h>
@@ -1918,5 +1918,36 @@ else
 for(i=0;i<req;i++) printf("Name: %s,RollNumber: %d\n",s[i].name,s[i].roll);
 free(s);
 }
+return 0;
+}
+15) AddressCalculation Sort (Only int data type) // Only Iterative Approach
+	=>The addressCalculation Sort Algo Take 6 Arguments
+	    a) Base Address of Collection
+	    b) value of lowerBound
+	    c) value of upperbound
+	    d) size of 1 Element
+	    e) pass address of struct errorCode type structure
+	    f) pass ACC or DEC, ACC number means
+		you want to sort in 	ACCENDING ORDER, 
+		DEC means you want to sort in DECCENDING ORDER
+Here is Acutall Example to use this library:
+#include<stdio.h>
+#include<ds.h>
+#include<stdlib.h>
+#include<algo.h>
+int main()
+{
+OperationDetail err;
+int i;
+int x[10]={1,2,3,4,5,6,7,8,9,10};
+printf("Before apply sorting algo\n");
+for(i=0;i<=9;i++) printf("%d\n",x[i]);
+addressCalculationSort(x,0,9,sizeof(int),&err,DEC);
+if(err.succ==false)
+{
+printf("Something wrong, code: %d\n",err.code);
+}
+printf("After apply sorting algo\n");
+for(i=0;i<=9;i++) printf("%d\n",x[i]);
 return 0;
 }

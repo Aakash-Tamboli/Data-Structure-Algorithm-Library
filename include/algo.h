@@ -43,7 +43,7 @@ void pancakeSortRecursive(void *,int,int,int,OperationDetail *,int (*) (void *,v
 void vPancakeSortRecursive(void *,int,int,int,void *,int (*) (void *,void *));
 void flipTheBurntCake(void *,int,int,int,void *);
 void flipTheWholeCake(void *,int,int,int,void *);
-
+void addressCalculationSort(void *,int,int,int,OperationDetail *,int);
 
 void findingTheHeaviestElement(void *,int,int,int,OperationDetail *,void *,int (*p2f) (void *,void *));
 void findingTheHeaviestElementIndex(void *,int,int,int,OperationDetail *,int *,int (*p2f) (void *,void *));
