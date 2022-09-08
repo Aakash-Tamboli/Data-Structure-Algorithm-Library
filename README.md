@@ -92,9 +92,10 @@ My dsAlgo library offers only 12 sorting algorithm this are
          count sort     | Only int data type    |           NO                 |         array type collection
          shell sort     | Generic data_type     |           YES                |         array type collection
          pancake sort   | Generic data_type     |           YES                |         array type collection
- addresscalculation sort| Only int data type    |           NO                 |         array type collection   
+         addresscalcula-|                       |                              |
+         -tion sort     | Only int data type    |           NO                 |         array type collection   
 
 
 ## Future enhancement
 I will Implement:
-1) Sorting algos. for doublyLinkedList
+1) sorting algos. for doublyLinkedList
