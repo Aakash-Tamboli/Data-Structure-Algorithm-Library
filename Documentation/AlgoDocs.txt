@@ -807,7 +807,7 @@ free(s);
 }
 return 0;
 }
-4.2) Insertion Sort (DoublyLinkedList) (Only For array-Collection NO LINKED LIST RIGHT NOW)
+4.2) Insertion Sort (DoublyLinkedList) (CURRENTLY NOT AVAILABLE)
 	=>The Insertion Sort (DoublyLinkedList) Algo Take 4 Arguments
 	    a) Base Address of Collection
 	    b) Lower Bound where starting index is 0 negative indices not allowed
