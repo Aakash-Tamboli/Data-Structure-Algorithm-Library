@@ -78,18 +78,18 @@ gcc filename.c -o filename.out -I ..\include -L ..\lib -l dsAlgo
 ## Algorithm information
 My dsAlgo library offers only 10 sorting algorithm this are
 
-
-           Algorithm    | supported data type   | recursive approach available
-                        |         and           |
-                        |   collection type     |
-          ------------- | -------------------   | ---------------------------
-         Bubble Sort    | array type collection |            YES
-         linear sort    | array type collection |            YES
-         selection sort | array type collection |            YES
-         insertion sort | array type collection |            YES
-         quick sort     | array type collection |            YES
-         merge sort     | array type collection |            YES
-         heap
+ 
+           Algorithm    | supported data type   | recursive approach available |         collection type
+          ------------- | -------------------   | ---------------------------  | -------------------------------
+         Bubble Sort    | Generic data_type     |           YES                |         array type collection
+         linear sort    | Generic data_type     |           YES                |         array type collection
+                   
+         selection sort | array type collection |           YES
+         insertion sort | array type collection |           YES
+         quick sort     | array type collection |           YES
+         merge sort     | array type collection |           YES
+         heap sort      | array type collection |           YES
+         radix sort     | array type collection |           NO
                 2       | Unable To Allocate Memory For Internal Use
                 3       | Problem in your Data_ Structure Address may be you passed NULL
                 4       | Problem in data address which you want to store in Data_Structure or retrieve from Data_Structure may be you
