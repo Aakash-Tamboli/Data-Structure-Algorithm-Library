@@ -1,7 +1,6 @@
 #ifndef ALGO_H
 #define ALGO_H 123
 #include<common.h>
-#include<ds.h>
 void bubbleSort(void *,int ,int,int,OperationDetail *,int (*)(void *,void *));
 void bubbleSortRecursive(void *,int ,int,int,OperationDetail *,int (*)(void *,void *));
 void linearSort(void *,int,int,int,OperationDetail *,int (*)(void *,void *));
