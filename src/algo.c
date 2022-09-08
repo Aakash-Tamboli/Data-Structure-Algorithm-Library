@@ -188,6 +188,30 @@ error->code=0;
 error->succ=true;
 }
 }
+
+void onePassOfBubbleSort(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+if(lb<ub)
+{
+if(p2f((ptr+((lb+1)*es)),(ptr+(lb*es)))<0)
+{
+memcpy(c,(const void *)ptr+((lb)*(es)),(es));
+memcpy(ptr+((lb)*(es)),(const void *)ptr+(((lb)+1)*(es)),(es));
+memcpy(ptr+(((lb)+1)*(es)),(const void *)c,(es));
+}
+onePassOfBubbleSort(ptr,lb+1,ub,es,c,p2f);
+}
+}
+
+void BSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+// BSR stands for Bubble Sort Recursive
+if(lb<ub)
+{
+onePassOfBubbleSort(ptr,lb,ub,es,c,p2f);
+BSR(ptr,lb,ub-1,es,c,p2f);
+}
+}
 void bubbleSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 void *c;
@@ -214,29 +238,7 @@ error->succ=true;
 error->code=0;
 }
 }
-void BSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
-{
-// BSR stands for Bubble Sort Recursive
-if(lb<ub)
-{
-onePassOfBubbleSort(ptr,lb,ub,es,c,p2f);
-BSR(ptr,lb,ub-1,es,c,p2f);
-}
-}
 
-void onePassOfBubbleSort(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
-{
-if(lb<ub)
-{
-if(p2f((ptr+((lb+1)*es)),(ptr+(lb*es)))<0)
-{
-memcpy(c,(const void *)ptr+((lb)*(es)),(es));
-memcpy(ptr+((lb)*(es)),(const void *)ptr+(((lb)+1)*(es)),(es));
-memcpy(ptr+(((lb)+1)*(es)),(const void *)c,(es));
-}
-onePassOfBubbleSort(ptr,lb+1,ub,es,c,p2f);
-}
-}
 void linearSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int e,f,weight,oep,iep;
@@ -285,6 +287,29 @@ error->code=0;
 }
 }
 
+void onePassOfLinearSort(void *ptr,int e,int f,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+if((f)<=(ub))
+{
+if(p2f(ptr+((f)*(es)),ptr+((e)*(es)))<0)
+{
+memcpy(c,(const void *)ptr+((e)*(es)),(es));
+memcpy(ptr+((e)*(es)),(const void *)ptr+((f)*(es)),(es));
+memcpy(ptr+((f)*(es)),(const void *)c,(es));
+}
+onePassOfLinearSort(ptr,e,f+1,ub,es,c,p2f);
+}
+} // function ends
+
+void LSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+if(lb<ub)
+{
+onePassOfLinearSort(ptr,lb,lb+1,ub,es,c,p2f);
+LSR(ptr,lb+1,ub,es,c,p2f);
+}
+}
+
 void linearSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 void *c;
@@ -312,28 +337,6 @@ error->code=0;
 }
 } // function ends
 
-void LSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
-{
-if(lb<ub)
-{
-onePassOfLinearSort(ptr,lb,lb+1,ub,es,c,p2f);
-LSR(ptr,lb+1,ub,es,c,p2f);
-}
-}
-
-void onePassOfLinearSort(void *ptr,int e,int f,int ub,int es,void *c,int (*p2f)(void *,void *))
-{
-if((f)<=(ub))
-{
-if(p2f(ptr+((f)*(es)),ptr+((e)*(es)))<0)
-{
-memcpy(c,(const void *)ptr+((e)*(es)),(es));
-memcpy(ptr+((e)*(es)),(const void *)ptr+((f)*(es)),(es));
-memcpy(ptr+((f)*(es)),(const void *)c,(es));
-}
-onePassOfLinearSort(ptr,e,f+1,ub,es,c,p2f);
-}
-} // function ends
 void selectionSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f) (void *,void *))
 {
 int e,f,si,weight;
@@ -383,6 +386,29 @@ error->code=0;
 error->succ=true;
 }
 }
+
+void onePassOfSelectionSort(void *ptr,int e,int f,int ub,int es,int *si,int (*p2f)(void *,void *))
+{
+if((f)<=(ub))
+{
+if(p2f(ptr+((f)*(es)),ptr+((*si)*(es)))<0) *si=f;
+onePassOfSelectionSort(ptr,e,f+1,ub,es,si,p2f);
+}
+}// function ends
+
+void sSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+int si;
+si=lb;
+if(lb<ub)
+{
+onePassOfSelectionSort(ptr,lb,lb+1,ub,es,&si,p2f);
+memcpy(c,(const void *)ptr+((lb)*(es)),(es));
+memcpy(ptr+((lb)*(es)),(const void *)ptr+((si)*(es)),(es));
+memcpy(ptr+((si)*(es)),(const void *)c,(es));
+sSR(ptr,lb+1,ub,es,c,p2f);
+}
+}
 void selectionSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 void *c;
@@ -409,29 +435,6 @@ error->succ=true;
 error->code=0;
 }
 } // function ends
-
-void sSR(void *ptr,int lb,int ub,int es,void *c,int (*p2f)(void *,void *))
-{
-int si;
-si=lb;
-if(lb<ub)
-{
-onePassOfSelectionSort(ptr,lb,lb+1,ub,es,&si,p2f);
-memcpy(c,(const void *)ptr+((lb)*(es)),(es));
-memcpy(ptr+((lb)*(es)),(const void *)ptr+((si)*(es)),(es));
-memcpy(ptr+((si)*(es)),(const void *)c,(es));
-sSR(ptr,lb+1,ub,es,c,p2f);
-}
-}
-
-void onePassOfSelectionSort(void *ptr,int e,int f,int ub,int es,int *si,int (*p2f)(void *,void *))
-{
-if((f)<=(ub))
-{
-if(p2f(ptr+((f)*(es)),ptr+((*si)*(es)))<0) *si=f;
-onePassOfSelectionSort(ptr,e,f+1,ub,es,si,p2f);
-}
-}// function ends
 
 void insertionSort(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
@@ -474,6 +477,29 @@ error->succ=true;
 }
 }
 
+void onePassOfInsertionSort(void *ptr,int *y,int olb,int diff,int es,void *c,int (*p2f)(void *,void *))
+{
+if((*y)>=(olb) && p2f(c,ptr+((*y)*(es)))<0)
+{
+memcpy(ptr+(((*y)+diff)*(es)),(const void *)ptr+((*y)*(es)),es);
+*y=(*y)-diff;
+onePassOfInsertionSort(ptr,y,olb,diff,es,c,p2f);
+}
+}
+
+void ISR(void *ptr,int olb,int lb,int diff,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+int y;
+if(lb<=ub)
+{
+memcpy(c,(const void *)ptr+(lb*es),es);
+y=lb-diff;
+onePassOfInsertionSort(ptr,&y,olb,diff,es,c,p2f);
+memcpy(ptr+((y+diff)*es),(const void *)c,es);
+ISR(ptr,olb,lb+diff,diff,ub,es,c,p2f);
+}
+}
+
 void insertionSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int olb,diff;
@@ -501,27 +527,6 @@ if(error)
 {
 error->succ=true;
 error->code=0;
-}
-}
-void ISR(void *ptr,int olb,int lb,int diff,int ub,int es,void *c,int (*p2f)(void *,void *))
-{
-int y;
-if(lb<=ub)
-{
-memcpy(c,(const void *)ptr+(lb*es),es);
-y=lb-diff;
-onePassOfInsertionSort(ptr,&y,olb,diff,es,c,p2f);
-memcpy(ptr+((y+diff)*es),(const void *)c,es);
-ISR(ptr,olb,lb+diff,diff,ub,es,c,p2f);
-}
-}
-void onePassOfInsertionSort(void *ptr,int *y,int olb,int diff,int es,void *c,int (*p2f)(void *,void *))
-{
-if((*y)>=(olb) && p2f(c,ptr+((*y)*(es)))<0)
-{
-memcpy(ptr+(((*y)+diff)*(es)),(const void *)ptr+((*y)*(es)),es);
-*y=(*y)-diff;
-onePassOfInsertionSort(ptr,y,olb,diff,es,c,p2f);
 }
 }
 void insertionSortForDLL(DoublyLinkedList *doublyLinkedList,int lb,int ub,OperationDetail *error,int (*p2f) (void *,void *))
@@ -742,6 +747,16 @@ error->code=0;
 error->succ=true;
 }
 }
+
+void QSR(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+int partitionPoint;
+if(ub<=lb) return;
+partitionPoint=findPartionPoint(ptr,lb,ub,es,p2f,error);
+QSR(ptr,lb,partitionPoint-1,es,error,p2f);
+QSR(ptr,partitionPoint+1,ub,es,error,p2f);
+}
+
 void quickSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 OperationDetail err;
@@ -759,14 +774,6 @@ if(error)
 error->succ=true;
 error->code=0;
 }
-}
-void QSR(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
-{
-int partitionPoint;
-if(ub<=lb) return;
-partitionPoint=findPartionPoint(ptr,lb,ub,es,p2f,error);
-QSR(ptr,lb,partitionPoint-1,es,error,p2f);
-QSR(ptr,partitionPoint+1,ub,es,error,p2f);
 }
 
 void merge(void *ptr,int low,int mid,int high,int es,int (*p2f) (void *,void *),int *succ)
@@ -978,6 +985,19 @@ error->code=0;
 error->succ=true;
 }
 }
+
+void MSR(void *ptr,int low,int high,int es,OperationDetail *error,int (*p2f)(void *,void *))
+{
+int mid,succ;
+if(low<high)
+{
+mid=((low+high)/2);
+MSR(ptr,low,mid,es,error,p2f);
+MSR(ptr,mid+1,high,es,error,p2f);
+merge(ptr,low,mid,high,es,p2f,&succ);
+}
+}
+
 void mergeSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 OperationDetail err;
@@ -994,17 +1014,6 @@ if(error)
 {
 error->succ=true;
 error->code=0;
-}
-}
-void MSR(void *ptr,int low,int high,int es,OperationDetail *error,int (*p2f)(void *,void *))
-{
-int mid,succ;
-if(low<high)
-{
-mid=((low+high)/2);
-MSR(ptr,low,mid,es,error,p2f);
-MSR(ptr,mid+1,high,es,error,p2f);
-merge(ptr,low,mid,high,es,p2f,&succ);
 }
 }
 void toConvertIntoHeap(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
@@ -1135,6 +1144,33 @@ if(error) error->code=err.code;
 }
 }
 
+void anotherRecursiveCallForConvertingHeap(void *ptr,int lb,int ci,int es, void *c,int (*p2f) (void *,void *))
+{
+int ri;
+if(ci>lb)
+{
+ri=(ci-1)/2;
+if(p2f(ptr+(ci*es),ptr+(ri*es))>0)
+{
+memcpy(c,(const void *)ptr+(ci*es),es);
+memcpy(ptr+(ci*es),(const void *)ptr+(ri*es),es);
+memcpy(ptr+(ri*es),(const void *)c,es);
+anotherRecursiveCallForConvertingHeap(ptr,lb,ri,es,c,p2f);
+}
+}
+}
+
+void convertingIntoHeapUsingRecursive(void *ptr,int y,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+int ci;
+if(y<=ub)
+{
+ci=y;
+anotherRecursiveCallForConvertingHeap(ptr,0,ci,es,c,p2f);
+convertingIntoHeapUsingRecursive(ptr,y+1,ub,es,c,p2f);
+}
+} // function block ends
+
 void toConvertIntoHeapUsingRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 void *c;
@@ -1168,32 +1204,46 @@ error->code=0;
 }
 } // function block ends
 
-void convertingIntoHeapUsingRecursive(void *ptr,int y,int ub,int es,void *c,int (*p2f)(void *,void *))
+void heapifyLogic(void *ptr,int ri,int y,int es,void *c,int (*p2f) (void *,void *))
 {
-int ci;
-if(y<=ub)
+int lci,rci,swi;
+if(ri<y)
 {
-ci=y;
-anotherRecursiveCallForConvertingHeap(ptr,0,ci,es,c,p2f);
-convertingIntoHeapUsingRecursive(ptr,y+1,ub,es,c,p2f);
+lci=(ri*2)+1;
+if(lci>y) return;
+rci=lci+1;
+if(rci>y)
+{
+swi=lci;
+}
+else
+{
+if(p2f(ptr+(lci*es),ptr+(rci*es))>0) swi=lci;
+else swi=rci;
+}
+if(p2f(ptr+(swi*es),ptr+(ri*es))>0)
+{
+memcpy(c,(const void *)ptr+(swi*es),es);
+memcpy(ptr+(swi*es),(const void *)ptr+(ri*es),es);
+memcpy(ptr+(ri*es),(const void *)c,es);
+heapifyLogic(ptr,swi,y,es,c,p2f);
+}
 }
 } // function block ends
 
-void anotherRecursiveCallForConvertingHeap(void *ptr,int lb,int ci,int es, void *c,int (*p2f) (void *,void *))
+void swappingAndHeapifyLogic(void *ptr,int lb,int ub,int es,void *c,int (*p2f) (void *,void *))
 {
-int ri;
-if(ci>lb)
+if(ub>lb)
 {
-ri=(ci-1)/2;
-if(p2f(ptr+(ci*es),ptr+(ri*es))>0)
-{
-memcpy(c,(const void *)ptr+(ci*es),es);
-memcpy(ptr+(ci*es),(const void *)ptr+(ri*es),es);
-memcpy(ptr+(ri*es),(const void *)c,es);
-anotherRecursiveCallForConvertingHeap(ptr,lb,ri,es,c,p2f);
+memcpy(c,(const void *)ptr+(lb*es),es);
+memcpy(ptr+(lb*es),(const void *)ptr+(ub*es),es);
+memcpy(ptr+(ub*es),(const void *)c,es);
+ub--;
+heapifyLogic(ptr,lb,ub,es,c,p2f);
+swappingAndHeapifyLogic(ptr,lb,ub,es,c,p2f);
 }
-}
-}
+} // function block ends
+
 
 void heapSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
@@ -1229,45 +1279,6 @@ error->code=0;
 }
 } // function block ends
 
-void swappingAndHeapifyLogic(void *ptr,int lb,int ub,int es,void *c,int (*p2f) (void *,void *))
-{
-if(ub>lb)
-{
-memcpy(c,(const void *)ptr+(lb*es),es);
-memcpy(ptr+(lb*es),(const void *)ptr+(ub*es),es);
-memcpy(ptr+(ub*es),(const void *)c,es);
-ub--;
-heapifyLogic(ptr,lb,ub,es,c,p2f);
-swappingAndHeapifyLogic(ptr,lb,ub,es,c,p2f);
-}
-} // function block ends
-
-void heapifyLogic(void *ptr,int ri,int y,int es,void *c,int (*p2f) (void *,void *))
-{
-int lci,rci,swi;
-if(ri<y)
-{
-lci=(ri*2)+1;
-if(lci>y) return;
-rci=lci+1;
-if(rci>y)
-{
-swi=lci;
-}
-else
-{
-if(p2f(ptr+(lci*es),ptr+(rci*es))>0) swi=lci;
-else swi=rci;
-}
-if(p2f(ptr+(swi*es),ptr+(ri*es))>0)
-{
-memcpy(c,(const void *)ptr+(swi*es),es);
-memcpy(ptr+(swi*es),(const void *)ptr+(ri*es),es);
-memcpy(ptr+(ri*es),(const void *)c,es);
-heapifyLogic(ptr,swi,y,es,c,p2f);
-}
-}
-} // function block ends
 
 // I use this dummy function for radix sort, count sort, insertionSortForDLL validation as predicate;
 void radixSort(void *x,int lb,int ub,int es,OperationDetail *error,int decision)
@@ -1521,6 +1532,15 @@ error->succ=true;
 }
 }
 
+void vShellSortRecursive(void *ptr,int olb,int diff,int ub,int es,void *c,int (*p2f)(void *,void *))
+{
+if(diff>0)
+{
+ISR(ptr,olb,diff,diff,ub,es,c,p2f);
+vShellSortRecursive(ptr,olb,diff/2,ub,es,c,p2f);
+}
+}
+
 void shellSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
 int olb,diff;
@@ -1549,15 +1569,6 @@ if(error)
 {
 error->succ=true;
 error->code=0;
-}
-}
-
-void vShellSortRecursive(void *ptr,int olb,int diff,int ub,int es,void *c,int (*p2f)(void *,void *))
-{
-if(diff>0)
-{
-ISR(ptr,olb,diff,diff,ub,es,c,p2f);
-vShellSortRecursive(ptr,olb,diff/2,ub,es,c,p2f);
 }
 }
 
@@ -1778,6 +1789,45 @@ error->succ=true;
 }
 }
 
+void flipTheWholeCake(void *ptr,int lb,int ub,int es,void *c)
+{
+if(lb<ub)
+{
+memcpy(c,(const void *)ptr+(lb*es),es);
+memcpy(ptr+(lb*es),(const void *)ptr+(ub*es),es);
+memcpy(ptr+(ub*es),(const void *)c,es);
+flipTheWholeCake(ptr,++lb,--ub,es,c);
+}
+}
+
+void flipTheBurntCake(void *ptr,int lb,int ub,int es,void *c)
+{
+if(ub>lb)
+{
+memcpy(c,(const void *)ptr+(ub*es),es);
+memcpy(ptr+(ub*es),(const void *)ptr+((ub-1)*es),es);
+memcpy(ptr+((ub-1)*es),(const void *)c,es);
+flipTheBurntCake(ptr,lb,--ub,es,c);
+}
+}
+
+void vPancakeSortRecursive(void *ptr,int lb,int ub,int es,void *c,int (*p2f) (void *,void *))
+{
+int j,iub=ub;
+if(iub>lb)
+{
+findingTheHeaviestElementIndex(ptr,lb,iub,es,NULL,&j,p2f);
+if(j==iub)
+{
+vPancakeSortRecursive(ptr,lb,--ub,es,c,p2f);
+return;
+}
+flipTheBurntCake(ptr,lb,j,es,c);
+flipTheWholeCake(ptr,lb,iub,es,c);
+vPancakeSortRecursive(ptr,lb,--ub,es,c,p2f);
+}
+}
+
 void pancakeSortRecursive(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f) (void *,void *))
 {
 void *c;
@@ -1803,43 +1853,6 @@ if(error)
 {
 error->succ=true;
 error->code=0;
-}
-}
-void vPancakeSortRecursive(void *ptr,int lb,int ub,int es,void *c,int (*p2f) (void *,void *))
-{
-int j,iub=ub;
-if(iub>lb)
-{
-findingTheHeaviestElementIndex(ptr,lb,iub,es,NULL,&j,p2f);
-if(j==iub)
-{
-vPancakeSortRecursive(ptr,lb,--ub,es,c,p2f);
-return;
-}
-flipTheBurntCake(ptr,lb,j,es,c);
-flipTheWholeCake(ptr,lb,iub,es,c);
-vPancakeSortRecursive(ptr,lb,--ub,es,c,p2f);
-}
-}
-
-void flipTheBurntCake(void *ptr,int lb,int ub,int es,void *c)
-{
-if(ub>lb)
-{
-memcpy(c,(const void *)ptr+(ub*es),es);
-memcpy(ptr+(ub*es),(const void *)ptr+((ub-1)*es),es);
-memcpy(ptr+((ub-1)*es),(const void *)c,es);
-flipTheBurntCake(ptr,lb,--ub,es,c);
-}
-}
-void flipTheWholeCake(void *ptr,int lb,int ub,int es,void *c)
-{
-if(lb<ub)
-{
-memcpy(c,(const void *)ptr+(lb*es),es);
-memcpy(ptr+(lb*es),(const void *)ptr+(ub*es),es);
-memcpy(ptr+(ub*es),(const void *)c,es);
-flipTheWholeCake(ptr,++lb,--ub,es,c);
 }
 }
 
