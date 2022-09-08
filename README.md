@@ -78,22 +78,21 @@ gcc filename.c -o filename.out -I ..\include -L ..\lib -l dsAlgo
 ## Algorithm information
 My dsAlgo library offers only 12 sorting algorithm this are
 
- 
-           Algorithm    | supported data type   | recursive approach available |         collection type
-          ------------- | -------------------   | ---------------------------  | -------------------------------
-         Bubble Sort    | Generic data_type     |           YES                |         array type collection
-         linear sort    | Generic data_type     |           YES                |         array type collection
-         selection sort | Generic data_type     |           YES                |         array type collection
-         insertion sort | Generic data_type     |           YES                |         array type collection
-         quick sort     | Generic data_type     |           YES                |         array type collection
-         merge sort     | Generic data_type     |           YES                |         array type collection
-         heap sort      | Generic data_type     |           YES                |         array type collection
-         radix sort     | Only int data type    |           NO                 |         array type collection
-         count sort     | Only int data type    |           NO                 |         array type collection
-         shell sort     | Generic data_type     |           YES                |         array type collection
-         pancake sort   | Generic data_type     |           YES                |         array type collection
-         addresscalcula-|                       |                              |
-         -tion sort     | Only int data type    |           NO                 |         array type collection   
+                        
+                                  Algorithm    | supported data type   | recursive approach available |         collection type
+                                  ------------- | -------------------   | ---------------------------  | -------------------------------
+                                Bubble Sort    | Generic data_type     |           YES                |         array type collection
+                                linear sort    | Generic data_type     |           YES                |         array type collection
+                                selection sort | Generic data_type     |           YES                |         array type collection
+                                insertion sort | Generic data_type     |           YES                |         array type collection
+                                quick sort     | Generic data_type     |           YES                |         array type collection
+                                merge sort     | Generic data_type     |           YES                |         array type collection
+                                heap sort      | Generic data_type     |           YES                |         array type collection
+                                radix sort     | Only int data type    |           NO                 |         array type collection
+                                count sort     | Only int data type    |           NO                 |         array type collection
+                                shell sort     | Generic data_type     |           YES                |         array type collection
+                                pancake sort   | Generic data_type     |           YES                |         array type collection
+                  addresscalculation sort      | Only int data type    |           NO                 |         array type collection   
 
 
 ## Future enhancement
