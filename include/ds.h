@@ -46,6 +46,44 @@ void removeFromQueue(struct __Queue__ *,void *,OperationDetail *);
 int isQueueEmpty(struct __Queue__ *);
 void clearQueue(struct __Queue__ *);
 
+// structure definations of SinglyLinkedListNode, SinglyLinkedList, and SinglyLinkedListIterator
+
+typedef struct __$__sll_node
+{
+void *ptr;
+struct __$__sll_node *next;
+}SinglyLinkedListNode;
+
+typedef struct __$__sll
+{
+struct __$__sll_node *start;
+struct __$__sll_node *end;
+int sizeOfOneElement;
+int size;
+}SinglyLinkedList;
+
+typedef struct __$__sll_iterator
+{
+SinglyLinkedListNode *node;
+}SinglyLinkedListIterator;
+
+// SinglyLinkedList related functionality
+
+SinglyLinkedList * createSinglyLinkedList(int,OperationDetail *);
+void clearSinglyLinkedList(SinglyLinkedList *);
+void destroySinglyLinkedList(SinglyLinkedList *);
+int getSizeOfSinglyLinkedList(SinglyLinkedList *);
+void addToSinglyLinkedList(SinglyLinkedList *,void *,OperationDetail *);
+void insertIntoSinglyLinkedList(SinglyLinkedList *,int,void *,OperationDetail *);
+void removeFromSinglyLinkedList(SinglyLinkedList *,void *,int,OperationDetail *);
+void appendToSinglyLinkedList(SinglyLinkedList *,SinglyLinkedList *,OperationDetail *);
+// pending:
+
+void * getFromSinglyLinkedList(SinglyLinkedList *singlyLinkedList,int index,bool *success);
+SinglyLinkedListIterator getSinglyLinkedListIterator(SinglyLinkedList *singlyLinkedList,bool *success);
+bool hasNextInSinglyLinkedList(SinglyLinkedListIterator *singlyLinkedListIterator); 
+void * getNextElementFromSinglyLinkedList(SinglyLinkedListIterator *singlyLinkedListIterator,bool *success);
+
 // structure definations of DoublyLinkedList, DoublyLinkedListNode, DoublyLinkedListIterator and DoublyLinkedListReverseIterator.
 
 typedef struct __$__DoublyLinkedListNode

@@ -263,6 +263,305 @@ queue->size=0;
 queue->front=NULL;
 queue->rear=NULL;
 }
+// implementation of singlyLinkedList
+SinglyLinkedList * createSinglyLinkedList(int sizeOfOneElement,OperationDetail *error)
+{
+SinglyLinkedList *singlyLinkedList;
+if(error) error->succ=false;
+singlyLinkedList=(SinglyLinkedList *)malloc(sizeof(SinglyLinkedList));
+if(singlyLinkedList==NULL)
+{
+if(error) error->code=2;
+return NULL;
+}
+singlyLinkedList->start=NULL;
+singlyLinkedList->end=NULL;
+singlyLinkedList->size=0;
+singlyLinkedList->sizeOfOneElement=sizeOfOneElement;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return singlyLinkedList;
+} // function ends
+
+void destroySinglyLinkedList(SinglyLinkedList *singlyLinkedList)
+{
+if(singlyLinkedList==NULL) return;
+clearSinglyLinkedList(singlyLinkedList);
+free(singlyLinkedList);
+}
+
+void clearSinglyLinkedList(SinglyLinkedList *singlyLinkedList)
+{
+SinglyLinkedListNode *node;
+if(singlyLinkedList==NULL) return;
+node=singlyLinkedList->start;
+while(singlyLinkedList->start!=NULL)
+{
+node=singlyLinkedList->start;
+singlyLinkedList->start=singlyLinkedList->start->next;
+free(node->ptr);
+free(node);
+}
+singlyLinkedList->end=NULL;
+singlyLinkedList->size=0;
+} // function ends
+
+int getSizeOfSinglyLinkedList(SinglyLinkedList *singlyLinkedList)
+{
+if(singlyLinkedList==NULL) return 0;
+return singlyLinkedList->size;
+} // function ends
+
+void addToSinglyLinkedList(SinglyLinkedList *singlyLinkedList,void *ptr,OperationDetail *error)
+{
+SinglyLinkedListNode *node;
+if(error) error->succ=false;
+if(singlyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+node=(SinglyLinkedListNode *)malloc(sizeof(SinglyLinkedListNode));
+if(node==NULL)
+{
+if(error) error->code=2;
+return;
+}
+node->ptr=(void *)malloc(singlyLinkedList->sizeOfOneElement);
+if(node->ptr==NULL)
+{
+if(error) error->code=2;
+free(node);
+return;
+}
+memcpy(node->ptr,(const void *)ptr,singlyLinkedList->sizeOfOneElement);
+node->next=NULL;
+if(singlyLinkedList->start==NULL)
+{
+singlyLinkedList->start=node;
+singlyLinkedList->end=node;
+}
+else
+{
+singlyLinkedList->end->next=node;
+singlyLinkedList->end=node;
+}
+singlyLinkedList->size++;;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function ends
+
+void insertIntoSinglyLinkedList(SinglyLinkedList *singlyLinkedList,int index,void *ptr,OperationDetail *error)
+{
+SinglyLinkedListNode *node,*p1,*p2;
+int x;
+if(error) error->succ=false;
+if(singlyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+if(index<0 || index>singlyLinkedList->size)
+{
+if(error) error->code=9;
+return;
+}
+if(index==singlyLinkedList->size)
+{
+addToSinglyLinkedList(singlyLinkedList,ptr,error);
+return;
+}
+node=(SinglyLinkedListNode *)malloc(sizeof(SinglyLinkedListNode));
+if(node==NULL)
+{
+if(error) error->code=2;
+return;
+}
+node->ptr=(void *)malloc(singlyLinkedList->sizeOfOneElement);
+if(node->ptr==NULL)
+{
+if(error) error->code=2;
+free(node);
+return;
+}
+memcpy(node->ptr,(const void *)ptr,singlyLinkedList->sizeOfOneElement);
+node->next=NULL;
+if(index==0)
+{
+node->next=singlyLinkedList->start;
+singlyLinkedList->start=node;
+singlyLinkedList->size++;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return;
+}
+p1=singlyLinkedList->start;
+x=0;
+while(x<index)
+{
+p2=p1;
+p1=p1->next;
+x++;
+}
+node->next=p1;
+p2->next=node;
+singlyLinkedList->size++;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function ends
+
+void removeFromSinglyLinkedList(SinglyLinkedList *singlyLinkedList,void *ptr,int index,OperationDetail *error)
+{
+SinglyLinkedListNode *p1,*p2;
+int x;
+if(error) error->succ=false;
+if(singlyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+if(index<0 || index>=singlyLinkedList->size)
+{
+if(error) error->code=9;
+return;
+}
+p1=singlyLinkedList->start;
+x=0;
+while(x<index)
+{
+p2=p1;
+p1=p1->next;
+x++;
+}
+memcpy(ptr,(const void *)p1->ptr,singlyLinkedList->sizeOfOneElement);
+if(singlyLinkedList->start==p1 && singlyLinkedList->end==p1)
+{
+singlyLinkedList->start=NULL;
+singlyLinkedList->end=NULL;
+}
+else if(singlyLinkedList->start==p1)
+{
+singlyLinkedList->start=singlyLinkedList->start->next;
+}else if(singlyLinkedList->end==p1)
+{
+singlyLinkedList->end=p2;
+singlyLinkedList->end->next=NULL;
+}else
+{
+p2->next=p1->next;
+}
+free(p1->ptr);
+free(p1);
+singlyLinkedList->size--;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function ends
+
+void appendToSinglyLinkedList(SinglyLinkedList *targetSinglyLinkedList,SinglyLinkedList *sourceSinglyLinkedList,OperationDetail *error)
+{
+SinglyLinkedListNode *s,*e,*t,*node;
+bool done;
+if(error) error->succ=false;
+if(targetSinglyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+if(sourceSinglyLinkedList->sizeOfOneElement!=targetSinglyLinkedList->sizeOfOneElement)
+{
+if(error) error->code=10;
+return;
+}
+if(sourceSinglyLinkedList==NULL || sourceSinglyLinkedList->size==0)
+{
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return;
+}
+s=NULL;
+e=NULL;
+done=true;
+t=sourceSinglyLinkedList->start;
+while(t!=NULL)
+{
+node=(SinglyLinkedListNode *)malloc(sizeof(SinglyLinkedListNode));
+if(node==NULL)
+{
+done=false;
+break;
+}
+node->ptr=(void *)malloc(sourceSinglyLinkedList->sizeOfOneElement);
+if(node->ptr==NULL)
+{
+free(node);
+done=false;
+break;
+}
+memcpy(node->ptr,(const void *)t->ptr,sourceSinglyLinkedList->sizeOfOneElement);
+node->next=NULL;
+if(s==NULL)
+{
+s=node;
+e=node;
+}
+else
+{
+e->next=node;
+e=node;
+}
+t=t->next;
+}
+if(done==false)
+{
+while(s!=NULL)
+{
+node=s;
+s=s->next;
+free(node->ptr);
+free(node);
+}
+if(error) error->code=2;
+return;
+}
+if(targetSinglyLinkedList->start==NULL)
+{
+targetSinglyLinkedList->start=s;
+targetSinglyLinkedList->end=e;
+targetSinglyLinkedList->size=sourceSinglyLinkedList->size;
+targetSinglyLinkedList->sizeOfOneElement=sourceSinglyLinkedList->sizeOfOneElement;
+}
+else
+{
+targetSinglyLinkedList->end->next=s;
+targetSinglyLinkedList->end=e;
+targetSinglyLinkedList->size+=sourceSinglyLinkedList->size;
+}
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function ends
+
+
 
 // implementation of Doubly Linked List
 DoublyLinkedList * createDoublyLinkedList(int sizeOfOneElement,OperationDetail *error)
