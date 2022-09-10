@@ -561,7 +561,88 @@ error->code=0;
 }
 } // function ends
 
+void getFromSinglyLinkedList(SinglyLinkedList *singlyLinkedList,void *ptr,int index,OperationDetail *error)
+{
+SinglyLinkedListNode *node;
+int x;
+if(error) error->succ=false;
+if(singlyLinkedList==NULL)
+{
+if(error) error->code=3;
+return;
+}
+if(index<0 || index>=singlyLinkedList->size)
+{
+if(error) error->code=9;
+return;
+}
+node=singlyLinkedList->start;
+x=0;
+while(x<index)
+{
+node=node->next;
+x++;
+}
+memcpy(ptr,(const void *)node->ptr,singlyLinkedList->sizeOfOneElement);
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+} // function ends
 
+SinglyLinkedListIterator getSinglyLinkedListIterator(SinglyLinkedList *singlyLinkedList,OperationDetail *error)
+{
+SinglyLinkedListIterator singlyLinkedListIterator;
+singlyLinkedListIterator.node=NULL;
+if(error) error->succ=false;
+if(singlyLinkedList==NULL)
+{
+if(error) error->code=3;
+return singlyLinkedListIterator;
+}
+if(singlyLinkedList->start==NULL) 
+{
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return singlyLinkedListIterator;
+}
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+singlyLinkedListIterator.node=singlyLinkedList->start;
+singlyLinkedListIterator.sizeOfOneElement=singlyLinkedList->sizeOfOneElement;
+return singlyLinkedListIterator;  
+} // function ends
+
+bool hasNextInSinglyLinkedList(SinglyLinkedListIterator *singlyLinkedListIterator)
+{
+if(singlyLinkedListIterator==NULL) return false;
+if(singlyLinkedListIterator->node==NULL) return false;
+return true;
+} // function ends
+
+void getNextElementFromSinglyLinkedList(SinglyLinkedListIterator *singlyLinkedListIterator,void *ptr,OperationDetail *error)
+{
+if(error) error->succ=false;
+if(singlyLinkedListIterator==NULL || singlyLinkedListIterator->node==NULL)
+{
+if(error) error->code=3;
+return;
+}
+memcpy(ptr,(const void *)singlyLinkedListIterator->node->ptr,singlyLinkedListIterator->sizeOfOneElement);
+singlyLinkedListIterator->node=singlyLinkedListIterator->node->next;
+if(error)
+{
+error->code=0;
+error->succ=true;
+}
+} // function ends
 
 // implementation of Doubly Linked List
 DoublyLinkedList * createDoublyLinkedList(int sizeOfOneElement,OperationDetail *error)

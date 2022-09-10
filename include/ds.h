@@ -65,6 +65,7 @@ int size;
 typedef struct __$__sll_iterator
 {
 SinglyLinkedListNode *node;
+int sizeOfOneElement;
 }SinglyLinkedListIterator;
 
 // SinglyLinkedList related functionality
@@ -77,12 +78,11 @@ void addToSinglyLinkedList(SinglyLinkedList *,void *,OperationDetail *);
 void insertIntoSinglyLinkedList(SinglyLinkedList *,int,void *,OperationDetail *);
 void removeFromSinglyLinkedList(SinglyLinkedList *,void *,int,OperationDetail *);
 void appendToSinglyLinkedList(SinglyLinkedList *,SinglyLinkedList *,OperationDetail *);
-// pending:
+void getFromSinglyLinkedList(SinglyLinkedList *,void *,int,OperationDetail *);
+SinglyLinkedListIterator getSinglyLinkedListIterator(SinglyLinkedList *,OperationDetail *);
+bool hasNextInSinglyLinkedList(SinglyLinkedListIterator *);
+void getNextElementFromSinglyLinkedList(SinglyLinkedListIterator *,void *,OperationDetail *);
 
-void * getFromSinglyLinkedList(SinglyLinkedList *singlyLinkedList,int index,bool *success);
-SinglyLinkedListIterator getSinglyLinkedListIterator(SinglyLinkedList *singlyLinkedList,bool *success);
-bool hasNextInSinglyLinkedList(SinglyLinkedListIterator *singlyLinkedListIterator); 
-void * getNextElementFromSinglyLinkedList(SinglyLinkedListIterator *singlyLinkedListIterator,bool *success);
 
 // structure definations of DoublyLinkedList, DoublyLinkedListNode, DoublyLinkedListIterator and DoublyLinkedListReverseIterator.
 
