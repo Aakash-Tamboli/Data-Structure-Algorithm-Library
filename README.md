@@ -91,7 +91,8 @@ My dsAlgo library offers only 12 sorting algorithm this are
          count sort     | Only int data type    |           NO                 |         array type collection
          shell sort     | Generic data_type     |           YES                |         array type collection
          pancake sort   | Generic data_type     |           YES                |         array type collection
- addresscalculation sort| Only int data type    |           NO                 |         array type collection   
+      addresscalculation| Only int data type    |           NO                 |         array type collection   
+            sort        |                       |                              |                              
 
 [Illustration of each Alorigthm](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/DS_README.md)
 
