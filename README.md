@@ -95,6 +95,20 @@ My dsAlgo library offers only 12 sorting algorithm this are
               addresscalculation sort    | Only int data type    |           NO                 |         array type collection   
 
 
+## DataStructure information
+My dsAlgo library offers only 4 sorting algorithm this are
+
+                                 DataStructure      |      supported data type   
+                           ------------------------ | ---------------------------   
+                                       Stack        |     Generic data_type     
+                                       Queue        |     Generic data_type     
+                                  SinglyLinkedList  |     Generic data_type     
+                                  DoublyLinkedList  |     Generic data_type     
+
+
+
+[Illustration of each Data Structure](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/DS_README.md)
+
 ## Future enhancement
 I will Implement:
 1) sorting algos. for doublyLinkedList
