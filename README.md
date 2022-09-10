@@ -77,7 +77,6 @@ gcc filename.c -o filename.out -I ..\include -L ..\lib -l dsAlgo
 ```
 ## Algorithm information
 My dsAlgo library offers only 12 sorting algorithm this are
-
                         
                             Algorithm    | supported data type   | recursive approach available |         collection type
                            ------------- | -------------------   | ---------------------------  | -------------------------------
@@ -94,9 +93,10 @@ My dsAlgo library offers only 12 sorting algorithm this are
                           pancake sort   | Generic data_type     |           YES                |         array type collection
               addresscalculation sort    | Only int data type    |           NO                 |         array type collection   
 
+[Illustration of each Alorigthm](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/DS_README.md)
 
 ## DataStructure information
-My dsAlgo library offers only 4 sorting algorithm this are
+My dsAlgo library offers only 4 Data structure this are
 
                                  DataStructure      |      supported data type   
                            ------------------------ | ---------------------------   
