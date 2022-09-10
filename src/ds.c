@@ -1056,5 +1056,38 @@ error->succ=true;
 error->code=0;
 }
 }
+// implementation of AvlTree
+AVLTree * createAVLTree(int sizeOfOneElement,int (*p2f)(void *,void *),OperationDetail *error)
+{
+if(error) error->succ=false;
+AVLTree *avlTree;
+avlTree=(AVLTree *)malloc(sizeof(AVLTree));
+if(avlTree==NULL)
+{
+if(error) error->code=2;
+return NULL;
+}
+if(p2f==NULL)
+{
+if(error) error->code=6;
+return NULL;
+}
+avlTree->start=NULL;
+avlTree->size=0;
+avlTree->p2f=p2f;
+avlTree->sizeOfOneElement=sizeOfOneElement;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return avlTree;
+} // function ends
+
+void clearAVLTree(AVLTree *avlTree)
+{
+// this functionlity is pending due to stack.
+
+} // function ends
 
 #endif

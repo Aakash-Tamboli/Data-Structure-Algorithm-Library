@@ -129,6 +129,35 @@ void getNextElementFromDoublyLinkedList(DoublyLinkedListIterator *,void *,Operat
 DoublyLinkedListReverseIterator getDoublyLinkedListReverseIterator(DoublyLinkedList *,OperationDetail *);
 bool hasPreviousInDoublyLinkedList(DoublyLinkedListReverseIterator *); 
 void getPreviousElementFromDoublyLinkedList(DoublyLinkedListReverseIterator *,void *,OperationDetail *);
-// above functions pending
+
+// defination of avlTreeNode,avlTree
+
+typedef struct __$__avl_tree_node
+{
+void *ptr;
+struct __$__avl_tree_node *left;
+struct __$__avl_tree_node *right;
+}AVLTreeNode;
+
+typedef struct __$__avl_tree
+{
+struct __$__avl_tree *start;
+int (*p2f)(void *,void *);
+int size;
+int sizeOfOneElement;
+}AVLTree;
+
+// functionality related to avlTree
+AVLTree * createAVLTree(int,int (*)(void *,void *),OperationDetail *);
+void clearAVLTree(AVLTree *);
+void destroyAVLTree(AVLTree *avlTree);
+int getSizeOfAVLTree(AVLTree *avlTree);
+void addToAVLTree(AVLTree *avlTree,void *ptr,bool *success);
+void insertIntoAVLTree(AVLTree *avlTree,void *ptr,bool *success);
+void * removeFromAVLTree(AVLTree *avlTree,void *ptr,bool *success);
+void * getFromAVLTree(AVLTree *avlTree,void *ptr,bool *success);
+
+
+
 
 #endif
