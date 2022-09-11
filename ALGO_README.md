@@ -3,25 +3,38 @@ Hey,I am Aakash, the Creator of this Library. It is Collection Some Sorting Algo
 
 ## Alogrithms (ONLY ARRAY TYPE COLLECTION)
   For all algos Recursive approach available:
-          BubbleSort , linearSort , selectionSort , insertionSort , quickSort , mergeSort , heapSort , shellSort and pancakeSort.
-  It takes 6 Arguments
+          BubbleSort , linearSort , selectionSort , insertionSort , quickSort , mergeSort , heapSort , shellSort and pancakeSort.It takes 6 Arguments
+          
   a) Base Address of Collection
+  
   b) value of lowerBound
+  
   c) value of upperbound
+  
   d) size of 1 Element
+  
   e) pass address of struct OperationDetail type structure
+  
   f) address of the comparator function {boolian predicate} (The Comparator function are written by user of this libaray)
+  
   
 
 ## This alogs only works on int_datatype: 
    radixSort,countSort,addressCalculationSorts
    It takes 6 Arguments
+   
    a) Base Address of Collection
+   
    b) value of lowerBound
+   
    c) value of upperbound
+   
    d) size of 1 Element
+   
    e) pass address of struct errorCode type structure
+   
    f) pass ACC or DEC, ACC number means	you want to sort in ACCENDING ORDER, DEC means you want to sort in DECCENDING ORDER
+   
 
 NOTE:
   Individual illustation are present in Algo.txt located in Documentation/Algo.txt
