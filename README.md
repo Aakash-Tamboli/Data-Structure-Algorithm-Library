@@ -53,10 +53,7 @@ The struct type OperationDetail have two properties,
 ``` c
 gcc filename.c -o filename.exe -I ..\include -L ..\lib -l dsAlgo
 ```
-Note: If your machine is linux then
-``` c
-gcc filename.c -o filename.out -I ..\include -L ..\lib -l dsAlgo
-```
+
 ## Algorithm information
 My dsAlgo library offers only 12 sorting algorithm this are
                         
