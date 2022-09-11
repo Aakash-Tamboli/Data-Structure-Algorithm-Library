@@ -76,7 +76,7 @@ My dsAlgo library offers only 12 sorting algorithm this are
       addresscalculation| Only int data type    |           NO                 |         array type collection   
             sort        |                       |                              |                              
 
-[Illustration of each Alorigthm](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/DS_README.md)
+[Illustration of each Alorigthm](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/ALGO_README.md)
 
 ## DataStructure information
 My dsAlgo library offers only 4 Data structure this are
