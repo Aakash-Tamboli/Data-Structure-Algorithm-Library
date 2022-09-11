@@ -11,18 +11,17 @@ typedef struct __Stack__
 {
 StackNode *node;
 int size;
-int initFlag;
 int sizeOfOneElement;
 }Stack;
 
 // stack related functionality
-
-void initStack(struct __Stack__ *stack,int sizeofOneElement);
+Stack * createStack(int,OperationDetail *);
 void pushOnStack(struct __Stack__ *,const void *,OperationDetail *);
 void popFromStack(struct __Stack__ *,void *,OperationDetail *);
 int isStackEmpty(struct __Stack__ *);
 void clearStack(struct __Stack__ *);
-
+void destroyStack(struct __Stack__ *);
+void elementAtTopOfStack(struct __Stack__ *,void *,OperationDetail *);
 // structure definations of queue and queueNode
 
 typedef struct __Queue_Node__
@@ -129,35 +128,6 @@ void getNextElementFromDoublyLinkedList(DoublyLinkedListIterator *,void *,Operat
 DoublyLinkedListReverseIterator getDoublyLinkedListReverseIterator(DoublyLinkedList *,OperationDetail *);
 bool hasPreviousInDoublyLinkedList(DoublyLinkedListReverseIterator *); 
 void getPreviousElementFromDoublyLinkedList(DoublyLinkedListReverseIterator *,void *,OperationDetail *);
-
-// defination of avlTreeNode,avlTree
-
-typedef struct __$__avl_tree_node
-{
-void *ptr;
-struct __$__avl_tree_node *left;
-struct __$__avl_tree_node *right;
-}AVLTreeNode;
-
-typedef struct __$__avl_tree
-{
-struct __$__avl_tree *start;
-int (*p2f)(void *,void *);
-int size;
-int sizeOfOneElement;
-}AVLTree;
-
-// functionality related to avlTree
-AVLTree * createAVLTree(int,int (*)(void *,void *),OperationDetail *);
-void clearAVLTree(AVLTree *);
-void destroyAVLTree(AVLTree *avlTree);
-int getSizeOfAVLTree(AVLTree *avlTree);
-void addToAVLTree(AVLTree *avlTree,void *ptr,bool *success);
-void insertIntoAVLTree(AVLTree *avlTree,void *ptr,bool *success);
-void * removeFromAVLTree(AVLTree *avlTree,void *ptr,bool *success);
-void * getFromAVLTree(AVLTree *avlTree,void *ptr,bool *success);
-
-
 
 
 #endif

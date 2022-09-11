@@ -7,9 +7,7 @@ Error       Description
 	passed NULL;
 	void pushOnStack(&yourStack,NULL,&YourstructtypeErrorCode)
 	popFromStack(&yourStack,NULL,&YourstructtypeErrorCode)
-5	Please Initialized Your Data_Structure First
-	Note: If you are trying to pass value of sizeofOneElement is 0(zero) in initData_Structure(&yourData_Structure,0);.
-	         Then Your Data_Structure will not initialized because it make no sense.
+5	Your Data structue is Empty.
 6	Problem in Your Comparator(predicate) may be you passed NULL
 7	Your Size of One Element is 0 or may be negative.
 8	Your Collection is Not int data_type.this Algo only for int data_type

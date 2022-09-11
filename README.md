@@ -7,30 +7,12 @@ here you get to know about `library` of GENERIC data structures and alogrithms, 
 we have `STL in C++`, `Collection classes in Java` but when we talk about `C` so there is no such facilites to handle some huge data and In this project I Implemeted data stuctures and some sorting algorithms for data.
 
 ***
-* [Comparator Function](#comparator-function)
 * [OperationDetail](#error)
   * [Error-Codes](#error-codes)
 * [Compile Code](#how-to-compile-code)
   * [Error-Codes](#error-codes)
                           
    
-## Comparator function
-The Comparator function are written by user of this libaray.
-### Guidlines for Comparator Function-
-** 1. return type always `int` type .
-
-2. Parameter Should always `(void *,void *)`.
-
-3. if left pointer points to data is EQAUL to right pointer points data then
-return 0.
-
-4. if left pointer pointer data is greater then return +ve.
-
-5. if left pointer pointer data is lesser them return -ve. **
-
-### Example
-                                           int INTComparator(void *left,void *right);
-
 ## OperationDetail
 
 The struct type OperationDetail have two properties,

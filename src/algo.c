@@ -656,18 +656,17 @@ if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-stack=(Stack *)malloc(sizeof(Stack));
-if(stack==NULL)
+stack=createStack(sizeof(Indexes),&err);
+if(err.succ==false)
 {
 if(error) error->code=2;
 return;
 }
-initStack(stack,sizeof(Indexes));
 indexes=(Indexes *)malloc(sizeof(Indexes));
 if(indexes==NULL)
 {
 if(error) error->code=2;
-free(stack);
+destroyStack(stack);
 return;
 }
 indexes->lb=lb;
@@ -676,7 +675,7 @@ pushOnStack(stack,(const void *)indexes,&err);
 if(!err.succ)
 {
 if(error) error->code=err.code;
-free(stack);
+destroyStack(stack);
 free(indexes);
 return;
 }
@@ -689,8 +688,7 @@ free(indexes);
 pp=findPartionPoint(ptr,a,b,es,p2f,&err);
 if(!err.succ)
 {
-clearStack(stack);
-free(stack);
+destroyStack(stack);
 if(error) error->code=err.code;
 return;
 }
@@ -699,8 +697,7 @@ if(pp+1<b)
 indexes=(Indexes *)malloc(sizeof(Indexes));
 if(indexes==NULL)
 {
-clearStack(stack);
-free(stack);
+destroyStack(stack);
 if(error) error->code=2;
 return;
 }
@@ -709,8 +706,7 @@ indexes->ub=b;
 pushOnStack(stack,(const void *)indexes,&err);
 if(!err.succ)
 {
-clearStack(stack);
-free(stack);
+destroyStack(stack);
 free(indexes);
 if(error) error->code=err.code;
 return;
@@ -721,8 +717,7 @@ if(a<pp-1)
 indexes=(Indexes *)malloc(sizeof(Indexes));
 if(indexes==NULL)
 {
-clearStack(stack);
-free(stack);
+destroyStack(stack);
 if(error) error->code=err.code;
 return;
 }
@@ -731,22 +726,20 @@ indexes->ub=pp-1;
 pushOnStack(stack,(const void *)indexes,&err);
 if(!err.succ)
 {
-clearStack(stack);
-free(stack);
+destroyStack(stack);
 free(indexes);
 if(error) error->code=err.code;
 return;
 }
 }
 }
-clearStack(stack);
-free(stack);
+destroyStack(stack);
 if(error)
 {
 error->code=0;
 error->succ=true;
 }
-}
+} // function ends
 
 void QSR(void *ptr,int lb,int ub,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {
@@ -851,27 +844,25 @@ if(isInvalid(ptr,&lb,&ub,&es,&err,p2f)) return;
 else{
 if(isInvalid(ptr,&lb,&ub,&es,error,p2f)) return;
 }
-stack1=(Stack *)malloc(sizeof(Stack));
-if(stack1==NULL)
+stack1=createStack(sizeof(Indexes),&err);
+if(err.succ==false)
 {
-if(error) error->code=2;
+if(error) error->code=err.code;
 return;
 }
-initStack(stack1,sizeof(Indexes));
-stack2=(Stack *)malloc(sizeof(Stack));
-if(stack2==NULL)
+stack2=createStack(sizeof(Indexes),&err);
+if(err.succ==false)
 {
 if(error) error->code=2;
-free(stack1);
+destroyStack(stack1);
 return;
 }
-initStack(stack2,sizeof(Indexes));
 indexes=(Indexes *)malloc(sizeof(Indexes));
 if(indexes==NULL)
 {
 if(error) error->code=2;
-free(stack1);
-free(stack2);
+destroyStack(stack1);
+destroyStack(stack2);
 return;
 }
 indexes->lb=lb;
@@ -880,9 +871,10 @@ pushOnStack(stack1,(const void *)indexes,&err);
 if(!err.succ)
 {
 if(error) error->code=err.code;
+destroyStack(stack1);
+destroyStack(stack2);
 free(indexes);
-free(stack1);
-free(stack2);
+return;
 }
 while(!isStackEmpty(stack1))
 {
@@ -893,10 +885,8 @@ pushOnStack(stack2,(const void *)indexes,&err);
 if(!err.succ)
 {
 if(error) error->code=err.code;
-clearStack(stack1);
-clearStack(stack2);
-free(stack1);
-free(stack2);
+destroyStack(stack1);
+destroyStack(stack2);
 free(indexes);
 return;
 }
@@ -907,10 +897,8 @@ indexes=(Indexes *)malloc(sizeof(Indexes));
 if(indexes==NULL)
 {
 if(error) error->code=2;
-clearStack(stack1);
-clearStack(stack2);
-free(stack1);
-free(stack2);
+destroyStack(stack1);
+destroyStack(stack2);
 return;
 }
 indexes->lb=a;
@@ -919,10 +907,8 @@ pushOnStack(stack1,(const void *)indexes,&err);
 if(!err.succ)
 {
 if(error) error->code=err.code;
-clearStack(stack1);
-clearStack(stack2);
-free(stack1);
-free(stack2);
+destroyStack(stack1);
+destroyStack(stack2);
 free(indexes);
 return;
 }
@@ -933,10 +919,8 @@ indexes=(Indexes *)malloc(sizeof(Indexes));
 if(indexes==NULL)
 {
 if(error) error->code=2;
-clearStack(stack1);
-clearStack(stack2);
-free(stack1);
-free(stack2);
+destroyStack(stack1);
+destroyStack(stack2);
 return;
 }
 indexes->lb=mid+1;
@@ -945,10 +929,8 @@ pushOnStack(stack1,(const void *)indexes,&err);
 if(!err.succ)
 {
 if(error) error->code=err.code;
-clearStack(stack1);
-clearStack(stack2);
-free(stack1);
-free(stack2);
+destroyStack(stack1);
+destroyStack(stack2);
 free(indexes);
 return;
 }
@@ -963,9 +945,8 @@ ub1=(lb1+ub2)/2;
 merge(ptr,lb1,ub1,ub2,es,p2f,&succ);
 if(succ==false)
 {
-clearStack(stack2);
-free(stack1);
-free(stack2);
+destroyStack(stack2);
+destroyStack(stack1);
 free(indexes);
 if(error)
 {
@@ -974,17 +955,15 @@ return;
 }
 }
 }
-clearStack(stack1); // just for the precaution
-clearStack(stack2); // just for the precaution
-free(stack1);
-free(stack2);
+destroyStack(stack1); // just for precaution
+destroyStack(stack2); // just for precaution
 free(indexes);
 if(error)
 {
 error->code=0;
 error->succ=true;
 }
-}
+} // function ends
 
 void MSR(void *ptr,int low,int high,int es,OperationDetail *error,int (*p2f)(void *,void *))
 {

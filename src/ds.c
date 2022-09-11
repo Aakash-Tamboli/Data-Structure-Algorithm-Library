@@ -6,16 +6,30 @@
 #include<string.h>
 // just for testing
 #include<stdio.h>
-void initStack(struct __Stack__ *stack,int sizeOfOneElement)
+Stack * createStack(int sizeOfOneElement,OperationDetail *error)
 {
-if(stack==NULL || sizeOfOneElement<=0) return;
-if(stack->node!=NULL)
+Stack *stack;
+if(error) error->succ=false;
+if(sizeOfOneElement<=0)
 {
+if(error) error->code=7;
+return NULL;
+}
+stack=(Stack *)malloc(sizeof(Stack));
+if(stack==NULL)
+{
+if(error) error->code=2;
+return NULL;
+}
 stack->node=NULL;
 stack->size=0;
-stack->initFlag=true;
 stack->sizeOfOneElement=sizeOfOneElement;
+if(error)
+{
+error->succ=true;
+error->code=0;
 }
+return stack;
 }
 void pushOnStack(struct __Stack__ *stack,const void *data,OperationDetail *error)
 {
@@ -29,11 +43,6 @@ return;
 if(data==NULL)
 {
 if(error) error->code=4;
-return;
-}
-if(stack->initFlag!=true)
-{
-if(error) error->code=5;
 return;
 }
 node=(StackNode *)malloc(sizeof(StackNode));
@@ -73,7 +82,7 @@ if(data==NULL)
 if(error) error->code=4;
 return;
 }
-if(stack->initFlag!=1 || stack->node==NULL)
+if(stack->node==NULL)
 {
 if(error) error->code=5;
 return;
@@ -98,7 +107,7 @@ return stack->node==NULL;
 void clearStack(struct __Stack__ *stack)
 {
 StackNode *j;
-if(stack==NULL || stack->initFlag!=true || stack->node==NULL) return;
+if(stack==NULL || stack->node==NULL) return;
 while(stack->node!=NULL)
 {
 free(stack->node->ptr);
@@ -108,6 +117,31 @@ free(j);
 }
 stack->size=0;
 }
+
+void destroyStack(struct __Stack__ *stack)
+{
+if(stack==NULL) return;
+clearStack(stack);
+free(stack);
+}
+
+void elementAtTopOfStack(struct __Stack__ *stack,void *ptr,OperationDetail *error)
+{
+if(error) error->succ=false;
+if(isStackEmpty(stack))
+{
+ptr=NULL;
+if(error)
+{
+error->succ=true;
+error->code=0;
+}
+return;
+}
+memcpy(ptr,(const void *)stack->node->ptr,stack->sizeOfOneElement);
+} // function ends
+
+
 void initQueue(struct __Queue__ *queue,int sizeOfOneElement)
 {
 if(queue==NULL || sizeOfOneElement<=0) return;
@@ -1056,38 +1090,5 @@ error->succ=true;
 error->code=0;
 }
 }
-// implementation of AvlTree
-AVLTree * createAVLTree(int sizeOfOneElement,int (*p2f)(void *,void *),OperationDetail *error)
-{
-if(error) error->succ=false;
-AVLTree *avlTree;
-avlTree=(AVLTree *)malloc(sizeof(AVLTree));
-if(avlTree==NULL)
-{
-if(error) error->code=2;
-return NULL;
-}
-if(p2f==NULL)
-{
-if(error) error->code=6;
-return NULL;
-}
-avlTree->start=NULL;
-avlTree->size=0;
-avlTree->p2f=p2f;
-avlTree->sizeOfOneElement=sizeOfOneElement;
-if(error)
-{
-error->succ=true;
-error->code=0;
-}
-return avlTree;
-} // function ends
-
-void clearAVLTree(AVLTree *avlTree)
-{
-// this functionlity is pending due to stack.
-
-} // function ends
 
 #endif
