@@ -73,7 +73,7 @@ My dsAlgo library offers only 12 sorting algorithm this are
       addresscalculation| Only int data type    |           NO                 |         array type collection   
             sort        |                       |                              |                              
 
-[Illustration of each Alorigthm](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/ALGO_README.md)
+[More Information about each Alorigthm](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/ALGO_README.md)
 
 ## DataStructure information
 My dsAlgo library offers only 4 Data structure this are
@@ -87,7 +87,7 @@ My dsAlgo library offers only 4 Data structure this are
 
 
 
-[Illustration of each Data Structure](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/DS_README.md)
+[More Information about each Data Structure](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/DS_README.md)
 
 ## Future enhancement
 I will Implement:
