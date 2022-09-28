@@ -59,7 +59,7 @@
   if(`err.succ==false`) data is not received  
   
   ***
-### Use Of Singly Linked List :
+### Use Of Stack :
   ```c
   #include<ds.h>
   #include<stdio.h>
