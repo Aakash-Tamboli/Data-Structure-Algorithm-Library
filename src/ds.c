@@ -141,49 +141,31 @@ return;
 memcpy(ptr,(const void *)stack->node->ptr,stack->sizeOfOneElement);
 } // function ends
 
-
-void initQueue(struct __Queue__ *queue,int sizeOfOneElement)
+Queue * createQueue(int sizeOfOneElement,OperationDetail *error)
 {
-if(queue==NULL || sizeOfOneElement<=0) return;
-queue->sizeOfOneElement=sizeOfOneElement;
-if(queue->front!=NULL)
+Queue *queue=NULL;
+if(error) error->succ=false;
+if(sizeOfOneElement<=0)
 {
-/*
-Now I realised Why C++ have constructor feature this is one of the key
-reason major bug in this queue and stack
-assume user first call init method for queue or stack
-so in queue attributes after initialized that look like:
-front=NULL;
-rear=NULL;
-s‪ize=0;
-initFlag=true that is 1 (one)
-sizeofOneElement = what user wants
-ok cool
-Now user add some data in queue and again calling init function.
-now our attribute front is not equal NULL so if block code is executed
-then I assign again NULL so memory leak issue is present
-now you might be thinking intiFlag attribute so lets workout
-let say you give condition
-if(intiFlag!=0) clearQueue or clearStack now thinking it might be help 
-when user re-calling initQueue or stack but what about the first time
-lets see user create Queue type structure and queue attribute value may
-be
-front=garbage
-rear=garbage
-size=garbage
-sizeofOneElement=garbage
-now user call function initQueue.
-if block of code is executed because front is not equal to NULL
-then initFlag also have garbage then you call clear stack check out
-the code of clearQueue now see you free(UNKOWN MEMORY) so yes it idea
-also fails
-*/
+if(error) error->code=7;
+return NULL;
+}
+queue=(Queue *)malloc(sizeof(Queue));
+if(queue==NULL)
+{
+if(error) error->code=2;
+return NULL;
+}
 queue->front=NULL;
 queue->rear=NULL;
 queue->size=0;
-queue->initFlag=true;
 queue->sizeOfOneElement=sizeOfOneElement;
+if(error)
+{
+error->succ=true;
+error->code=0;
 }
+return queue;
 }
 void addToQueue(struct __Queue__ *queue,const void *data,OperationDetail *error)
 {
@@ -197,11 +179,6 @@ return;
 if(data==NULL)
 {
 if(error) error->code=4;
-return;
-}
-if(queue->initFlag!=true)
-{
-if(error) error->code=5;
 return;
 }
 node=(QueueNode *)malloc(sizeof(QueueNode));
@@ -255,11 +232,6 @@ if(data==NULL)
 if(error) error->code=4;
 return;
 }
-if(queue->initFlag!=1)
-{
-if(error) error->code=5;
-return;
-}
 memcpy(data,(const void *)queue->front->ptr,queue->sizeOfOneElement);
 free(queue->front->ptr);
 j=queue->front;
@@ -296,6 +268,12 @@ free(j);
 queue->size=0;
 queue->front=NULL;
 queue->rear=NULL;
+}
+void destroyQueue(struct __Queue__ *queue)
+{
+if(queue==NULL) return;
+clearQueue(queue);
+free(queue);
 }
 // implementation of singlyLinkedList
 SinglyLinkedList * createSinglyLinkedList(int sizeOfOneElement,OperationDetail *error)

@@ -34,16 +34,15 @@ typedef struct __Queue__
 QueueNode *front;
 QueueNode *rear;
 int size;
-int initFlag;
 int sizeOfOneElement;
 }Queue;
 // queue related functionality
-
-void initQueue(struct __Queue__ *queue,int sizeofOneElement);
+Queue * createQueue(int,OperationDetail *);
 void addToQueue(struct __Queue__ *,const void *,OperationDetail *);
 void removeFromQueue(struct __Queue__ *,void *,OperationDetail *);
 int isQueueEmpty(struct __Queue__ *);
 void clearQueue(struct __Queue__ *);
+void destroyQueue(struct __Queue__ *);
 
 // structure definations of SinglyLinkedListNode, SinglyLinkedList, and SinglyLinkedListIterator
 

@@ -1263,7 +1263,7 @@ error->code=0;
 void radixSort(void *x,int lb,int ub,int es,OperationDetail *error,int decision)
 {
 int i;
-Queue negQueue[10],posQueue[10];
+Queue *negQueue,*posQueue;
 int largestDigit;
 int biggestNumber,biggestNumberDigit;
 int smallestNumber,smallestNumberDigit;
@@ -1286,10 +1286,13 @@ if(sizeof(int)!=es)
 if(error) error->code=8;
 return;
 }
-for(i=0;i<=9;i++)
+negQueue=createQueue(es,&err);
+if(err.succ==false) return;
+posQueue=createQueue(es,&err);
+if(err.succ==false)
 {
-initQueue(&negQueue[i],es);
-initQueue(&posQueue[i],es);
+destroyQueue(negQueue);
+return;
 }
 memcpy(&biggestNumber,(const void *)x+(lb*es),es);
 memcpy(&smallestNumber,(const void *)x+(lb*es),es);
