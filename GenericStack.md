@@ -50,12 +50,12 @@
 
 * To `check Element At Top Of Stack` in Stack
   ```c
-	void elementAtTopOfStack(struct __Stack__ *,void *,OperationDetail *);
+  void elementAtTopOfStack(struct __Stack__ *,void *,OperationDetail *);
   ```
   `int Element`   
-	`OperationDetail err;`   
-  `getElementAtTopOfStack(stack,(void *)&Element,&err);   
-	if(`err.succ==true`) data is received in Element Variable.  
+  `OperationDetail err;`   
+  `getElementAtTopOfStack(stack,(void *)&Element,&err);`   
+  if(`err.succ==true`) data is received in Element Variable.  
   if(`err.succ==false`) data is not received  
   
   ***
