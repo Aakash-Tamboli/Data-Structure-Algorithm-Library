@@ -46,7 +46,7 @@ The struct type OperationDetail have two properties,
                 6       | Problem in Your Comparator predicate may be you passed NULL
                 7       | Your Size of One Element is 0 or may be negative.
                 8       | Your Collection is Not int data_type.this Algo only for int data_type
-	        9       | Element not found inside AVLTree Or Invalid index related to Singly and Doubly LinkedList
+	            9       | Element not found inside AVLTree Or Invalid index related to Singly and Doubly LinkedList
     	        10      | Data already exists inside AVLTree Duplicate Not allowed Or append operation fails because differnet sizeofOneElment in Singly and Doubly
 
 
@@ -87,7 +87,7 @@ My dsAlgo library offers only 5 Data structure this are
                                        Queue        |     Generic data_type     
                                   SinglyLinkedList  |     Generic data_type     
                                   DoublyLinkedList  |     Generic data_type    
-				      AVL Tree      |     Generic data_type
+				           AVL Tree     |     Generic data_type
 
 
 
