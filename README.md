@@ -34,7 +34,7 @@ The struct type OperationDetail have two properties,
                 0       | Operation Successfull Executed
                 1       | Problem in LowerBound,UpperBound Or may be you are passing same values
                 2       | Unable To Allocate Memory For Internal Use
-                3       | Problem in your Data_ Structure Address may be you passed NULL
+                3       | Problem in your Data_ Structure Address may be you passed NULL Or AVL Tree is Empty
                 4       | Problem in data address which you want to store in Data_Structure or retrieve from Data_Structure may be you
                         | passed NULL;
                         | void pushOnStack(&yourStack,NULL,&YourstructtypeErrorCode)
@@ -46,7 +46,10 @@ The struct type OperationDetail have two properties,
                 6       | Problem in Your Comparator predicate may be you passed NULL
                 7       | Your Size of One Element is 0 or may be negative.
                 8       | Your Collection is Not int data_type.this Algo only for int data_type
-    	
+	        9       | Element not found inside AVLTree Or Invalid index related to Singly and Doubly LinkedList
+    	        10      | Data already exists inside AVLTree Duplicate Not allowed Or append operation fails because differnet sizeofOneElment in Singly and Doubly
+
+
 
 ## How to compile code
 1. When you compile code inside data-Structure-Algorithm-Library/testCases/
@@ -76,14 +79,15 @@ My dsAlgo library offers only 12 sorting algorithm this are
 [More Information about each Alorigthm](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/ALGO_README.md)
 
 ## DataStructure information
-My dsAlgo library offers only 4 Data structure this are
+My dsAlgo library offers only 5 Data structure this are
 
                                  DataStructure      |      supported data type   
                            ------------------------ | ---------------------------   
                                        Stack        |     Generic data_type     
                                        Queue        |     Generic data_type     
                                   SinglyLinkedList  |     Generic data_type     
-                                  DoublyLinkedList  |     Generic data_type     
+                                  DoublyLinkedList  |     Generic data_type    
+				      AVL Tree      |     Generic data_type
 
 
 

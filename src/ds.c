@@ -1219,7 +1219,7 @@ while(1)
 weight=avlTree->predicate(ptr,j->ptr);
 if(weight==0)
 {
-if(operationDetail) operationDetail->code=9;
+if(operationDetail) operationDetail->code=10;
 destroyStack(stack);
 return;
 }
@@ -1294,7 +1294,7 @@ int weight;
 if(operationDetail) operationDetail->succ=false;
 if(avlTree==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return;
 }
 if(avlTree->start==NULL) 
@@ -1329,7 +1329,7 @@ while(1)
 weight=avlTree->predicate(ptr,j->ptr);
 if(weight==0)
 {
-if(operationDetail) operationDetail->code=9;
+if(operationDetail) operationDetail->code=10;
 destroyStack(stack);
 return;
 }
@@ -1404,7 +1404,7 @@ int weight;
 if(operationDetail) operationDetail->succ=false;
 if(avlTree==NULL || avlTree->start==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return NULL;
 }
 t=avlTree->start;
@@ -1418,7 +1418,7 @@ else t=t->right;
 }
 if(t==NULL)
 {
-if(operationDetail) operationDetail->code=10;
+if(operationDetail) operationDetail->code=9;
 return NULL;
 }
 removedPtr=t->ptr;
@@ -1534,7 +1534,7 @@ int weight;
 if(operationDetail) operationDetail->succ=false;
 if(avlTree==NULL || avlTree->start==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return NULL;
 }
 t=avlTree->start;
@@ -1566,7 +1566,7 @@ avlTreeInOrderIterator.stack=NULL;
 if(operationDetail) operationDetail->succ=false;
 if(avlTree==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return avlTreeInOrderIterator;
 }
 if(avlTree->start==NULL)
@@ -1620,7 +1620,7 @@ AVLTreeNode *j,*t;
 if(operationDetail) operationDetail->succ=false;
 if(avlTreeInOrderIterator==NULL || avlTreeInOrderIterator->node==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return NULL;
 }
 j=avlTreeInOrderIterator->node;
@@ -1665,7 +1665,7 @@ avlTreePreOrderIterator.stack=NULL;
 if(operationDetail) operationDetail->succ=false;
 if(avlTree==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return avlTreePreOrderIterator;
 }
 if(avlTree->start==NULL)
@@ -1705,7 +1705,7 @@ AVLTreeNode *j,*t;
 if(operationDetail) operationDetail->succ=false;
 if(avlTreePreOrderIterator==NULL || avlTreePreOrderIterator->node==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return NULL;
 }
 j=avlTreePreOrderIterator->node;
@@ -1761,7 +1761,7 @@ avlTreePostOrderIterator.stack=NULL;
 if(operationDetail) operationDetail->succ=false;
 if(avlTree==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return avlTreePostOrderIterator;
 }
 if(avlTree->start==NULL)
@@ -1826,7 +1826,7 @@ AVLTreeNode *j,*t,*element_at_top_of_stack,*free_fire;
 if(operationDetail) operationDetail->succ=false;
 if(avlTreePostOrderIterator==NULL || avlTreePostOrderIterator->node==NULL)
 {
-if(operationDetail) operationDetail->code=4;
+if(operationDetail) operationDetail->code=3;
 return NULL;
 }
 j=avlTreePostOrderIterator->node;
