@@ -128,5 +128,59 @@ DoublyLinkedListReverseIterator getDoublyLinkedListReverseIterator(DoublyLinkedL
 bool hasPreviousInDoublyLinkedList(DoublyLinkedListReverseIterator *); 
 void getPreviousElementFromDoublyLinkedList(DoublyLinkedListReverseIterator *,void *,OperationDetail *);
 
+// structure defination of AVLTree
 
+typedef struct __$_my_avl_tree_node
+{
+void *ptr;
+struct __$_my_avl_tree_node *left;
+struct __$_my_avl_tree_node *right;
+}AVLTreeNode;
+typedef struct __$_my_avl_tree
+{
+struct __$_my_avl_tree_node *start;
+int (*predicate)(void *,void *);
+int size;
+}AVLTree;
+
+typedef struct __$__my_avl_tree_in_order_iterator
+{
+AVLTreeNode *node;
+Stack *stack;
+}AVLTreeInOrderIterator;
+
+typedef struct __$__my_avl_tree_pre_order_iterator
+{
+AVLTreeNode *node;
+Stack *stack;
+}AVLTreePreOrderIterator;
+
+typedef struct __$__my_avl_tree_post_order_iterator
+{
+AVLTreeNode *node;
+Stack *stack;
+}AVLTreePostOrderIterator;
+// structure defination of AVLTree ends
+
+// function declaration of AVLTree starts
+AVLTree * createAVLTree(OperationDetail *,int (*)(void *,void *));
+void destroyAVLTree(AVLTree *);
+int getSizeOfAVLTree(AVLTree *);
+void addToAVLTree(AVLTree *,void *,OperationDetail *);
+void insertIntoAVLTree(AVLTree *,void *,OperationDetail *);
+void * removeFromAVLTree(AVLTree *,void *,OperationDetail *);
+void clearAVLTree(AVLTree *);
+void * getFromAVLTree(AVLTree *,void *,OperationDetail *);
+AVLTreeInOrderIterator getAVLTreeInOrderIterator(AVLTree *,OperationDetail *);
+bool hasNextInOrderElementInAVLTree(AVLTreeInOrderIterator *); 
+void * getNextInOrderElementFromAVLTree(AVLTreeInOrderIterator *,OperationDetail *);
+AVLTreePreOrderIterator getAVLTreePreOrderIterator(AVLTree *,OperationDetail *);
+bool hasNextPreOrderElementInAVLTree(AVLTreePreOrderIterator *); 
+void * getNextPreOrderElementFromAVLTree(AVLTreePreOrderIterator *,OperationDetail *);
+AVLTreePostOrderIterator getAVLTreePostOrderIterator(AVLTree *,OperationDetail *);
+bool hasNextPostOrderElementInAVLTree(AVLTreePostOrderIterator *); 
+void * getNextPostOrderElementFromAVLTree(AVLTreePostOrderIterator *,OperationDetail *);
+int getHeightOfAVLTree(AVLTreeNode *);
+void balanceAVLTree(AVLTree *,Stack *);
+// function declaration of AVLTree ends
 #endif
