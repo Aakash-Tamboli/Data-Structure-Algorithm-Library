@@ -35,6 +35,17 @@
   if(`err.succ==true`) element is removed.  
   if(`err.succ==false`) element is not removed.  
 
+
+* To `remove` element from Queue
+  ```c
+  int isQueueEmpty(struct __Queue__ *queue)
+  ```
+  `int status`
+  `status=isQueueEmpty(queue);`
+  if(`status==true`) queue is empty
+  if(`status==false`) queue is not empty
+
+
 * To `clear` the Queue  
   ```c
 	void clearQueue(struct __Queue__ *);
