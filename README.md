@@ -96,3 +96,17 @@ My dsAlgo library offers only 5 Data structure this are
 ## Future enhancement
 I will Implement:
 1) sorting algos. for doublyLinkedList
+
+## Tools I've used to develop
+1) Notepad
+2) vsCode
+3) MingW gcc compiler
+4) Windows 10
+
+## Mentor
+Thanks to founder of `thinkingmachine.in` that is Mr.Prafull Kelker who Mentored and give the industry grade knowledge.
+
+## Credit
+Thanks to God.
+Thanks to All the Creator That I've Used his/her Application Like Notepad,vsCode,MingW and Windows 10
+
