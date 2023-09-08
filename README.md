@@ -93,10 +93,6 @@ My dsAlgo library offers only 5 Data structure this are
 
 [More Information about each Data Structure](https://github.com/Immanuel-Beena/Data-Structure-Algorithm-Library/blob/master/DS_README.md)
 
-## Future enhancement
-I will Implement:
-1) sorting algos. for doublyLinkedList
-
 ## Tools I've used to develop
 1) Notepad
 2) vsCode
