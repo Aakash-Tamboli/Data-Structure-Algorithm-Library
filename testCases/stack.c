@@ -1,4 +1,5 @@
-#include <ds.h>
+// #include <ds.h > // or you can write #include<stack.h>
+#include<stack.h>
 #include <stdio.h>
 int main()
 {
