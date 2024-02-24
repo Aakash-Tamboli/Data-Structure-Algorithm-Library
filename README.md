@@ -100,7 +100,7 @@ My dsAlgo library offers only 5 Data structure this are
 4) Windows 10
 
 ## Mentor
-Thanks to founder of `thinkingmachine.in` who Mentored and give the industry grade knowledge.
+Thanks to kelkar Sir who Mentored and give the industry grade knowledge.
 
 ## Credit
 Thanks to God.
